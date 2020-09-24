@@ -1,7 +1,7 @@
 # Mystagogue
-A private Terraria hacked client source program.
-
-
+A private Terraria hacked client's edited files documentation.
+<br />
+<br />
 s (Enters a list of commands.)  
 
 i (Spawn an item.)  
@@ -86,8 +86,9 @@ flashlight (Point a light at your cursor, revealing blocks.)
 
 nrt (Respawn instantly.)  
 
-tps (Teleport setting (numerical). Options 0-2.)  
-  
+tps (Teleport setting (numerical). Options 0-2.)
+<br />
+<br />
 Capabilities:
 Right click an item while in favorite item mode (holding alt while the chat is closed) to duplicate that item into the cursor. Simultaneously hold control to make a 2b stack instead of a full stack.  
 
