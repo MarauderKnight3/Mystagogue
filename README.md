@@ -80,7 +80,9 @@ banless (Kills Frozen, Webbed, and Stoned, and makes the player immune to furthe
 
 p2pmaphack (See and be able to teleport to all other players on the map, regardless of PVP and team affiliation.)  
 
-magnet (Will attempt to move all items to you and also reserve them for you. Experimental)  
+magnet (Will attempt to move all items to you, even if they are "inactive".)  
+
+magnodupe (Will attempt to move all items to you and also reserve them for you, only if they are active.)  
 
 flashlight (Point a light at your cursor, revealing blocks.)  
 
