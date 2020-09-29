@@ -13,10 +13,8 @@ using Terraria.UI;
 
 namespace Terraria
 {
-	// Token: 0x02000730 RID: 1840
 	public static class Mystagogue
 	{
-		// Token: 0x06003239 RID: 12857 RVA: 0x0058FD5C File Offset: 0x0058DF5C
 		public static bool TryDupe(Item slot)
 		{
 			if (Main.cursorOverride == 3)
@@ -40,7 +38,6 @@ namespace Terraria
 			return false;
 		}
 
-		// Token: 0x0600323A RID: 12858 RVA: 0x0058FDF0 File Offset: 0x0058DFF0
 		public static void AttemptTeleport()
 		{
 			if (Main.player[Main.myPlayer].MystagogueTeleportSetting != 0 && ((PlayerInput.Triggers.JustPressed.MouseRight && Main.player[Main.myPlayer].MystagogueTeleportSetting == 1) | (PlayerInput.Triggers.Current.MouseRight && Main.player[Main.myPlayer].MystagogueTeleportSetting == 2)) && !Main.player[Main.myPlayer].tileInteractionHappened && !Main.player[Main.myPlayer].mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine && !Main.player[Main.myPlayer].HeldItem.summon && Main.player[Main.myPlayer].HeldItem.type != 3384 && Main.player[Main.myPlayer].HeldItem.type != 3858 && Main.player[Main.myPlayer].HeldItem.type != 4673 && Main.player[Main.myPlayer].HeldItem.type != 3852 && Main.player[Main.myPlayer].HeldItem.type != 3611 && !Main.player[Main.myPlayer].scope)
@@ -112,7 +109,6 @@ namespace Terraria
 			}
 		}
 
-		// Token: 0x0600323B RID: 12859 RVA: 0x00590318 File Offset: 0x0058E518
 		public static void Command(string raw)
 		{
 			if (raw.EndsWith(";;") && raw.Length > 2)
@@ -2190,6 +2186,21 @@ namespace Terraria
 						}
 					}
 				});
+				dictionary.Add("magnodupe", delegate
+				{
+					Mystagogue.Output("Bringing items legitnessly...");
+					for (int k = 0; k < Main.item.Length; k++)
+					{
+						if (Main.item[k].active && ((Main.item[k].playerIndexTheItemIsReservedFor == Main.myPlayer && Main.netMode == 1) || (Main.item[k].playerIndexTheItemIsReservedFor == 255 || (Main.item[k].playerIndexTheItemIsReservedFor != 255 && !Main.player[Main.item[k].playerIndexTheItemIsReservedFor].active)) || Main.netMode == 0))
+						{
+							Main.item[k].position = Main.player[Main.myPlayer].position;
+							if (Main.netMode != 0)
+							{
+								NetMessage.SendData(21, -1, -1, null, k, 1f, 0f, 0f, 0, 0, 0);
+							}
+						}
+					}
+				});
 				dictionary.Add("flashlight", delegate
 				{
 					Main.player[Main.myPlayer].MystagogueFlashlight = !Main.player[Main.myPlayer].MystagogueFlashlight;
@@ -2266,13 +2277,11 @@ namespace Terraria
 			}
 		}
 
-		// Token: 0x0600323C RID: 12860 RVA: 0x0002681B File Offset: 0x00024A1B
 		public static void Output(string raw)
 		{
 			Main.NewText("Mystagogue: " + raw, 92, 247, 172);
 		}
 
-		// Token: 0x0600323D RID: 12861 RVA: 0x005913F0 File Offset: 0x0058F5F0
 		private static void TrySyncingMyPlayer()
 		{
 			if (Main.netMode == 0)
@@ -2444,7 +2453,6 @@ namespace Terraria
 			Main.clientPlayer = (Player)Main.player[Main.myPlayer].clientClone();
 		}
 
-		// Token: 0x0600323E RID: 12862 RVA: 0x00592018 File Offset: 0x00590218
 		public static void BuffMyTools()
 		{
 			if (!Main.player[Main.myPlayer].MystagogueToolGod)
@@ -2532,7 +2540,6 @@ namespace Terraria
 			}
 		}
 
-		// Token: 0x0600323F RID: 12863 RVA: 0x00592464 File Offset: 0x00590664
 		public static void ResetEffectsMod()
 		{
 			if (Main.player[Main.myPlayer].MystagogueFlashlight)
@@ -2642,19 +2649,14 @@ namespace Terraria
 			}
 		}
 
-		// Token: 0x04005B72 RID: 23410
 		private static int BuffQueueTimer;
 
-		// Token: 0x04005B73 RID: 23411
 		private static int PlayerRefreshTimer;
 
-		// Token: 0x04005B74 RID: 23412
 		public static int FirstFreedRecipeSlot;
 
-		// Token: 0x04005B75 RID: 23413
 		private static int BuddhaCounter;
 
-		// Token: 0x04005B76 RID: 23414
 		private static List<string> CommandArgs;
 	}
 }
