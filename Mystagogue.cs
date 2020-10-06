@@ -720,35 +720,10 @@ namespace Terraria
 					foreach (int defaults in list)
 					{
 						Recipe recipe = new Recipe();
-						recipe.requiredItem[0].SetDefaults(71);
-						recipe.requiredItem[0].stack = 1;
 						recipe.createItem.SetDefaults(defaults);
 						recipe.createItem.stack = 1;
 						Main.recipe[Recipe.numRecipes] = recipe;
 						Recipe.numRecipes++;
-					}
-					bool flag4 = false;
-					for (int num7 = 0; num7 < Main.player[Main.myPlayer].inventory.Length; num7++)
-					{
-						if (Main.player[Main.myPlayer].inventory[num7].type == 71)
-						{
-							flag4 = true;
-							break;
-						}
-					}
-					if (!flag4)
-					{
-						for (int num8 = 0; num8 < Main.player[Main.myPlayer].inventory.Length; num8++)
-						{
-							if (Main.player[Main.myPlayer].inventory[num8].IsAir)
-							{
-								Main.player[Main.myPlayer].inventory[num8] = new Item();
-								Main.player[Main.myPlayer].inventory[num8].SetDefaults(71);
-								Main.player[Main.myPlayer].inventory[num8].stack = 100;
-								Main.player[Main.myPlayer].inventory[num8].Refresh();
-								break;
-							}
-						}
 					}
 					Recipe.FindRecipes(false);
 					string text5 = "";
