@@ -412,7 +412,7 @@
 //  		}
 //  	}
 //  }
-//                                                                                          int num4 = (Main.recipe[Mystagogue.FirstFreedRecipeSlot].requiredItem[0].type == 71) ? Mystagogue.FirstFreedRecipeSlot : 0;
+//                                                                                          int num4 = (Main.recipe[Mystagogue.FirstFreedRecipeSlot].requiredItem[0].type == -1) ? Mystagogue.FirstFreedRecipeSlot : 0;
 //  while (num4 < Recipe.maxRecipes && Main.recipe[num4].createItem.type != 0)
 //  {
 //  	bool flag = true;
