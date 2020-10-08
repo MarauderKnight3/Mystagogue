@@ -1,5 +1,5 @@
 # Mystagogue
-A private Terraria hacked client's edited files documentation.
+A private Terraria hacked client's edited files cache.
 <br />
 <br />
 s (Enters a list of commands.)  
@@ -8,7 +8,7 @@ i (Spawn an item.)
 
 search (Returns all items with a name containing the concatenated arguments.)  
 
-sl (Hosts a spawnlist of items in the recipe section, all crafted with a copper coin each. <search term>[comma]<tags> e.g. "sl item,depreciated" or "sl chloro , melee" or "sl !, damage". Using the "!" search term is name unspecific and will not sort items by name. The first comma can be placed anywhere. Unrecongized tags will be ignored. "page" will unconventionally scan the next tag as a page number, do not call it without one, as it will incorrectly interpret another unrelated tag or cause no effect at all (if it is the last tag). While the spawnlist command is in effect, other recipes will not appear. When opening a spawnlist without copper coins in the inventory, the first available inventory slot will be filled with some. Having no open slots will stop the coins from spawning altogether. Items crafted with spawnlist recipes will not get prefixes.)  
+sl (Hosts a spawnlist of items in the recipe section, all crafted out of thin air. <search term>[comma]<tags> e.g. "sl item,depreciated" or "sl chloro , melee" or "sl !, damage". Using the "!" search term is name unspecific and will not sort items by name. The first comma can be placed anywhere. Unrecongized tags will be ignored. "page" will unconventionally scan the next tag as a page number, do not call it without one, as it will incorrectly interpret another unrelated tag or cause no effect at all (if it is the last tag). While the spawnlist command is in effect, other recipes will not appear. Items crafted with spawnlist recipes will not get prefixes.)  
   
 reforge (Note: use "Basic" as a prefix to remove the prefix of an item.)  
 
