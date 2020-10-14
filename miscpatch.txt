@@ -344,10 +344,6 @@
 //  			b3 = 2;
 //  		}
 //  		writer.Write(b3);
-//  		                                                                                            if (num9 < -1)
-//  		                                                                                            {
-//  		                                                                                            	num9 = -1;
-//  		                                                                                            }
 //  		if (b3 == 2)
 //  		{
 //  			writer.Write((short)num9);
