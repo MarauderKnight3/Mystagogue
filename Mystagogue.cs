@@ -758,14 +758,25 @@ namespace Terraria
 				});
 				dictionary.Add("reforge", delegate
 				{
-					if (Mystagogue.CommandArgs.Count == 1)
-					{
-						Mystagogue.Output("That command requires arguments");
-						return;
-					}
 					if (Main.mouseItem.IsAir)
 					{
 						Mystagogue.Output("Must be holding an item with the cursor");
+						return;
+					}
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Main.mouseItem.prefix = 0;
+						Main.mouseItem.Refresh();
+						Mystagogue.Output(string.Concat(new object[]
+						{
+							"Reforged item ",
+							Main.mouseItem.stack,
+							" ",
+							Lang.GetItemNameValue(Main.mouseItem.type),
+							" (",
+							Main.mouseItem.type,
+							")"
+						}));
 						return;
 					}
 					int k = 0;
@@ -926,10 +937,21 @@ namespace Terraria
 					{
 						if (!Main.player[Main.myPlayer].HeldItem.IsAir)
 						{
-							Main.player[Main.myPlayer].HeldItem.useTime = 0;
-							if (Main.player[Main.myPlayer].HeldItem.type == 4956)
+							Item item = new Item();
+							item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
+							item.Prefix((int)Main.player[Main.myPlayer].HeldItem.prefix);
+							item.Refresh();
+							if (item.useTime != Main.player[Main.myPlayer].HeldItem.useTime)
 							{
-								Main.player[Main.myPlayer].HeldItem.useTime = 1;
+								Main.player[Main.myPlayer].HeldItem.useTime = item.useTime;
+							}
+							else
+							{
+								Main.player[Main.myPlayer].HeldItem.useTime = 0;
+								if (Main.player[Main.myPlayer].HeldItem.type == 4956)
+								{
+									Main.player[Main.myPlayer].HeldItem.useTime = 1;
+								}
 							}
 							Mystagogue.Output("Use time " + Main.player[Main.myPlayer].HeldItem.useTime);
 							return;
@@ -980,7 +1002,18 @@ namespace Terraria
 					{
 						if (!Main.player[Main.myPlayer].HeldItem.IsAir)
 						{
-							Main.player[Main.myPlayer].HeldItem.useAnimation = 3;
+							Item item = new Item();
+							item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
+							item.Prefix((int)Main.player[Main.myPlayer].HeldItem.prefix);
+							item.Refresh();
+							if (item.useTime != Main.player[Main.myPlayer].HeldItem.useTime)
+							{
+								Main.player[Main.myPlayer].HeldItem.useTime = item.useTime;
+							}
+							else
+							{
+								Main.player[Main.myPlayer].HeldItem.useAnimation = 3;
+							}
 							Mystagogue.Output("Animation time " + Main.player[Main.myPlayer].HeldItem.useAnimation);
 							return;
 						}
