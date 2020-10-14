@@ -291,9 +291,6 @@
 //      writer.Write((byte)number5);
 //      break;
 
-// CombatText.NewText(Rectangle location, Color color, int amount, bool dramatic = false, bool dot = false) (add condition to the third arg of the return method)
-//  return CombatText.NewText(location, color, ((Main.netMode == 0) ? amount : ((amount > 65534 && dramatic) ? 65534 : ((amount > 32767) ? 32767 : amount))).ToString(), dramatic, dot);
-
 //Main.CraftItem(Recipe r) (add precarious statement)
 //  int stack = Main.mouseItem.stack;
 //  Main.mouseItem = r.createItem.Clone();
