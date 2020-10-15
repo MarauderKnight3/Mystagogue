@@ -684,28 +684,6 @@ namespace Terraria
 					}
 					int count = list.Count;
 					num5 = ((num5 > (int)Math.Floor((double)list.Count / (double)num4)) ? ((int)Math.Floor((double)list.Count / (double)num4)) : num5);
-					SortedList<string, List<int>> sortedList = new SortedList<string, List<int>>();
-					foreach (int num6 in list)
-					{
-						string itemNameValue = Lang.GetItemNameValue(num6);
-						if (sortedList.ContainsKey(itemNameValue))
-						{
-							sortedList[itemNameValue].Add(num6);
-							sortedList[itemNameValue].Sort((int x, int y) => x.CompareTo(y));
-						}
-						else
-						{
-							sortedList.Add(itemNameValue, new List<int>
-							{
-								num6
-							});
-						}
-					}
-					list = new List<int>();
-					foreach (List<int> collection in sortedList.Values.ToList<List<int>>())
-					{
-						list.AddRange(collection);
-					}
 					list = list.GetRange(num5 * num4, (list.Count - num5 * num4 < num4) ? (list.Count - num5 * num4) : num4);
 					if (list.Count == 0)
 					{
