@@ -1,340 +1,361 @@
-//  public bool MystagogueBanless;
-//  public int MystagogueBuddha;
-//  public List<int> MystagogueBuffQueue;
-//  public bool MystagogueFlashlight;
-//  public bool MystagogueGod;
-//  public bool MystagogueInfiniteFlight;
-//  public bool MystagogueJesus;
-//  public bool MystagogueKillDebuffs;
-//  public float MystagogueManaCostDeduction;
-//  public bool MystagogueNoRespawnTimer;
-//  public bool MystagogueP2PMapHack;
-//  public int MystagoguePlayerMaxMinions;
-//  public bool MystagogueRefills;
-//  public int MystagogueSpeedBoost;
-//  public int MystagogueTeleportSetting;
-//  public bool MystagogueToolGod;
+public bool MystagogueBanless;
+public int MystagogueBuddha;
+public List<int> MystagogueBuffQueue;
+public bool MystagogueFlashlight;
+public bool MystagogueGod;
+public bool MystagogueInfiniteFlight;
+public bool MystagogueJesus;
+public bool MystagogueKillDebuffs;
+public float MystagogueManaCostDeduction;
+public bool MystagogueNoRespawnTimer;
+public bool MystagogueP2PMapHack;
+public int MystagoguePlayerMaxMinions;
+public bool MystagogueRefills;
+public int MystagogueSpeedBoost;
+public int MystagogueTeleportSetting;
+public bool MystagogueToolGod;
 
 //Item.SetDefaults(int Type, bool noMatCheck = false) (delete this at the end)
-//  if (this.type > 0 && this.type < 5043 && ItemID.Sets.Deprecated[this.type])
-//  {
-//      this.netID = 0;
-//      this.type = 0;
-//      this.stack = 0;
-//  }
+
+if (this.type > 0 && this.type < 5043 && ItemID.Sets.Deprecated[this.type])
+{
+    this.netID = 0;
+    this.type = 0;
+    this.stack = 0;
+}
+
 
 //Player.UpdateBuffs(int i) (add this to the beginning)
-//  if (this.MystagogueKillDebuffs)
-//  {
-//      foreach (int num in new List<int>
-//      {
-//      	20,
-//      	21,
-//      	22,
-//      	23,
-//      	24,
-//      	30,
-//      	31,
-//      	32,
-//      	33,
-//      	35,
-//      	36,
-//      	37,
-//      	38,
-//      	39,
-//      	44,
-//      	46,
-//      	47,
-//      	67,
-//      	68,
-//      	69,
-//      	70,
-//      	80,
-//      	86,
-//      	88,
-//      	94,
-//      	103,
-//      	119,
-//      	120,
-//      	137,
-//      	144,
-//      	145,
-//      	148,
-//      	149,
-//      	153,
-//      	156,
-//      	160,
-//      	163,
-//      	164,
-//      	169,
-//      	183,
-//      	186,
-//      	189,
-//      	194,
-//      	195,
-//      	196,
-//      	197,
-//      	199,
-//      	203,
-//      	204,
-//      	320
-//      })
-//      {
-//      	this.buffImmune[num] = true;
-//      }
-//  }
-//  if (this.MystagogueBanless)
-//  {
-//  	foreach (int num2 in new List<int>
-//  	{
-//  		47,
-//  		149,
-//  		156
-//  	})
-//  	{
-//  		this.buffImmune[num2] = true;
-//  	}
-//  }
+
+if (this.MystagogueKillDebuffs)
+{
+    foreach (int num in new List<int>
+    {
+    	20,
+    	21,
+    	22,
+    	23,
+    	24,
+    	30,
+    	31,
+    	32,
+    	33,
+    	35,
+    	36,
+    	37,
+    	38,
+    	39,
+    	44,
+    	46,
+    	47,
+    	67,
+    	68,
+    	69,
+    	70,
+    	80,
+    	86,
+    	88,
+    	94,
+    	103,
+    	119,
+    	120,
+    	137,
+    	144,
+    	145,
+    	148,
+    	149,
+    	153,
+    	156,
+    	160,
+    	163,
+    	164,
+    	169,
+    	183,
+    	186,
+    	189,
+    	194,
+    	195,
+    	196,
+    	197,
+    	199,
+    	203,
+    	204,
+    	320
+    })
+    {
+    	this.buffImmune[num] = true;
+    }
+}
+if (this.MystagogueBanless)
+{
+	foreach (int num2 in new List<int>
+	{
+		47,
+		149,
+		156
+	})
+	{
+		this.buffImmune[num2] = true;
+	}
+}
+
 
 //Player.UpdateDead() (add this to the beginning)
-//  if (this.MystagogueNoRespawnTimer && this.respawnTimer > 3)
-//  {
-//  	this.respawnTimer = 3;
-//  } 
+
+if (this.MystagogueNoRespawnTimer && this.respawnTimer > 3)
+{
+	this.respawnTimer = 3;
+} 
+
 
 //Main.DrawMap(GameTime gameTime) (replace if statements calling to the Main.player[Main.myPlayer].MystagogueP2PMapHack variable)
-//  for (int num126 = 0; num126 < 255; num126++)
-//  {
-//  	if (Main.player[num126].active && ((!Main.player[Main.myPlayer].hostile && !Main.player[num126].hostile) || (Main.player[Main.myPlayer].team == Main.player[num126].team && Main.player[num126].team != 0) || num126 == Main.myPlayer || Main.player[Main.myPlayer].MystagogueP2PMapHack))
-//  	{
-//  		float num127 = ((Main.player[num126].position.X + (float)(Main.player[num126].width / 2)) / 16f - num13) * num5;
-//  		float num128 = ((Main.player[num126].position.Y + Main.player[num126].gfxOffY + (float)(Main.player[num126].height / 2)) / 16f - num14) * num5;
-//  		num127 += num;
-//  		num128 += num2;
-//  		num127 -= 6f;
-//  		num128 -= 2f;
-//  		num128 -= 2f - num5 / 5f * 2f;
-//  		num127 -= 10f * num5;
-//  		num128 -= 10f * num5;
-//  		float num129 = num127 + 4f - 14f * num108;
-//  		float num130 = num128 + 2f - 14f * num108;
-//  		float num131 = num129 + 28f * num108;
-//  		float num132 = num130 + 28f * num108;
-//  		if (!Main.player[num126].dead)
-//  		{
-//  			Color borderColor = Main.GetPlayerHeadBordersColor(Main.player[num126]);
-//  			Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num126], new Vector2(num127, num128), (float)b / 255f, num108, borderColor);
-//  			if ((float)Main.mouseX >= num129 && (float)Main.mouseX <= num131 && (float)Main.mouseY >= num130 && (float)Main.mouseY <= num132)
-//  			{
-//  				text = Main.player[num126].name;
-//  				if ((num126 != Main.myPlayer && Main.player[Main.myPlayer].team > 0 && Main.player[Main.myPlayer].team == Main.player[num126].team && Main.netMode == 1 && Main.player[Main.myPlayer].HasUnityPotion() && !flag3 && !Main.cancelWormHole) || (Main.player[Main.myPlayer].MystagogueP2PMapHack && !Main.cancelWormHole))
-//  				{
-//  					flag3 = true;
-//  					if (!this.unityMouseOver)
-//  					{
-//  						SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
-//  					}
-//  					this.unityMouseOver = true;
-//  					borderColor = Main.OurFavoriteColor;
-//  					Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num126], new Vector2(num127, num128), 1f, num108 + 0.5f, borderColor);
-//  					text = Language.GetTextValue("Game.TeleportTo", Main.player[num126].name);
-//  					if (Main.mouseLeft && Main.mouseLeftRelease)
-//  					{
-//  						Main.mouseLeftRelease = false;
-//  						Main.mapFullscreen = false;
-//  						Main.player[Main.myPlayer].UnityTeleport(Main.player[num126].position);
-//  						Main.player[Main.myPlayer].TakeUnityPotion();
-//  					}
-//  				}
-//  			}
-//  		}
-//  	}
-//  }
+
+for (int num126 = 0; num126 < 255; num126++)
+{
+	if (Main.player[num126].active && ((!Main.player[Main.myPlayer].hostile && !Main.player[num126].hostile) || (Main.player[Main.myPlayer].team == Main.player[num126].team && Main.player[num126].team != 0) || num126 == Main.myPlayer || Main.player[Main.myPlayer].MystagogueP2PMapHack))
+	{
+		float num127 = ((Main.player[num126].position.X + (float)(Main.player[num126].width / 2)) / 16f - num13) * num5;
+		float num128 = ((Main.player[num126].position.Y + Main.player[num126].gfxOffY + (float)(Main.player[num126].height / 2)) / 16f - num14) * num5;
+		num127 += num;
+		num128 += num2;
+		num127 -= 6f;
+		num128 -= 2f;
+		num128 -= 2f - num5 / 5f * 2f;
+		num127 -= 10f * num5;
+		num128 -= 10f * num5;
+		float num129 = num127 + 4f - 14f * num108;
+		float num130 = num128 + 2f - 14f * num108;
+		float num131 = num129 + 28f * num108;
+		float num132 = num130 + 28f * num108;
+		if (!Main.player[num126].dead)
+		{
+			Color borderColor = Main.GetPlayerHeadBordersColor(Main.player[num126]);
+			Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num126], new Vector2(num127, num128), (float)b / 255f, num108, borderColor);
+			if ((float)Main.mouseX >= num129 && (float)Main.mouseX <= num131 && (float)Main.mouseY >= num130 && (float)Main.mouseY <= num132)
+			{
+				text = Main.player[num126].name;
+				if ((num126 != Main.myPlayer && Main.player[Main.myPlayer].team > 0 && Main.player[Main.myPlayer].team == Main.player[num126].team && Main.netMode == 1 && Main.player[Main.myPlayer].HasUnityPotion() && !flag3 && !Main.cancelWormHole) || (Main.player[Main.myPlayer].MystagogueP2PMapHack && !Main.cancelWormHole))
+				{
+					flag3 = true;
+					if (!this.unityMouseOver)
+					{
+						SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
+					}
+					this.unityMouseOver = true;
+					borderColor = Main.OurFavoriteColor;
+					Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num126], new Vector2(num127, num128), 1f, num108 + 0.5f, borderColor);
+					text = Language.GetTextValue("Game.TeleportTo", Main.player[num126].name);
+					if (Main.mouseLeft && Main.mouseLeftRelease)
+					{
+						Main.mouseLeftRelease = false;
+						Main.mapFullscreen = false;
+						Main.player[Main.myPlayer].UnityTeleport(Main.player[num126].position);
+						Main.player[Main.myPlayer].TakeUnityPotion();
+					}
+				}
+			}
+		}
+	}
+}
+
 
 //Player.UnityTeleport(Vector2 telePos) (add precarious statement)
-//  int num = 3;
-//  if (Main.netMode == 0)
-//  {
-//  	this.Teleport(telePos, num, 0);
-//  	return;
-//  }
-//                                                          if (this.MystagogueP2PMapHack)
-//                                                          {
-//                                                          	this.Teleport(telePos, num, 0);
-//                                                          	NetMessage.SendData(13, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
-//                                                          	return;
-//                                                          }
-//  NetMessage.SendData(65, -1, -1, null, 2, (float)this.whoAmI, telePos.X, telePos.Y, num, 0, 0);
+
+int num = 3;
+if (Main.netMode == 0)
+{
+	this.Teleport(telePos, num, 0);
+	return;
+}
+                                                        if (this.MystagogueP2PMapHack)
+                                                        {
+                                                        	this.Teleport(telePos, num, 0);
+                                                        	NetMessage.SendData(13, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
+                                                        	return;
+                                                        }
+NetMessage.SendData(65, -1, -1, null, 2, (float)this.whoAmI, telePos.X, telePos.Y, num, 0, 0);
+
 
 //Player.TakeUnityPotion() (add precarious statement)
-//                                                                                                                                                  if (this.MystagogueP2PMapHack)
-//                                                                                                                                                  {
-//                                                                                                                                                  	return;
-//                                                                                                                                                  }
-//  for (int i = 0; i < 400; i++)
-//  {
-//  	if (this.inventory[i].type == 2997 && this.inventory[i].stack > 0)
-//  	{
-//  		this.inventory[i].stack--;
-//  		if (this.inventory[i].stack <= 0)
-//  		{
-//  			this.inventory[i].SetDefaults(0);
-//  		}
-//  		return;
-//  	}
-//  }
+
+                                                                                                                                                if (this.MystagogueP2PMapHack)
+                                                                                                                                                {
+                                                                                                                                                	return;
+                                                                                                                                                }
+for (int i = 0; i < 400; i++)
+{
+	if (this.inventory[i].type == 2997 && this.inventory[i].stack > 0)
+	{
+		this.inventory[i].stack--;
+		if (this.inventory[i].stack <= 0)
+		{
+			this.inventory[i].SetDefaults(0);
+		}
+		return;
+	}
+}
+
 
 //ItemSlot.RightClick(Item[] inv, int context = 0, int slot = 0) (add !Mystagogue.TryDupe(inv[slot]) to second if statement)
-//  Player player = Main.player[Main.myPlayer];
-//  inv[slot].newAndShiny = false;
-//  if (player.itemAnimation > 0)
-//  {
-//      return;
-//  }
-//  if (!Mystagogue.TryDupe(inv[slot]) && !ItemSlot.RightClick_FindSpecialActions(inv, context, slot, player))
-//  {
-//      if ((context == 0 || context == 4 || context == 3) && Main.mouseRight && Main.mouseRightRelease && inv[slot].maxStack == 1)
-//      {
-//          ItemSlot.SwapEquip(inv, context, slot);
-//          return;
-//      }
-//      if (Main.stackSplit <= 1 && Main.mouseRight)
-//      {
-//          bool flag = true;
-//          if (context == 0 && inv[slot].maxStack <= 1)
-//          {
-//              flag = false;
-//          }
-//          if (context == 3 && inv[slot].maxStack <= 1)
-//          {
-//              flag = false;
-//          }
-//          if (context == 4 && inv[slot].maxStack <= 1)
-//          {
-//              flag = false;
-//          }
-//          if (flag && (Main.mouseItem.IsTheSameAs(inv[slot]) || Main.mouseItem.type == 0) && (Main.mouseItem.stack < Main.mouseItem.maxStack || Main.mouseItem.type == 0))
-//          {
-//              ItemSlot.PickupItemIntoMouse(inv, context, slot, player);
-//              SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
-//              ItemSlot.RefreshStackSplitCooldown();
-//          }
-//      }
-//  }
+
+Player player = Main.player[Main.myPlayer];
+inv[slot].newAndShiny = false;
+if (player.itemAnimation > 0)
+{
+    return;
+}
+if (!Mystagogue.TryDupe(inv[slot]) && !ItemSlot.RightClick_FindSpecialActions(inv, context, slot, player))
+{
+    if ((context == 0 || context == 4 || context == 3) && Main.mouseRight && Main.mouseRightRelease && inv[slot].maxStack == 1)
+    {
+        ItemSlot.SwapEquip(inv, context, slot);
+        return;
+    }
+    if (Main.stackSplit <= 1 && Main.mouseRight)
+    {
+        bool flag = true;
+        if (context == 0 && inv[slot].maxStack <= 1)
+        {
+            flag = false;
+        }
+        if (context == 3 && inv[slot].maxStack <= 1)
+        {
+            flag = false;
+        }
+        if (context == 4 && inv[slot].maxStack <= 1)
+        {
+            flag = false;
+        }
+        if (flag && (Main.mouseItem.IsTheSameAs(inv[slot]) || Main.mouseItem.type == 0) && (Main.mouseItem.stack < Main.mouseItem.maxStack || Main.mouseItem.type == 0))
+        {
+            ItemSlot.PickupItemIntoMouse(inv, context, slot, player);
+            SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
+            ItemSlot.RefreshStackSplitCooldown();
+        }
+    }
+}
+
 
 //Player.ResetEffects() (add precarious statement)
-//  if (this.releaseUseItem)
-//  {
-//  	this.ActuationRodLock = false;
-//  }
-//  for (int i = 0; i < this.npcTypeNoAggro.Length; i++)
-//  {
-//  	this.npcTypeNoAggro[i] = false;
-//  }
-//  this.ResetProjectileCaches();
-//  if (this.whoAmI == Main.myPlayer)
-//  {
-//  	Player.tileRangeX = 5;
-//  	Player.tileRangeY = 4;
-//  	if (Main.GameModeInfo.IsJourneyMode)
-//  	{
-//  		CreativePowers.FarPlacementRangePower power = CreativePowerManager.Instance.GetPower<CreativePowers.FarPlacementRangePower>();
-//  		if (power.GetIsUnlocked() && power.IsEnabledForPlayer(this.whoAmI))
-//  		{
-//  			Player.tileRangeX *= 2;
-//  			Player.tileRangeY *= 2;
-//  			Player.tileRangeX += 8;
-//  			Player.tileRangeY += 8;
-//  		}
-//  	}
-//  }
-//                                                                                                      Mystagogue.ResetEffectsMod();
-//  this.mount.CheckMountBuff(this);
+
+if (this.releaseUseItem)
+{
+	this.ActuationRodLock = false;
+}
+for (int i = 0; i < this.npcTypeNoAggro.Length; i++)
+{
+	this.npcTypeNoAggro[i] = false;
+}
+this.ResetProjectileCaches();
+if (this.whoAmI == Main.myPlayer)
+{
+	Player.tileRangeX = 5;
+	Player.tileRangeY = 4;
+	if (Main.GameModeInfo.IsJourneyMode)
+	{
+		CreativePowers.FarPlacementRangePower power = CreativePowerManager.Instance.GetPower<CreativePowers.FarPlacementRangePower>();
+		if (power.GetIsUnlocked() && power.IsEnabledForPlayer(this.whoAmI))
+		{
+			Player.tileRangeX *= 2;
+			Player.tileRangeY *= 2;
+			Player.tileRangeX += 8;
+			Player.tileRangeY += 8;
+		}
+	}
+}
+                                                                                                    Mystagogue.ResetEffectsMod();
+this.mount.CheckMountBuff(this);
+
 
 // Main.DoUpdate_HandleChat() (add precarious statement)
-//  if (a != Main.chatText)
-//  {
-//      SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
-//  }
-//                                                                                  Mystagogue.Command(Main.chatText);
-//  if (Main.inputTextEnter && Main.chatRelease)
-//  {
-//      if (Main.chatText != "")
-//      {
-//          ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(Main.chatText);
-//          if (Main.netMode == 1)
-//          {
-//              ChatHelper.SendChatMessageFromClient(message);
-//          }
-//          else if (Main.netMode == 0)
-//          {
-//              ChatManager.Commands.ProcessIncomingMessage(message, Main.myPlayer);
-//          }
-//      }
-//      Main.chatText = "";
-//      Main.ClosePlayerChat();
-//      Main.chatRelease = false;
-//      SoundEngine.PlaySound(11, -1, -1, 1, 1f, 0f);
-//  }
+
+if (a != Main.chatText)
+{
+    SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
+}
+                                                                                Mystagogue.Command(Main.chatText);
+if (Main.inputTextEnter && Main.chatRelease)
+{
+    if (Main.chatText != "")
+    {
+        ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(Main.chatText);
+        if (Main.netMode == 1)
+        {
+            ChatHelper.SendChatMessageFromClient(message);
+        }
+        else if (Main.netMode == 0)
+        {
+            ChatManager.Commands.ProcessIncomingMessage(message, Main.myPlayer);
+        }
+    }
+    Main.chatText = "";
+    Main.ClosePlayerChat();
+    Main.chatRelease = false;
+    SoundEngine.PlaySound(11, -1, -1, 1, 1f, 0f);
+}
+
 
 //Player.ItemCheck_ManageRightClickFeatures() (add at beginning)
-//  Mystagogue.AttemptTeleport();
 
-//====================
+Mystagogue.AttemptTeleport();
+
 
 //NetMessage.SendData(int msgType, int remoteClient = -1, int ignoreClient = -1, NetworkText text = null, int number = 0, float number2 = 0f, float number3 = 0f, float number4 = 0f, int number5 = 0, int number6 = 0, int number7 = 0) (replace precarious statement)
-//  case 28:
-//      writer.Write((short)number);
-//                                                                                  writer.Write((short)((number2 > 32767f) ? 32767f : number2));
-//      writer.Write(number3);
-//      writer.Write((byte)(number4 + 1f));
-//      writer.Write((byte)number5);
-//      break;
+
+case 28:
+    writer.Write((short)number);
+                                                                                writer.Write((short)((number2 > 32767f) ? 32767f : number2));
+    writer.Write(number3);
+    writer.Write((byte)(number4 + 1f));
+    writer.Write((byte)number5);
+    break;
 
 //Main.CraftItem(Recipe r) (add precarious statement)
-//  int stack = Main.mouseItem.stack;
-//  Main.mouseItem = r.createItem.Clone();
-//  Main.mouseItem.stack += stack;
-//                                                                          if (r.requiredItem[0].type == 0)
-//                                                                          {
-//                                                                          	Main.mouseItem.Refresh();
-//                                                                          } else
-//  if (stack <= 0)
-//  {
-//  	Main.mouseItem.Prefix(-1);
-//  }
-//  Main.mouseItem.position.X = Main.player[Main.myPlayer].position.X + (float)(Main.player[Main.myPlayer].width / 2) - (float)(Main.mouseItem.width / 2);
-//  Main.mouseItem.position.Y = Main.player[Main.myPlayer].position.Y + (float)(Main.player[Main.myPlayer].height / 2) - (float)(Main.mouseItem.height / 2);
-//  PopupText.NewText(PopupTextContext.ItemCraft, Main.mouseItem, r.createItem.stack, false, false);
-//  r.Create();
-//  if (Main.mouseItem.type > 0 || r.createItem.type > 0)
-//  {
-//  	SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0f);
-//  }
+int stack = Main.mouseItem.stack;
+Main.mouseItem = r.createItem.Clone();
+Main.mouseItem.stack += stack;
+                                                                        if (r.requiredItem[0].type == 0)
+                                                                        {
+                                                                        	Main.mouseItem.Refresh();
+                                                                        } else
+if (stack <= 0)
+{
+	Main.mouseItem.Prefix(-1);
+}
+Main.mouseItem.position.X = Main.player[Main.myPlayer].position.X + (float)(Main.player[Main.myPlayer].width / 2) - (float)(Main.mouseItem.width / 2);
+Main.mouseItem.position.Y = Main.player[Main.myPlayer].position.Y + (float)(Main.player[Main.myPlayer].height / 2) - (float)(Main.mouseItem.height / 2);
+PopupText.NewText(PopupTextContext.ItemCraft, Main.mouseItem, r.createItem.stack, false, false);
+r.Create();
+if (Main.mouseItem.type > 0 || r.createItem.type > 0)
+{
+	SoundEngine.PlaySound(7, -1, -1, 1, 1f, 0f);
+}
+
 
 //Recipe.FindRecipes(bool canDelayCheck = false) (replace percarious statement)
-//  				int key = netID2;
-//  				dictionary4[key] += item.stack;
-//  			}
-//  			else
-//  			{
-//  				dictionary[item.netID] = item.stack;
-//  			}
-//  		}
-//  	}
-//  }
-//                                                                                          int num4 = (Main.recipe[Mystagogue.FirstFreedRecipeSlot].createItem.type != 0) ? Mystagogue.FirstFreedRecipeSlot : 0;
-//  while (num4 < Recipe.maxRecipes && Main.recipe[num4].createItem.type != 0)
-//  {
-//  	bool flag = true;
-//  	if (flag)
-//  	{
-//  		int num5 = 0;
-//  		while (num5 < Recipe.maxRequirements && Main.recipe[num4].requiredTile[num5] != -1)
-//  		{
-//  			if (!Main.player[Main.myPlayer].adjTile[Main.recipe[num4].requiredTile[num5]])
-//  			{
-//  				flag = false;
-//  				break;
-//  			}
-//  			num5++;
+
+				int key = netID2;
+				dictionary4[key] += item.stack;
+			}
+			else
+			{
+				dictionary[item.netID] = item.stack;
+			}
+		}
+	}
+}
+                                                                                        int num4 = (Main.recipe[Mystagogue.FirstFreedRecipeSlot].createItem.type != 0) ? Mystagogue.FirstFreedRecipeSlot : 0;
+while (num4 < Recipe.maxRecipes && Main.recipe[num4].createItem.type != 0)
+{
+	bool flag = true;
+	if (flag)
+	{
+		int num5 = 0;
+		while (num5 < Recipe.maxRequirements && Main.recipe[num4].requiredTile[num5] != -1)
+		{
+			if (!Main.player[Main.myPlayer].adjTile[Main.recipe[num4].requiredTile[num5]])
+			{
+				flag = false;
+				break;
+			}
+			num5++;
