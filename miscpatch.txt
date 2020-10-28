@@ -309,6 +309,15 @@ case 28:
     writer.Write((byte)(number4 + 1f));
     writer.Write((byte)number5);
     break;
+    
+    
+// ... and in case 23: (add precarious statement)
+writer.Write(b3);
+			num9 = ((num9 < 0) ? 0 : num9);
+if (b3 == 2)
+{
+    writer.Write((short)num9);
+}
 
 //Main.CraftItem(Recipe r) (add precarious statement)
 int stack = Main.mouseItem.stack;
