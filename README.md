@@ -86,7 +86,11 @@ magnodupe (Will attempt to move all items to you and also reserve them for you, 
 
 flashlight (Point a light at your cursor, revealing blocks.)  
 
-nrt (Respawn instantly.)  
+nrt (Respawn instantly.)
+
+copyme (Creates a player with the current player's data. The first argument will set the name of the copy. By default, the name of the copy is "Copy of <name>")
+  
+nameme (Rename your character.)
 
 tps (Teleport setting (numerical). Options 0-2.)
 <br />
