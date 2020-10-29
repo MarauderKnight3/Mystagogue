@@ -14,6 +14,10 @@ public bool MystagogueRefills;
 public int MystagogueSpeedBoost;
 public int MystagogueTeleportSetting;
 public bool MystagogueToolGod;
+public Player Duplicate()
+{
+	return (Player)base.MemberwiseClone();
+}
 
 //Item.SetDefaults(int Type, bool noMatCheck = false) (delete this at the end)
 
