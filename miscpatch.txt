@@ -372,3 +372,17 @@ while (num4 < Recipe.maxRecipes && Main.recipe[num4].createItem.type != 0)
 				break;
 			}
 			num5++;
+
+
+//PlayerFileData (the class) (add method)
+
+public void MystagoguePTOp(long ticks)
+{
+	bool isRunning = this._timer.IsRunning;
+	this._playTime = new TimeSpan(ticks);
+	this._timer.Reset();
+	if (isRunning)
+	{
+		this._timer.Start();
+	}
+}
