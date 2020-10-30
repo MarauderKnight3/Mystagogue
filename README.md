@@ -104,6 +104,8 @@ setdifficulty (Set your character's difficulty. 0 = Classic, 1 = Mediumcore, 2 =
 
 demonheart (Toggle whether your character ate a demon heart yet.)
 
+charactertime (Set the time the current character has played in ticks (60 ticks a second) up to 999999999999999999 ticks)
+
 tps (Teleport setting (numerical). Options 0-2.)
 <br />
 <br />
