@@ -82,7 +82,7 @@ p2pmaphack (See and be able to teleport to all other players on the map, regardl
 
 magnet (Will attempt to move all items to you, even if they are "inactive".)  
 
-magnodupe (Will attempt to move all items to you and also reserve them for you, only if they are active.)  
+magnodupe (Will attempt to move all items to you, only if they are active.)  
 
 flashlight (Point a light at your cursor, revealing blocks.)  
 
@@ -91,6 +91,18 @@ nrt (Respawn instantly.)
 copyme (Creates a player with the current player's data. The first argument will set the name of the copy. By default, the name of the copy is "Copy of <name>")
   
 nameme (Rename your character.)
+
+maxlife (Change you max life, before temporary buffs and accessories are counted.)
+
+maxmana (Change you max mana, before temporary buffs and accessories are counted.)
+
+setfish (Set the amount of completed angler quests you have.)
+
+setdd2 (Set the amount of completed bartender quests you have active.)
+
+setdifficulty (Set your character's difficulty. 0 = Classic, 1 = Mediumcore, 2 = Hardcore, 3 = Journey)
+
+demonheart (Toggle whether your character ate a demon heart yet.)
 
 tps (Teleport setting (numerical). Options 0-2.)
 <br />
