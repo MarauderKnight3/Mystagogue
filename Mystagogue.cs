@@ -18,18 +18,15 @@ namespace Terraria
 	{
 		public static bool TryDupe(Item slot)
 		{
-			bool flag = Main.cursorOverride == 3;
 			bool result;
-			if (flag)
+			if (Main.cursorOverride == 3)
 			{
-				bool flag2 = Main.mouseRight && Main.mouseRightRelease && (Main.mouseItem.IsTheSameAs(slot) | Main.mouseItem.IsAir);
-				if (flag2)
+				if (Main.mouseRight && Main.mouseRightRelease && (Main.mouseItem.IsTheSameAs(slot) | Main.mouseItem.IsAir))
 				{
 					Main.mouseItem = new Item();
 					Main.mouseItem = slot.Clone();
 					Main.mouseItem.favorited = false;
-					bool flag3 = ItemSlot.ControlInUse && slot.maxStack != 1;
-					if (flag3)
+					if (ItemSlot.ControlInUse && slot.maxStack != 1)
 					{
 						Main.mouseItem.stack = int.MaxValue;
 					}
@@ -49,13 +46,11 @@ namespace Terraria
 
 		public static void AttemptTeleport()
 		{
-			bool flag = Main.player[Main.myPlayer].MystagogueTeleportSetting != 0 && ((PlayerInput.Triggers.JustPressed.MouseRight && Main.player[Main.myPlayer].MystagogueTeleportSetting == 1) | (PlayerInput.Triggers.Current.MouseRight && Main.player[Main.myPlayer].MystagogueTeleportSetting == 2)) && !Main.player[Main.myPlayer].tileInteractionHappened && !Main.player[Main.myPlayer].mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine && !Main.player[Main.myPlayer].HeldItem.summon && Main.player[Main.myPlayer].HeldItem.type != 3384 && Main.player[Main.myPlayer].HeldItem.type != 3858 && Main.player[Main.myPlayer].HeldItem.type != 4673 && Main.player[Main.myPlayer].HeldItem.type != 3852 && Main.player[Main.myPlayer].HeldItem.type != 3611 && !Main.player[Main.myPlayer].scope;
-			if (flag)
+			if (Main.player[Main.myPlayer].MystagogueTeleportSetting != 0 && ((PlayerInput.Triggers.JustPressed.MouseRight && Main.player[Main.myPlayer].MystagogueTeleportSetting == 1) | (PlayerInput.Triggers.Current.MouseRight && Main.player[Main.myPlayer].MystagogueTeleportSetting == 2)) && !Main.player[Main.myPlayer].tileInteractionHappened && !Main.player[Main.myPlayer].mouseInterface && !CaptureManager.Instance.Active && !Main.HoveringOverAnNPC && !Main.SmartInteractShowingGenuine && !Main.player[Main.myPlayer].HeldItem.summon && Main.player[Main.myPlayer].HeldItem.type != 3384 && Main.player[Main.myPlayer].HeldItem.type != 3858 && Main.player[Main.myPlayer].HeldItem.type != 4673 && Main.player[Main.myPlayer].HeldItem.type != 3852 && Main.player[Main.myPlayer].HeldItem.type != 3611 && !Main.player[Main.myPlayer].scope)
 			{
 				Vector2 vector = default(Vector2);
 				vector.X = (float)Main.mouseX + Main.screenPosition.X;
-				bool flag2 = Main.player[Main.myPlayer].gravDir == 1f;
-				if (flag2)
+				if (Main.player[Main.myPlayer].gravDir == 1f)
 				{
 					vector.Y = (float)Main.mouseY + Main.screenPosition.Y - (float)Main.player[Main.myPlayer].height;
 				}
@@ -64,8 +59,7 @@ namespace Terraria
 					vector.Y = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 				}
 				vector.X -= (float)(Main.player[Main.myPlayer].width / 2);
-				bool flag3 = vector.X <= 50f || vector.X >= (float)(Main.maxTilesX * 16 - 50) || vector.Y <= 50f || vector.Y >= (float)(Main.maxTilesY * 16 - 50);
-				if (!flag3)
+				if (vector.X > 50f && vector.X < (float)(Main.maxTilesX * 16 - 50) && vector.Y > 50f && vector.Y < (float)(Main.maxTilesY * 16 - 50))
 				{
 					try
 					{
@@ -77,14 +71,11 @@ namespace Terraria
 						PressurePlateHelper.UpdatePlayerPosition(Main.player[Main.myPlayer]);
 						Main.player[Main.myPlayer].position = vector;
 						Main.player[Main.myPlayer].fallStart = (int)(Main.player[Main.myPlayer].position.Y / 16f);
-						bool flag4 = Main.player[Main.myPlayer].whoAmI == Main.myPlayer;
-						if (flag4)
+						if (Main.player[Main.myPlayer].whoAmI == Main.myPlayer)
 						{
-							bool flag5 = Main.player[Main.myPlayer].MystagogueTeleportSetting == 1;
-							if (flag5)
+							if (Main.player[Main.myPlayer].MystagogueTeleportSetting == 1)
 							{
-								bool flag6 = num < new Vector2((float)Main.screenWidth, (float)Main.screenHeight).Length() / 2f + 100f;
-								if (flag6)
+								if (num < new Vector2((float)Main.screenWidth, (float)Main.screenHeight).Length() / 2f + 100f)
 								{
 									Main.SetCameraLerp(0.1f, 2);
 								}
@@ -98,8 +89,7 @@ namespace Terraria
 									Main.instantBGTransitionCounter = 10;
 								}
 							}
-							bool flag7 = Main.mapTime < 5;
-							if (flag7)
+							if (Main.mapTime < 5)
 							{
 								Main.mapTime = 5;
 							}
@@ -2270,6 +2260,180 @@ namespace Terraria
 					Main.player[Main.myPlayer].name = ((Mystagogue.CommandArgs.Count > 1) ? Mystagogue.CommandArgs[1] : "One Face Among Many");
 					Mystagogue.Output("You are " + Main.player[Main.myPlayer].name);
 				});
+				dictionary.Add("maxlife", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output("That command requires arguments");
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					int num3 = 1;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 10)
+						{
+							num3 = int.MaxValue;
+						}
+						else
+						{
+							num3 = (int)Math.Min(long.Parse(text3), 2147483647L);
+						}
+					}
+					Main.player[Main.myPlayer].statLifeMax = num3;
+					Mystagogue.Output("Max Life set to " + num3);
+				});
+				dictionary.Add("maxmana", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output("That command requires arguments");
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					int num3 = 0;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 3)
+						{
+							num3 = 200;
+						}
+						else
+						{
+							num3 = int.Parse(text3);
+						}
+					}
+					Main.player[Main.myPlayer].statManaMax = num3;
+					Mystagogue.Output("Max Mana set to " + num3);
+				});
+				dictionary.Add("setfish", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output("That command requires arguments");
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					int num3 = 0;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 10)
+						{
+							num3 = int.MaxValue;
+						}
+						else
+						{
+							num3 = (int)Math.Min(long.Parse(text3), 2147483647L);
+						}
+					}
+					Main.player[Main.myPlayer].anglerQuestsFinished = num3;
+					Mystagogue.Output("Angler Quests Finished set to " + num3);
+				});
+				dictionary.Add("setdd2", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output("That command requires arguments");
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					int num3 = 0;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 10)
+						{
+							num3 = int.MaxValue;
+						}
+						else
+						{
+							num3 = (int)Math.Min(long.Parse(text3), 2147483647L);
+						}
+					}
+					Main.player[Main.myPlayer].bartenderQuestLog = num3;
+					Mystagogue.Output("Bartender Quests Finished set to " + num3);
+				});
+				dictionary.Add("setdifficulty", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output("That command requires arguments");
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					int num3 = 0;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 1)
+						{
+							num3 = 3;
+						}
+						else
+						{
+							num3 = int.Parse(text3);
+							if (num3 > 3)
+							{
+								num3 = 3;
+							}
+						}
+					}
+					Main.player[Main.myPlayer].difficulty = (byte)num3;
+					Mystagogue.Output("Difficulty set to " + (((byte)num3 == 0) ? "Classic" : (((byte)num3 == 1) ? "Mediumcore" : (((byte)num3 == 2) ? "Hardcore" : (((byte)num3 == 3) ? "Journey" : "null")))));
+				});
+				dictionary.Add("demonheart", delegate
+				{
+					Main.player[Main.myPlayer].extraAccessory = !Main.player[Main.myPlayer].extraAccessory;
+					string str = "no longer";
+					if (Main.player[Main.myPlayer].extraAccessory)
+					{
+						str = "now";
+					}
+					Mystagogue.Output("You " + str + " have eaten a demon heart");
+				});
 				for (int j = 0; j < dictionary.Count; j++)
 				{
 					if (dictionary.ElementAt(j).Key == Mystagogue.CommandArgs[0])
@@ -2298,106 +2462,92 @@ namespace Terraria
 
 		private static void TrySyncingMyPlayer()
 		{
-			bool flag = Main.netMode == 0;
-			if (!flag)
+			if (Main.netMode != 0)
 			{
 				Player clientPlayer = Main.clientPlayer;
-				bool flag2 = false;
+				bool flag = false;
 				for (int i = 0; i < 59; i++)
 				{
-					bool flag3 = Main.player[Main.myPlayer].inventory[i].IsNotTheSameAs(clientPlayer.inventory[i]);
-					if (flag3)
+					if (Main.player[Main.myPlayer].inventory[i].IsNotTheSameAs(clientPlayer.inventory[i]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)i, (float)Main.player[Main.myPlayer].inventory[i].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int j = 0; j < Main.player[Main.myPlayer].armor.Length; j++)
 				{
-					bool flag4 = Main.player[Main.myPlayer].armor[j].IsNotTheSameAs(clientPlayer.armor[j]);
-					if (flag4)
+					if (Main.player[Main.myPlayer].armor[j].IsNotTheSameAs(clientPlayer.armor[j]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(59 + j), (float)Main.player[Main.myPlayer].armor[j].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int k = 0; k < Main.player[Main.myPlayer].miscEquips.Length; k++)
 				{
-					bool flag5 = Main.player[Main.myPlayer].miscEquips[k].IsNotTheSameAs(clientPlayer.miscEquips[k]);
-					if (flag5)
+					if (Main.player[Main.myPlayer].miscEquips[k].IsNotTheSameAs(clientPlayer.miscEquips[k]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + 1 + k), (float)Main.player[Main.myPlayer].miscEquips[k].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int l = 0; l < Main.player[Main.myPlayer].miscDyes.Length; l++)
 				{
-					bool flag6 = Main.player[Main.myPlayer].miscDyes[l].IsNotTheSameAs(clientPlayer.miscDyes[l]);
-					if (flag6)
+					if (Main.player[Main.myPlayer].miscDyes[l].IsNotTheSameAs(clientPlayer.miscDyes[l]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + 1 + l), (float)Main.player[Main.myPlayer].miscDyes[l].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int m = 0; m < Main.player[Main.myPlayer].bank.item.Length; m++)
 				{
-					bool flag7 = Main.player[Main.myPlayer].bank.item[m].IsNotTheSameAs(clientPlayer.bank.item[m]);
-					if (flag7)
+					if (Main.player[Main.myPlayer].bank.item[m].IsNotTheSameAs(clientPlayer.bank.item[m]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + 1 + m), (float)Main.player[Main.myPlayer].bank.item[m].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int n = 0; n < Main.player[Main.myPlayer].bank2.item.Length; n++)
 				{
-					bool flag8 = Main.player[Main.myPlayer].bank2.item[n].IsNotTheSameAs(clientPlayer.bank2.item[n]);
-					if (flag8)
+					if (Main.player[Main.myPlayer].bank2.item[n].IsNotTheSameAs(clientPlayer.bank2.item[n]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + 1 + n), (float)Main.player[Main.myPlayer].bank2.item[n].prefix, 0f, 0, 0, 0);
 					}
 				}
-				bool flag9 = Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(clientPlayer.trashItem);
-				if (flag9)
+				if (Main.player[Main.myPlayer].trashItem.IsNotTheSameAs(clientPlayer.trashItem))
 				{
-					flag2 = true;
+					flag = true;
 					NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 1), (float)Main.player[Main.myPlayer].trashItem.prefix, 0f, 0, 0, 0);
 				}
 				for (int num = 0; num < Main.player[Main.myPlayer].bank3.item.Length; num++)
 				{
-					bool flag10 = Main.player[Main.myPlayer].bank3.item[num].IsNotTheSameAs(clientPlayer.bank3.item[num]);
-					if (flag10)
+					if (Main.player[Main.myPlayer].bank3.item[num].IsNotTheSameAs(clientPlayer.bank3.item[num]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + 2 + num), (float)Main.player[Main.myPlayer].bank3.item[num].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int num2 = 0; num2 < Main.player[Main.myPlayer].bank4.item.Length; num2++)
 				{
-					bool flag11 = Main.player[Main.myPlayer].bank4.item[num2].IsNotTheSameAs(clientPlayer.bank4.item[num2]);
-					if (flag11)
+					if (Main.player[Main.myPlayer].bank4.item[num2].IsNotTheSameAs(clientPlayer.bank4.item[num2]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + Main.player[Main.myPlayer].dye.Length + Main.player[Main.myPlayer].miscEquips.Length + Main.player[Main.myPlayer].miscDyes.Length + Main.player[Main.myPlayer].bank.item.Length + Main.player[Main.myPlayer].bank2.item.Length + Main.player[Main.myPlayer].bank3.item.Length + 2 + num2), (float)Main.player[Main.myPlayer].bank4.item[num2].prefix, 0f, 0, 0, 0);
 					}
 				}
 				for (int num3 = 0; num3 < Main.player[Main.myPlayer].dye.Length; num3++)
 				{
-					bool flag12 = Main.player[Main.myPlayer].dye[num3].IsNotTheSameAs(clientPlayer.dye[num3]);
-					if (flag12)
+					if (Main.player[Main.myPlayer].dye[num3].IsNotTheSameAs(clientPlayer.dye[num3]))
 					{
-						flag2 = true;
+						flag = true;
 						NetMessage.SendData(5, -1, -1, null, Main.myPlayer, (float)(58 + Main.player[Main.myPlayer].armor.Length + 1 + num3), (float)Main.player[Main.myPlayer].dye[num3].prefix, 0f, 0, 0, 0);
 					}
 				}
-				bool flag13 = Main.player[Main.myPlayer].chest != clientPlayer.chest && Main.player[Main.myPlayer].chest < 0 && clientPlayer.chest >= 0;
-				if (flag13)
+				if (Main.player[Main.myPlayer].chest != clientPlayer.chest && Main.player[Main.myPlayer].chest < 0 && clientPlayer.chest >= 0)
 				{
-					bool editedChestName = Main.player[Main.myPlayer].editedChestName;
-					if (editedChestName)
+					if (Main.player[Main.myPlayer].editedChestName)
 					{
-						bool flag14 = Main.chest[clientPlayer.chest] != null;
-						if (flag14)
+						if (Main.chest[clientPlayer.chest] != null)
 						{
 							NetMessage.SendData(33, -1, -1, NetworkText.FromLiteral(Main.chest[clientPlayer.chest].name), Main.player[Main.myPlayer].chest, 1f, 0f, 0f, 0, 0, 0);
 						}
@@ -2412,80 +2562,66 @@ namespace Terraria
 						NetMessage.SendData(33, -1, -1, null, Main.player[Main.myPlayer].chest, 0f, 0f, 0f, 0, 0, 0);
 					}
 				}
-				bool flag15 = Main.player[Main.myPlayer].talkNPC != clientPlayer.talkNPC;
-				if (flag15)
+				if (Main.player[Main.myPlayer].talkNPC != clientPlayer.talkNPC)
 				{
 					NetMessage.SendData(40, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag16 = Main.LocalPlayer.tileEntityAnchor.interactEntityID != clientPlayer.tileEntityAnchor.interactEntityID && Main.LocalPlayer.tileEntityAnchor.interactEntityID < 0;
-				if (flag16)
+				if (Main.LocalPlayer.tileEntityAnchor.interactEntityID != clientPlayer.tileEntityAnchor.interactEntityID && Main.LocalPlayer.tileEntityAnchor.interactEntityID < 0)
 				{
 					NetMessage.SendData(122, -1, -1, null, -1, (float)Main.myPlayer, 0f, 0f, 0, 0, 0);
 				}
-				bool flag17 = false;
-				bool flag18 = Main.player[Main.myPlayer].zone1 != clientPlayer.zone1;
-				if (flag18)
+				bool flag2 = false;
+				if (Main.player[Main.myPlayer].zone1 != clientPlayer.zone1)
 				{
-					flag17 = true;
+					flag2 = true;
 				}
-				bool flag19 = Main.player[Main.myPlayer].zone2 != clientPlayer.zone2;
-				if (flag19)
+				if (Main.player[Main.myPlayer].zone2 != clientPlayer.zone2)
 				{
-					flag17 = true;
+					flag2 = true;
 				}
-				bool flag20 = Main.player[Main.myPlayer].zone3 != clientPlayer.zone3;
-				if (flag20)
+				if (Main.player[Main.myPlayer].zone3 != clientPlayer.zone3)
 				{
-					flag17 = true;
+					flag2 = true;
 				}
-				bool flag21 = Main.player[Main.myPlayer].zone4 != clientPlayer.zone4;
-				if (flag21)
+				if (Main.player[Main.myPlayer].zone4 != clientPlayer.zone4)
 				{
-					flag17 = true;
+					flag2 = true;
 				}
-				bool flag22 = flag17;
-				if (flag22)
+				if (flag2)
 				{
 					NetMessage.SendData(36, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag23 = Main.player[Main.myPlayer].statLife != clientPlayer.statLife || Main.player[Main.myPlayer].statLifeMax != clientPlayer.statLifeMax;
-				if (flag23)
+				if (Main.player[Main.myPlayer].statLife != clientPlayer.statLife || Main.player[Main.myPlayer].statLifeMax != clientPlayer.statLifeMax)
 				{
 					Main.player[Main.myPlayer].netLife = false;
 					NetMessage.SendData(16, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag24 = Main.player[Main.myPlayer].statMana != clientPlayer.statMana || Main.player[Main.myPlayer].statManaMax != clientPlayer.statManaMax;
-				if (flag24)
+				if (Main.player[Main.myPlayer].statMana != clientPlayer.statMana || Main.player[Main.myPlayer].statManaMax != clientPlayer.statManaMax)
 				{
 					Main.player[Main.myPlayer].netMana = false;
 					NetMessage.SendData(42, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag25 = false;
+				bool flag3 = false;
 				for (int num4 = 0; num4 < 22; num4++)
 				{
-					bool flag26 = Main.player[Main.myPlayer].buffType[num4] != clientPlayer.buffType[num4];
-					if (flag26)
+					if (Main.player[Main.myPlayer].buffType[num4] != clientPlayer.buffType[num4])
 					{
-						flag25 = true;
+						flag3 = true;
 					}
 				}
-				bool flag27 = flag25;
-				if (flag27)
+				if (flag3)
 				{
 					NetMessage.SendData(50, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag28 = Main.player[Main.myPlayer].MinionRestTargetPoint != clientPlayer.MinionRestTargetPoint;
-				if (flag28)
+				if (Main.player[Main.myPlayer].MinionRestTargetPoint != clientPlayer.MinionRestTargetPoint)
 				{
 					NetMessage.SendData(99, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag29 = Main.player[Main.myPlayer].MinionAttackTargetNPC != clientPlayer.MinionAttackTargetNPC;
-				if (flag29)
+				if (Main.player[Main.myPlayer].MinionAttackTargetNPC != clientPlayer.MinionAttackTargetNPC)
 				{
 					NetMessage.SendData(115, -1, -1, null, Main.myPlayer, 0f, 0f, 0f, 0, 0, 0);
 				}
-				bool flag30 = flag2;
-				if (flag30)
+				if (flag)
 				{
 					NetMessage.SendData(138, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
 				}
@@ -2496,112 +2632,98 @@ namespace Terraria
 
 		public static void BuffMyTools()
 		{
-			bool flag = !Main.player[Main.myPlayer].MystagogueToolGod;
-			if (flag)
+			if (!Main.player[Main.myPlayer].MystagogueToolGod)
 			{
 				for (int i = 0; i < Main.player[Main.myPlayer].inventory.Length; i++)
 				{
-					bool flag2 = Main.player[Main.myPlayer].inventory[i].pick > 0;
-					if (flag2)
+					if (Main.player[Main.myPlayer].inventory[i].pick > 0)
 					{
 						Main.player[Main.myPlayer].inventory[i].Refresh();
 					}
 				}
 				for (int j = 0; j < Main.player[Main.myPlayer].inventory.Length; j++)
 				{
-					bool flag3 = Main.player[Main.myPlayer].inventory[j].axe > 0;
-					if (flag3)
+					if (Main.player[Main.myPlayer].inventory[j].axe > 0)
 					{
 						Main.player[Main.myPlayer].inventory[j].Refresh();
 					}
 				}
 				for (int k = 0; k < Main.player[Main.myPlayer].inventory.Length; k++)
 				{
-					bool flag4 = Main.player[Main.myPlayer].inventory[k].hammer > 0;
-					if (flag4)
+					if (Main.player[Main.myPlayer].inventory[k].hammer > 0)
 					{
 						Main.player[Main.myPlayer].inventory[k].Refresh();
 					}
 				}
+				return;
 			}
-			else
+			int num = 0;
+			for (int l = 0; l < Main.player[Main.myPlayer].inventory.Length; l++)
 			{
-				int num = 0;
-				for (int l = 0; l < Main.player[Main.myPlayer].inventory.Length; l++)
+				if (Main.player[Main.myPlayer].inventory[l].pick > 0)
 				{
-					bool flag5 = Main.player[Main.myPlayer].inventory[l].pick > 0;
-					if (flag5)
-					{
-						Main.player[Main.myPlayer].inventory[l].pick = ContentSamples.ItemsByType[2786].pick;
-						Main.player[Main.myPlayer].inventory[l].useTime = 0;
-						Main.player[Main.myPlayer].inventory[l].useAnimation = 7;
-						Main.player[Main.myPlayer].inventory[l].tileBoost = 15;
-						num = l + 1;
-						break;
-					}
+					Main.player[Main.myPlayer].inventory[l].pick = ContentSamples.ItemsByType[2786].pick;
+					Main.player[Main.myPlayer].inventory[l].useTime = 0;
+					Main.player[Main.myPlayer].inventory[l].useAnimation = 7;
+					Main.player[Main.myPlayer].inventory[l].tileBoost = 15;
+					num = l + 1;
+					break;
 				}
-				for (int m = num; m < Main.player[Main.myPlayer].inventory.Length; m++)
+			}
+			for (int m = num; m < Main.player[Main.myPlayer].inventory.Length; m++)
+			{
+				if (Main.player[Main.myPlayer].inventory[m].pick > 0)
 				{
-					bool flag6 = Main.player[Main.myPlayer].inventory[m].pick > 0;
-					if (flag6)
-					{
-						Main.player[Main.myPlayer].inventory[m].Refresh();
-					}
+					Main.player[Main.myPlayer].inventory[m].Refresh();
 				}
-				for (int n = 0; n < Main.player[Main.myPlayer].inventory.Length; n++)
+			}
+			for (int n = 0; n < Main.player[Main.myPlayer].inventory.Length; n++)
+			{
+				if (Main.player[Main.myPlayer].inventory[n].axe > 0)
 				{
-					bool flag7 = Main.player[Main.myPlayer].inventory[n].axe > 0;
-					if (flag7)
-					{
-						Main.player[Main.myPlayer].inventory[n].axe = ContentSamples.ItemsByType[1305].axe;
-						Main.player[Main.myPlayer].inventory[n].useTime = 0;
-						Main.player[Main.myPlayer].inventory[n].useAnimation = 7;
-						Main.player[Main.myPlayer].inventory[n].tileBoost = 15;
-						num = n + 1;
-						break;
-					}
+					Main.player[Main.myPlayer].inventory[n].axe = ContentSamples.ItemsByType[1305].axe;
+					Main.player[Main.myPlayer].inventory[n].useTime = 0;
+					Main.player[Main.myPlayer].inventory[n].useAnimation = 7;
+					Main.player[Main.myPlayer].inventory[n].tileBoost = 15;
+					num = n + 1;
+					break;
 				}
-				for (int num2 = num; num2 < Main.player[Main.myPlayer].inventory.Length; num2++)
+			}
+			for (int num2 = num; num2 < Main.player[Main.myPlayer].inventory.Length; num2++)
+			{
+				if (Main.player[Main.myPlayer].inventory[num2].axe > 0)
 				{
-					bool flag8 = Main.player[Main.myPlayer].inventory[num2].axe > 0;
-					if (flag8)
-					{
-						Main.player[Main.myPlayer].inventory[num2].Refresh();
-					}
+					Main.player[Main.myPlayer].inventory[num2].Refresh();
 				}
-				for (int num3 = 0; num3 < Main.player[Main.myPlayer].inventory.Length; num3++)
+			}
+			for (int num3 = 0; num3 < Main.player[Main.myPlayer].inventory.Length; num3++)
+			{
+				if (Main.player[Main.myPlayer].inventory[num3].hammer > 0)
 				{
-					bool flag9 = Main.player[Main.myPlayer].inventory[num3].hammer > 0;
-					if (flag9)
-					{
-						Main.player[Main.myPlayer].inventory[num3].hammer = ContentSamples.ItemsByType[1305].hammer;
-						Main.player[Main.myPlayer].inventory[num3].useTime = 0;
-						Main.player[Main.myPlayer].inventory[num3].useAnimation = 7;
-						Main.player[Main.myPlayer].inventory[num3].tileBoost = 4;
-						num = num3 + 1;
-						return;
-					}
+					Main.player[Main.myPlayer].inventory[num3].hammer = ContentSamples.ItemsByType[1305].hammer;
+					Main.player[Main.myPlayer].inventory[num3].useTime = 0;
+					Main.player[Main.myPlayer].inventory[num3].useAnimation = 7;
+					Main.player[Main.myPlayer].inventory[num3].tileBoost = 4;
+					num = num3 + 1;
+					return;
 				}
-				for (int num4 = num; num4 < Main.player[Main.myPlayer].inventory.Length; num4++)
+			}
+			for (int num4 = num; num4 < Main.player[Main.myPlayer].inventory.Length; num4++)
+			{
+				if (Main.player[Main.myPlayer].inventory[num4].hammer > 0)
 				{
-					bool flag10 = Main.player[Main.myPlayer].inventory[num4].hammer > 0;
-					if (flag10)
-					{
-						Main.player[Main.myPlayer].inventory[num4].Refresh();
-					}
+					Main.player[Main.myPlayer].inventory[num4].Refresh();
 				}
 			}
 		}
 
 		public static void ResetEffectsMod()
 		{
-			bool mystagogueFlashlight = Main.player[Main.myPlayer].MystagogueFlashlight;
-			if (mystagogueFlashlight)
+			if (Main.player[Main.myPlayer].MystagogueFlashlight)
 			{
 				Vector2 vector = default(Vector2);
 				vector.X = (float)Main.mouseX + Main.screenPosition.X;
-				bool flag = Main.player[Main.myPlayer].gravDir == 1f;
-				if (flag)
+				if (Main.player[Main.myPlayer].gravDir == 1f)
 				{
 					vector.Y = (float)Main.mouseY + Main.screenPosition.Y;
 				}
@@ -2617,58 +2739,44 @@ namespace Terraria
 					}
 				}
 			}
-			bool mystagogueRefills = Main.player[Main.myPlayer].MystagogueRefills;
-			if (mystagogueRefills)
+			if (Main.player[Main.myPlayer].MystagogueRefills)
 			{
 				foreach (Item item in Main.player[Main.myPlayer].inventory)
 				{
-					bool flag2 = !item.IsAir && item.favorited && item.stack < item.maxStack;
-					if (flag2)
+					if (!item.IsAir && item.favorited && item.stack < item.maxStack)
 					{
 						item.stack = item.maxStack;
 					}
 				}
 				foreach (Item item2 in Main.player[Main.myPlayer].miscEquips)
 				{
-					bool flag3 = !item2.IsAir && item2.favorited && item2.stack < item2.maxStack;
-					if (flag3)
+					if (!item2.IsAir && item2.favorited && item2.stack < item2.maxStack)
 					{
 						item2.stack = item2.maxStack;
 					}
 				}
 			}
-			bool flag4 = Main.player[Main.myPlayer].MystagogueBuffQueue == null;
-			if (flag4)
+			if (Main.player[Main.myPlayer].MystagogueBuffQueue == null)
 			{
 				Main.player[Main.myPlayer].MystagogueBuffQueue = new List<int>();
 			}
-			else
+			else if (Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0 && Mystagogue.BuffQueueTimer == 0)
 			{
-				bool flag5 = Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0 && Mystagogue.BuffQueueTimer == 0;
-				if (flag5)
-				{
-					Main.player[Main.myPlayer].AddBuff(Main.player[Main.myPlayer].MystagogueBuffQueue[0], int.MaxValue, true, false);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.RemoveAt(0);
-					Mystagogue.BuffQueueTimer = 10;
-				}
-				else
-				{
-					bool flag6 = Mystagogue.BuffQueueTimer > 0;
-					if (flag6)
-					{
-						Mystagogue.BuffQueueTimer--;
-					}
-				}
+				Main.player[Main.myPlayer].AddBuff(Main.player[Main.myPlayer].MystagogueBuffQueue[0], int.MaxValue, true, false);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.RemoveAt(0);
+				Mystagogue.BuffQueueTimer = 10;
 			}
-			bool flag7 = Main.player[Main.myPlayer].MystagoguePlayerMaxMinions <= 0;
-			if (flag7)
+			else if (Mystagogue.BuffQueueTimer > 0)
+			{
+				Mystagogue.BuffQueueTimer--;
+			}
+			if (Main.player[Main.myPlayer].MystagoguePlayerMaxMinions <= 0)
 			{
 				Main.player[Main.myPlayer].MystagoguePlayerMaxMinions = 1;
 			}
 			Main.player[Main.myPlayer].maxMinions = Main.player[Main.myPlayer].MystagoguePlayerMaxMinions;
 			Main.player[Main.myPlayer].maxTurrets = Main.player[Main.myPlayer].MystagoguePlayerMaxMinions;
-			bool flag8 = Main.player[Main.myPlayer].MystagogueSpeedBoost > 0;
-			if (flag8)
+			if (Main.player[Main.myPlayer].MystagogueSpeedBoost > 0)
 			{
 				Main.player[Main.myPlayer].moveSpeed = 1f + (float)Main.player[Main.myPlayer].MystagogueSpeedBoost * 1.6f;
 				Main.player[Main.myPlayer].runSlowdown += (float)Main.player[Main.myPlayer].MystagogueSpeedBoost * 0.03f;
@@ -2676,8 +2784,7 @@ namespace Terraria
 				Main.player[Main.myPlayer].maxFallSpeed += (float)Main.player[Main.myPlayer].MystagogueSpeedBoost * 7f;
 				Main.player[Main.myPlayer].jumpSpeedBoost = 0f + (float)Main.player[Main.myPlayer].MystagogueSpeedBoost * 2.5f;
 			}
-			bool mystagogueInfiniteFlight = Main.player[Main.myPlayer].MystagogueInfiniteFlight;
-			if (mystagogueInfiniteFlight)
+			if (Main.player[Main.myPlayer].MystagogueInfiniteFlight)
 			{
 				Main.player[Main.myPlayer].wingTime = 30f;
 				Main.player[Main.myPlayer].rocketTime = 30;
@@ -2685,12 +2792,10 @@ namespace Terraria
 			Main.player[Main.myPlayer].manaCost = 1f - Main.player[Main.myPlayer].MystagogueManaCostDeduction;
 			Main.player[Main.myPlayer].waterWalk = Main.player[Main.myPlayer].MystagogueJesus;
 			Main.player[Main.myPlayer].creativeGodMode = Main.player[Main.myPlayer].MystagogueGod;
-			bool flag9 = Main.player[Main.myPlayer].MystagogueBuddha > 0 && !Main.player[Main.myPlayer].dead;
-			if (flag9)
+			if (Main.player[Main.myPlayer].MystagogueBuddha > 0 && !Main.player[Main.myPlayer].dead)
 			{
 				Main.player[Main.myPlayer].statLife += (int)Math.Floor((double)Main.player[Main.myPlayer].MystagogueBuddha / 60.0);
-				bool flag10 = Mystagogue.BuddhaCounter >= 60 / (Main.player[Main.myPlayer].MystagogueBuddha % 60);
-				if (flag10)
+				if (Mystagogue.BuddhaCounter >= 60 / (Main.player[Main.myPlayer].MystagogueBuddha % 60))
 				{
 					Main.player[Main.myPlayer].statLife++;
 					Mystagogue.BuddhaCounter = 0;
@@ -2700,32 +2805,24 @@ namespace Terraria
 					Mystagogue.BuddhaCounter++;
 				}
 			}
-			bool flag11 = Mystagogue.PlayerRefreshTimer > 0;
-			if (flag11)
+			if (Mystagogue.PlayerRefreshTimer > 0)
 			{
 				Mystagogue.PlayerRefreshTimer--;
+				return;
 			}
-			else
+			if (Mystagogue.PlayerRefreshTimer == 0)
 			{
-				bool flag12 = Mystagogue.PlayerRefreshTimer == 0;
-				if (flag12)
+				Mystagogue.TrySyncingMyPlayer();
+				if (Main.player[Main.myPlayer].MystagogueToolGod)
 				{
-					Mystagogue.TrySyncingMyPlayer();
-					bool mystagogueToolGod = Main.player[Main.myPlayer].MystagogueToolGod;
-					if (mystagogueToolGod)
-					{
-						Mystagogue.BuffMyTools();
-					}
-					Mystagogue.PlayerRefreshTimer = -1;
+					Mystagogue.BuffMyTools();
 				}
-				else
-				{
-					bool flag13 = Mystagogue.PlayerRefreshTimer == -1 && (Main.player[Main.myPlayer].MystagogueBuddha > 0 || Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0 || Main.player[Main.myPlayer].MystagogueGod || Main.player[Main.myPlayer].MystagogueKillDebuffs || Main.player[Main.myPlayer].MystagogueManaCostDeduction > 0f || Main.player[Main.myPlayer].MystagogueNoRespawnTimer || Main.player[Main.myPlayer].MystagoguePlayerMaxMinions != 1 || Main.player[Main.myPlayer].MystagogueRefills || Main.player[Main.myPlayer].MystagogueSpeedBoost > 0 || Main.player[Main.myPlayer].MystagogueInfiniteFlight || Main.player[Main.myPlayer].MystagogueJesus || Main.player[Main.myPlayer].MystagogueToolGod);
-					if (flag13)
-					{
-						Mystagogue.PlayerRefreshTimer = 20;
-					}
-				}
+				Mystagogue.PlayerRefreshTimer = -1;
+				return;
+			}
+			if (Mystagogue.PlayerRefreshTimer == -1 && (Main.player[Main.myPlayer].MystagogueBuddha > 0 || Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0 || Main.player[Main.myPlayer].MystagogueGod || Main.player[Main.myPlayer].MystagogueKillDebuffs || Main.player[Main.myPlayer].MystagogueManaCostDeduction > 0f || Main.player[Main.myPlayer].MystagogueNoRespawnTimer || Main.player[Main.myPlayer].MystagoguePlayerMaxMinions != 1 || Main.player[Main.myPlayer].MystagogueRefills || Main.player[Main.myPlayer].MystagogueSpeedBoost > 0 || Main.player[Main.myPlayer].MystagogueInfiniteFlight || Main.player[Main.myPlayer].MystagogueJesus || Main.player[Main.myPlayer].MystagogueToolGod))
+			{
+				Mystagogue.PlayerRefreshTimer = 20;
 			}
 		}
 
@@ -2738,5 +2835,7 @@ namespace Terraria
 		private static int BuddhaCounter;
 
 		private static List<string> CommandArgs;
+
+		public static int ExtraSlots;
 	}
 }
