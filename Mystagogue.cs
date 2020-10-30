@@ -2442,7 +2442,11 @@ namespace Terraria
 						{
 							Main.player[Main.myPlayer].name,
 							" has played for ",
-							Main.ActivePlayerFileData.GetPlayTime(),
+							Main.ActivePlayerFileData.GetPlayTime().TotalHours,
+							":",
+							Main.ActivePlayerFileData.GetPlayTime().Minutes,
+							":",
+							Main.ActivePlayerFileData.GetPlayTime().Seconds,
 							" (",
 							Main.ActivePlayerFileData.GetPlayTime().Ticks,
 							")"
@@ -2476,7 +2480,11 @@ namespace Terraria
 					{
 						Main.player[Main.myPlayer].name,
 						" had their playtime set to ",
-						Main.ActivePlayerFileData.GetPlayTime(),
+						Main.ActivePlayerFileData.GetPlayTime().TotalHours,
+						":",
+						Main.ActivePlayerFileData.GetPlayTime().Minutes,
+						":",
+						Main.ActivePlayerFileData.GetPlayTime().Seconds,
 						" (",
 						Main.ActivePlayerFileData.GetPlayTime().Ticks,
 						")"
