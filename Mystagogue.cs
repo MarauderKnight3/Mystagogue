@@ -2434,6 +2434,54 @@ namespace Terraria
 					}
 					Mystagogue.Output("You " + str + " have eaten a demon heart");
 				});
+				dictionary.Add("charactertime", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output(string.Concat(new object[]
+						{
+							Main.player[Main.myPlayer].name,
+							" has played for ",
+							Main.ActivePlayerFileData.GetPlayTime(),
+							" (",
+							Main.ActivePlayerFileData.GetPlayTime().Ticks,
+							")"
+						}));
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					long ticks = 0L;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 18)
+						{
+							ticks = long.MaxValue;
+						}
+						else
+						{
+							ticks = long.Parse(text3);
+						}
+					}
+					Main.ActivePlayerFileData.MystagoguePTOp(ticks);
+					Mystagogue.Output(string.Concat(new object[]
+					{
+						Main.player[Main.myPlayer].name,
+						" had their playtime set to ",
+						Main.ActivePlayerFileData.GetPlayTime(),
+						" (",
+						Main.ActivePlayerFileData.GetPlayTime().Ticks,
+						")"
+					}));
+				});
 				for (int j = 0; j < dictionary.Count; j++)
 				{
 					if (dictionary.ElementAt(j).Key == Mystagogue.CommandArgs[0])
