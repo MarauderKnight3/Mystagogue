@@ -2449,30 +2449,87 @@ namespace Terraria
 							Main.ActivePlayerFileData.GetPlayTime().Seconds,
 							" (",
 							Main.ActivePlayerFileData.GetPlayTime().Ticks,
-							")"
+							"). To change this, you can input as a first parameter either ticks (60 per second) or a timespan with up to 10675199 hours (hhhh...:mm:ss)."
 						}));
 						return;
 					}
+					long ticks = 0L;
 					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
 					{
-						Mystagogue.Output("Must be a positive integer");
-						return;
-					}
-					string text3 = Mystagogue.CommandArgs[1];
-					while (text3.StartsWith("0"))
-					{
-						text3 = text3.Remove(0, 1);
-					}
-					long ticks = 0L;
-					if (text3.Length != 0)
-					{
-						if (text3.Length > 18)
+						if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1].Replace(":", "")))
 						{
-							ticks = long.MaxValue;
+							Mystagogue.Output("You can input as a first parameter either ticks (60 per second) or a timespan format with up to 10675199 hours (hhhh...:mm:ss).");
+							return;
 						}
-						else
+						if (Mystagogue.CommandArgs[1].Length + 2 != Mystagogue.CommandArgs[1].Replace(":", "").Length)
 						{
-							ticks = long.Parse(text3);
+							Mystagogue.Output("Not enough/Too many semicolons. You can input as a first parameter either ticks (60 per second) or a timespan format with up to 10675199 hours (hhhh...:mm:ss).");
+							return;
+						}
+						List<string> list = Mystagogue.CommandArgs[1].Split(new char[]
+						{
+							':'
+						}).ToList<string>();
+						List<int> list2 = new List<int>();
+						for (int k = 0; k < list.Count; k++)
+						{
+							while (list[k].StartsWith("0"))
+							{
+								list[k] = list[k].Remove(0, 1);
+							}
+							long num3 = 0L;
+							if (list[k].Length != 0)
+							{
+								if (list[k].Length > 10)
+								{
+									num3 = ((k == 0) ? 10675199L : 2147483647L);
+								}
+								else if (k == 0)
+								{
+									num3 = ((long.Parse(list[k]) > 10675199L) ? 10675199L : num3);
+								}
+								else
+								{
+									num3 = ((long.Parse(list[k]) > 2147483647L) ? 2147483647L : num3);
+								}
+							}
+							list2.Insert(k, (int)num3);
+						}
+						while (list2[2] > 59)
+						{
+							list2[1] = list2[1] + 1;
+							list2[2] = list2[2] - 60;
+						}
+						while (list2[1] > 59 && list2[0] < 10675199)
+						{
+							list2[0] = list2[0] + 1;
+							list2[1] = list2[1] - 60;
+						}
+						if (list2[1] > 59)
+						{
+							list2[1] = 59;
+							list2[2] = 59;
+						}
+						TimeSpan timeSpan = new TimeSpan(list2[0], list2[1], list2[2]);
+						ticks = timeSpan.Ticks;
+					}
+					else
+					{
+						string text3 = Mystagogue.CommandArgs[1];
+						while (text3.StartsWith("0"))
+						{
+							text3 = text3.Remove(0, 1);
+						}
+						if (text3.Length != 0)
+						{
+							if (text3.Length > 18)
+							{
+								ticks = long.MaxValue;
+							}
+							else
+							{
+								ticks = long.Parse(text3);
+							}
 						}
 					}
 					Main.ActivePlayerFileData.MystagoguePTOp(ticks);
