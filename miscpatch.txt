@@ -386,3 +386,32 @@ public void MystagoguePTOp(long ticks)
 		this._timer.Start();
 	}
 }
+
+
+//NPC.SpawnNPC() (replace calculations for spawn rate)
+
+				if (Main.player[k].MystagogueSpawnRate == 1)
+				{
+					if (Main.player[k].invis)
+					{
+						NPC.spawnRate = (int)((float)NPC.spawnRate * 1.2f);
+						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 0.8f);
+					}
+					if (Main.player[k].calmed)
+					{
+						NPC.spawnRate = (int)((float)NPC.spawnRate * 1.3f);
+						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 0.7f);
+					}
+					if (Main.player[k].sunflower)
+					{
+						NPC.spawnRate = (int)((float)NPC.spawnRate * 1.2f);
+						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 0.8f);
+					}
+					if (Main.player[k].enemySpawns)
+					{
+						NPC.spawnRate = (int)((double)NPC.spawnRate * 0.5);
+						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 2f);
+					}
+				}
+				NPC.spawnRate /= Main.player[k].MystagogueSpawnRate;
+				NPC.spawnRate *= Main.player[k].MystagogueSpawnRate;
