@@ -2547,6 +2547,49 @@ namespace Terraria
 						")"
 					}));
 				});
+				dictionary.Add("spawnrate", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Main.player[Main.myPlayer].MystagogueSpawnRate = 1;
+						Mystagogue.Output("Spawn Rate Multipler reset");
+						return;
+					}
+					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						Mystagogue.Output("Must be a positive integer");
+						return;
+					}
+					string text3 = Mystagogue.CommandArgs[1];
+					while (text3.StartsWith("0"))
+					{
+						text3 = text3.Remove(0, 1);
+					}
+					int num3 = 0;
+					if (text3.Length != 0)
+					{
+						if (text3.Length > 4)
+						{
+							num3 = 1000;
+						}
+						else
+						{
+							num3 = int.Parse(text3);
+							if (num3 > 1000)
+							{
+								num3 = 1000;
+							}
+						}
+					}
+					if (num3 == 1)
+					{
+						Main.player[Main.myPlayer].MystagogueSpawnRate = 1;
+						Mystagogue.Output("Spawn Rate Multiplier reset");
+						return;
+					}
+					Main.player[Main.myPlayer].MystagogueSpawnRate = num3;
+					Mystagogue.Output("Spawn Rate Multiplier set to " + num3);
+				});
 				for (int j = 0; j < dictionary.Count; j++)
 				{
 					if (dictionary.ElementAt(j).Key == Mystagogue.CommandArgs[0])
