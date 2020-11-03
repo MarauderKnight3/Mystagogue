@@ -2907,23 +2907,11 @@ namespace Terraria
 			Main.player[Main.myPlayer].creativeGodMode = Main.player[Main.myPlayer].MystagogueGod;
 			if (Main.player[Main.myPlayer].MystagogueBuddha > 0 && !Main.player[Main.myPlayer].dead)
 			{
-				if (60 / Main.player[Main.myPlayer].MystagogueBuddha > 1)
+				Mystagogue.BuddhaReservedHealth += (double)(Main.player[Main.myPlayer].MystagogueBuddha / 60);
+				if (Mystagogue.BuddhaReservedHealth >= 1.0)
 				{
-					Mystagogue.BuddhaReservedHealth += (double)(1 - 60 / Main.player[Main.myPlayer].MystagogueBuddha);
-					if (Mystagogue.BuddhaReservedHealth >= 1.0)
-					{
-						Mystagogue.BuddhaReservedHealth %= 1.0;
-						Main.player[Main.myPlayer].statLife += (int)Math.Floor(Mystagogue.BuddhaReservedHealth);
-					}
-				}
-				if (Mystagogue.BuddhaCounter >= 60 / Main.player[Main.myPlayer].MystagogueBuddha)
-				{
-					Main.player[Main.myPlayer].statLife++;
-					Mystagogue.BuddhaCounter = 0;
-				}
-				else
-				{
-					Mystagogue.BuddhaCounter++;
+					Mystagogue.BuddhaReservedHealth %= 1.0;
+					Main.player[Main.myPlayer].statLife += (int)Math.Floor(Mystagogue.BuddhaReservedHealth);
 				}
 			}
 			if (Mystagogue.PlayerRefreshTimer > 0)
