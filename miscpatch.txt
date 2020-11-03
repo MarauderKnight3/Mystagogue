@@ -11,6 +11,7 @@ public bool MystagogueNoRespawnTimer;
 public bool MystagogueP2PMapHack;
 public int MystagoguePlayerMaxMinions;
 public bool MystagogueRefills;
+public int MystagogueSpawnRate;
 public int MystagogueSpeedBoost;
 public int MystagogueTeleportSetting;
 public bool MystagogueToolGod;
