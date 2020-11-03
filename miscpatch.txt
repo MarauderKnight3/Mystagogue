@@ -389,30 +389,26 @@ public void MystagoguePTOp(long ticks)
 }
 
 
-//NPC.SpawnNPC() (replace calculations for spawn rate)
+//NPC.SpawnNPC() (add precarious statements)
 
-				if (Main.player[k].MystagogueSpawnRate == 1)
-				{
-					if (Main.player[k].invis)
-					{
-						NPC.spawnRate = (int)((float)NPC.spawnRate * 1.2f);
-						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 0.8f);
-					}
-					if (Main.player[k].calmed)
-					{
-						NPC.spawnRate = (int)((float)NPC.spawnRate * 1.3f);
-						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 0.7f);
-					}
-					if (Main.player[k].sunflower)
-					{
-						NPC.spawnRate = (int)((float)NPC.spawnRate * 1.2f);
-						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 0.8f);
-					}
-					if (Main.player[k].enemySpawns)
-					{
-						NPC.spawnRate = (int)((double)NPC.spawnRate * 0.5);
-						NPC.maxSpawns = (int)((float)NPC.maxSpawns * 2f);
+						}
+						else
+						{
+							if (!Main.expertMode || Main.rand.Next(30) != 0)
+							{
+								flag11 = true;
+							}
+							NPC.maxSpawns = (int)((double)((float)NPC.maxSpawns) * 0.6);
+						}
 					}
 				}
-				NPC.spawnRate /= Main.player[k].MystagogueSpawnRate;
-				NPC.spawnRate *= Main.player[k].MystagogueSpawnRate;
+				bool flag15 = false;
+								NPC.spawnRate /= Main.player[k].MystagogueSpawnRate;
+								NPC.spawnRate *= Main.player[k].MystagogueSpawnRate;
+				if (Main.player[k].active && !Main.player[k].dead && Main.player[k].nearbyActiveNPCs < (float)NPC.maxSpawns && Main.rand.Next(NPC.spawnRate) == 0)
+				{
+					bool flag16 = Main.player[k].ZoneTowerNebula || Main.player[k].ZoneTowerSolar || Main.player[k].ZoneTowerStardust || Main.player[k].ZoneTowerVortex;
+					NPC.spawnRangeX = (int)((double)(NPC.sWidth / 16) * 0.7);
+					NPC.spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
+					NPC.safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
+					NPC.safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
