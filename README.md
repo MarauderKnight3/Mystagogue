@@ -110,6 +110,8 @@ spawnrate (Edit the spawnrate and max NPCs multiplier, from 0 up to 1000. Really
 
 npc (Spawn an NPC of a type, or of a name, at the cursor. Should work on multiplayer.)
 
+searchnpc (Returns ID of all NPCs with a name containing the concatenated arguments.)  
+
 tps (Teleport setting (numerical). Options 0-2.)
 <br />
 <br />
