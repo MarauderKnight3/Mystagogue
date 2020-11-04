@@ -2590,6 +2590,127 @@ namespace Terraria
 					Main.player[Main.myPlayer].MystagogueSpawnRate = num3;
 					Mystagogue.Output("Spawn Rate Multiplier set to " + num3);
 				});
+				dictionary.Add("npc", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
+					{
+						Mystagogue.Output("That command requires arguments");
+						return;
+					}
+					int k = 0;
+					List<string> list = new List<string>();
+					if (!new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+					{
+						string text3 = Mystagogue.CommandArgs[1];
+						while (text3.StartsWith("0"))
+						{
+							text3 = text3.Remove(0, 1);
+						}
+						while (text3 != k.ToString())
+						{
+							if (k == 665)
+							{
+								Mystagogue.Output("Given item ID does not correspond to an item");
+								return;
+							}
+							k++;
+						}
+						for (int l = 0; l < Mystagogue.CommandArgs.Count - 2; l++)
+						{
+							list.Add(Mystagogue.CommandArgs[2 + l]);
+						}
+					}
+					else
+					{
+						k = 1;
+						List<int> list2 = new List<int>();
+						while (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[k]))
+						{
+							k++;
+							if (k == Mystagogue.CommandArgs.Count)
+							{
+								break;
+							}
+						}
+						string text4 = string.Join(" ", Mystagogue.CommandArgs.GetRange(1, k - 1)).ToUpper();
+						int num3 = k;
+						while (Mystagogue.CommandArgs.Count - num3 != 0)
+						{
+							list.Add(Mystagogue.CommandArgs[num3]);
+							num3++;
+						}
+						for (k = 0; k < 665; k++)
+						{
+							if (Lang.GetNPCNameValue(k).ToUpper().StartsWith(text4))
+							{
+								list2.Add(k);
+							}
+						}
+						if (list2.Count == 0)
+						{
+							Mystagogue.Output("No NPC names match");
+							return;
+						}
+						if (list2.Count > 1)
+						{
+							List<string> list3 = new List<string>();
+							foreach (int netID in list2)
+							{
+								list3.Add(Lang.GetNPCNameValue(netID).ToUpper());
+							}
+							List<string> list4 = new List<string>();
+							foreach (int num4 in list2)
+							{
+								list4.Add(string.Concat(new object[]
+								{
+									Lang.GetNPCNameValue(num4),
+									" (",
+									num4,
+									")"
+								}));
+							}
+							bool flag3 = false;
+							for (int m = 0; m < list3.Count; m++)
+							{
+								if (list3[m] == text4)
+								{
+									k = list2[m];
+									list4.RemoveAt(m);
+									Mystagogue.Output("Other matches include " + string.Join(", ", list4));
+									break;
+								}
+								if (m + 1 == list2.Count && !flag3)
+								{
+									Mystagogue.Output("Found " + string.Join(", ", list4));
+									return;
+								}
+							}
+						}
+						else
+						{
+							k = list2[0];
+						}
+					}
+					Vector2 vector = default(Vector2);
+					vector.X = (float)Main.mouseX + Main.screenPosition.X;
+					if (Main.player[Main.myPlayer].gravDir == 1f)
+					{
+						vector.Y = (float)Main.mouseY + Main.screenPosition.Y;
+					}
+					else
+					{
+						vector.Y = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
+					}
+					int num5 = NPC.NewNPC((int)Math.Round((double)vector.X), (int)Math.Round((double)vector.Y), k, 0, 0f, 0f, 0f, 0f, 255);
+					Mystagogue.Output(string.Concat(new object[]
+					{
+						"Spawned new ",
+						Lang.GetNPCNameValue(Main.npc[num5].type),
+						" (",
+						k,
+						")"
+					}));
+				});
 				for (int j = 0; j < dictionary.Count; j++)
 				{
 					if (dictionary.ElementAt(j).Key == Mystagogue.CommandArgs[0])
