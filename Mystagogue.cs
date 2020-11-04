@@ -2212,41 +2212,6 @@ namespace Terraria
 					}
 					Mystagogue.Output("You " + str + " respawn instantly after death");
 				});
-				dictionary.Add("tps", delegate
-				{
-					if (Mystagogue.CommandArgs.Count > 1)
-					{
-						if (Mystagogue.CommandArgs[1] == "0")
-						{
-							Main.player[Main.myPlayer].MystagogueTeleportSetting = 0;
-							Mystagogue.Output("Guess you can't teleport. Shame...");
-							return;
-						}
-						if (Mystagogue.CommandArgs[1] == "1")
-						{
-							Main.player[Main.myPlayer].MystagogueTeleportSetting = 1;
-							Mystagogue.Output("Right click to teleport");
-							return;
-						}
-						if (Mystagogue.CommandArgs[1] == "2")
-						{
-							Main.player[Main.myPlayer].MystagogueTeleportSetting = 2;
-							Mystagogue.Output("Rapid teleport active. Right click to break the sound barrier");
-							return;
-						}
-					}
-					else
-					{
-						if (Main.player[Main.myPlayer].MystagogueTeleportSetting == 0)
-						{
-							Main.player[Main.myPlayer].MystagogueTeleportSetting = 1;
-							Mystagogue.Output("Right click to teleport");
-							return;
-						}
-						Main.player[Main.myPlayer].MystagogueTeleportSetting = 0;
-						Mystagogue.Output("Guess you can't teleport. Shame...");
-					}
-				});
 				dictionary.Add("copyme", delegate
 				{
 					Player player = Main.player[Main.myPlayer].Duplicate();
@@ -2790,6 +2755,41 @@ namespace Terraria
 						}));
 					}
 					Mystagogue.Output("Found " + string.Join(", ", list2));
+				});
+				dictionary.Add("tps", delegate
+				{
+					if (Mystagogue.CommandArgs.Count > 1)
+					{
+						if (Mystagogue.CommandArgs[1] == "0")
+						{
+							Main.player[Main.myPlayer].MystagogueTeleportSetting = 0;
+							Mystagogue.Output("Guess you can't teleport. Shame...");
+							return;
+						}
+						if (Mystagogue.CommandArgs[1] == "1")
+						{
+							Main.player[Main.myPlayer].MystagogueTeleportSetting = 1;
+							Mystagogue.Output("Right click to teleport");
+							return;
+						}
+						if (Mystagogue.CommandArgs[1] == "2")
+						{
+							Main.player[Main.myPlayer].MystagogueTeleportSetting = 2;
+							Mystagogue.Output("Rapid teleport active. Right click to break the sound barrier");
+							return;
+						}
+					}
+					else
+					{
+						if (Main.player[Main.myPlayer].MystagogueTeleportSetting == 0)
+						{
+							Main.player[Main.myPlayer].MystagogueTeleportSetting = 1;
+							Mystagogue.Output("Right click to teleport");
+							return;
+						}
+						Main.player[Main.myPlayer].MystagogueTeleportSetting = 0;
+						Mystagogue.Output("Guess you can't teleport. Shame...");
+					}
 				});
 				for (int j = 0; j < dictionary.Count; j++)
 				{
