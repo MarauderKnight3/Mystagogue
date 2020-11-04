@@ -1933,16 +1933,16 @@ namespace Terraria
 					int num3 = 0;
 					if (text3.Length != 0)
 					{
-						if (text3.Length > 5)
+						if (text3.Length > 6)
 						{
-							num3 = 36000;
+							num3 = 200000;
 						}
 						else
 						{
 							num3 = int.Parse(text3);
-							if (num3 > 36000)
+							if (num3 > 200000)
 							{
-								num3 = 36000;
+								num3 = 200000;
 							}
 						}
 					}
@@ -3154,8 +3154,8 @@ namespace Terraria
 				Mystagogue.BuddhaReservedHealth += (double)(Main.player[Main.myPlayer].MystagogueBuddha / 60);
 				if (Mystagogue.BuddhaReservedHealth >= 1.0)
 				{
-					Mystagogue.BuddhaReservedHealth %= 1.0;
 					Main.player[Main.myPlayer].statLife += (int)Math.Floor(Mystagogue.BuddhaReservedHealth);
+					Mystagogue.BuddhaReservedHealth %= 1.0;
 				}
 			}
 			if (Mystagogue.PlayerRefreshTimer > 0)
@@ -3185,9 +3185,7 @@ namespace Terraria
 
 		public static int FirstFreedRecipeSlot;
 
-		private static int BuddhaCounter;
-
-		private static List<string> CommandArgs;
+		public static List<string> CommandArgs;
 
 		public static int ExtraSlots;
 
