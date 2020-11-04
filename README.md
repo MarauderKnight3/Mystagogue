@@ -106,6 +106,8 @@ demonheart (Toggle whether your character ate a demon heart yet.)
 
 charactertime (Set the time the current character has played in ticks (60 ticks a second) up to 999999999999999999 ticks, or a timespan of up to 10675199:59:59, which timespans can be inputted as hhhh...:mm:ss)
 
+spawnrate (Edit the spawnrate and max NPCs multiplier, up to 1000. Really starts to return diminishing returns around level 40.)
+
 tps (Teleport setting (numerical). Options 0-2.)
 <br />
 <br />
