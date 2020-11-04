@@ -2610,7 +2610,7 @@ namespace Terraria
 						{
 							if (k == 665)
 							{
-								Mystagogue.Output("Given item ID does not correspond to an item");
+								Mystagogue.Output("Given NPC ID does not correspond to an item");
 								return;
 							}
 							k++;
@@ -2691,6 +2691,32 @@ namespace Terraria
 							k = list2[0];
 						}
 					}
+					int num5 = 1;
+					if (list.Count >= 1)
+					{
+						if (new Regex("\\D").IsMatch(list[0]))
+						{
+							Mystagogue.Output("Amount must be a positive integer");
+							return;
+						}
+						string text5 = list[0];
+						while (text5.StartsWith("0"))
+						{
+							text5 = text5.Remove(0, 1);
+						}
+						if (text5.Length > 3)
+						{
+							num5 = 300;
+						}
+						else if (int.Parse(text5) > 300)
+						{
+							num5 = 300;
+						}
+						else if (text5.Length > 0)
+						{
+							num5 = int.Parse(text5);
+						}
+					}
 					Vector2 vector = default(Vector2);
 					vector.X = (float)Main.mouseX + Main.screenPosition.X;
 					if (Main.player[Main.myPlayer].gravDir == 1f)
@@ -2701,19 +2727,69 @@ namespace Terraria
 					{
 						vector.Y = Main.screenPosition.Y + (float)Main.screenHeight - (float)Main.mouseY;
 					}
-					int num5 = NPC.NewNPC((int)Math.Round((double)vector.X), (int)Math.Round((double)vector.Y), k, 0, 0f, 0f, 0f, 0f, 255);
+					int num6 = NPC.NewNPC((int)Math.Round((double)vector.X), (int)Math.Round((double)vector.Y), k, 0, 0f, 0f, 0f, 0f, 255);
+					if (Main.netMode != 0)
+					{
+						NetMessage.SendData(23, -1, -1, null, num6, 0f, 0f, 0f, 0, 0, 0);
+					}
+					if (num5 > 1)
+					{
+						for (int n = 1; n < num5; n++)
+						{
+							if (Main.netMode != 0)
+							{
+								NetMessage.SendData(23, -1, -1, null, NPC.NewNPC((int)Math.Round((double)vector.X), (int)Math.Round((double)vector.Y), k, 0, 0f, 0f, 0f, 0f, 255), 0f, 0f, 0f, 0, 0, 0);
+							}
+							else
+							{
+								NPC.NewNPC((int)Math.Round((double)vector.X), (int)Math.Round((double)vector.Y), k, 0, 0f, 0f, 0f, 0f, 255);
+							}
+						}
+					}
 					Mystagogue.Output(string.Concat(new object[]
 					{
-						"Spawned new ",
-						Lang.GetNPCNameValue(Main.npc[num5].type),
+						"Spawned ",
+						(num5 > 1) ? (num5 + " ") : "",
+						"new ",
+						Lang.GetNPCNameValue(Main.npc[num6].type),
 						" (",
 						k,
 						")"
 					}));
-					if (Main.netMode != 0)
+				});
+				dictionary.Add("searchnpc", delegate
+				{
+					if (Mystagogue.CommandArgs.Count == 1)
 					{
-						NetMessage.SendData(23, -1, -1, null, num5, 0f, 0f, 0f, 0, 0, 0);
+						Mystagogue.Output("That command requires arguments");
+						return;
 					}
+					List<int> list = new List<int>();
+					string value = string.Join(" ", Mystagogue.CommandArgs.GetRange(1, Mystagogue.CommandArgs.Count - 1)).ToUpper();
+					for (int k = 0; k < 665; k++)
+					{
+						if (Lang.GetNPCNameValue(k).ToUpper().Contains(value))
+						{
+							list.Add(k);
+						}
+					}
+					if (list.Count == 0)
+					{
+						Mystagogue.Output("No NPC names match");
+						return;
+					}
+					List<string> list2 = new List<string>();
+					foreach (int num3 in list)
+					{
+						list2.Add(string.Concat(new object[]
+						{
+							Lang.GetNPCNameValue(num3),
+							" (",
+							num3,
+							")"
+						}));
+					}
+					Mystagogue.Output("Found " + string.Join(", ", list2));
 				});
 				for (int j = 0; j < dictionary.Count; j++)
 				{
