@@ -2456,20 +2456,20 @@ namespace Terraria
 					long ticks = 0L;
 					if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
 					{
-						if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1].Replace(":", "")))
-						{
-							Mystagogue.Output("You can input as a first parameter either ticks (60 per second) or a timespan format with up to 10675199 hours (hhhh...:mm:ss).");
-							return;
-						}
-						if (Mystagogue.CommandArgs[1].Length + 2 != Mystagogue.CommandArgs[1].Replace(":", "").Length)
-						{
-							Mystagogue.Output("Not enough/Too many semicolons. You can input as a first parameter either ticks (60 per second) or a timespan format with up to 10675199 hours (hhhh...:mm:ss).");
-							return;
-						}
 						List<string> list = Mystagogue.CommandArgs[1].Split(new char[]
 						{
 							':'
 						}).ToList<string>();
+						if (new Regex("\\D").IsMatch(string.Join("", list)))
+						{
+							Mystagogue.Output("You can input as a first parameter either ticks (60 per second) or a timespan format with up to 10675199 hours (hhhh...:mm:ss).");
+							return;
+						}
+						if (list.Count != 3)
+						{
+							Mystagogue.Output("Not enough/Too many colons. You can input as a first parameter either ticks (60 per second) or a timespan format with up to 10675199 hours (hhhh...:mm:ss).");
+							return;
+						}
 						List<int> list2 = new List<int>();
 						for (int k = 0; k < list.Count; k++)
 						{
