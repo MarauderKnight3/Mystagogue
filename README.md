@@ -108,7 +108,7 @@ charactertime (Set the time the current character has played in ticks (60 ticks 
 
 spawnrate (Edit the spawnrate and max NPCs multiplier, from 0 up to 1000. Really starts to return diminishing returns around level 40.)
 
-npc (Spawn an NPC of a type, or of a name, at the cursor. Should work on multiplayer.)
+npc (Spawn an NPC of a type, or of a name, at the cursor. Second parameter determines how many should spawn at once. Should work on multiplayer.)
 
 searchnpc (Returns ID of all NPCs with a name containing the concatenated arguments.)  
 
