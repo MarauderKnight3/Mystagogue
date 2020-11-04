@@ -2671,11 +2671,11 @@ namespace Terraria
 						}
 						if (text5.Length > 3)
 						{
-							num5 = 300;
+							num5 = 200;
 						}
-						else if (int.Parse(text5) > 300)
+						else if (int.Parse(text5) > 200)
 						{
-							num5 = 300;
+							num5 = 200;
 						}
 						else if (text5.Length > 0)
 						{
