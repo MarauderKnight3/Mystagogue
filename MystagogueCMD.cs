@@ -21,6 +21,7 @@ namespace Terraria
 
 		static MystagogueCMD()
 		{
+			MystagogueCMD.tags = new Dictionary<string, Func<Item, bool>>();
 			MystagogueCMD.tags.Add("block", (Item input) => input.createTile >= 0 && !Main.tileFrameImportant[input.createTile]);
 			MystagogueCMD.tags.Add("wall", (Item input) => input.createWall >= 0);
 			MystagogueCMD.tags.Add("object", (Item input) => input.createTile >= 0 && Main.tileFrameImportant[input.createTile]);
@@ -45,6 +46,23 @@ namespace Terraria
 			MystagogueCMD.tags.Add("fishing", (Item input) => input.fishingPole >= 1 || input.bait >= 1);
 			MystagogueCMD.tags.Add("expert", (Item input) => input.expert);
 			MystagogueCMD.tags.Add("depreciated", (Item input) => ItemID.Sets.Deprecated[input.type]);
+			new MystagogueCMD("help", "(Name of command when used to read about a command), Gives helpful information, a list of commands, and more. Put in a command as the first argument to read about that command.", delegate()
+			{
+				if (Mystagogue.CommandArgs.Count > 1 && MystagogueCMD.library.ContainsKey(Mystagogue.CommandArgs[1]))
+				{
+					Mystagogue.Output("You chose to read about [" + Mystagogue.CommandArgs[1] + "].\n>> " + MystagogueCMD.library[Mystagogue.CommandArgs[1]].desc, false);
+					return;
+				}
+				Mystagogue.Output(string.Concat(new object[]
+				{
+					"Thank you for using Mystagogue by MarauderKnight3!\nCommands are specified by two trailing semicolons (;;) at the end of an input while a valid command is already typed out. When this is detected, the command will be run and the chat input will be cleared, but not closed. You do not need to press enter.\nThere are ",
+					MystagogueCMD.library.Count,
+					" commands loaded.\nList of commands: [",
+					string.Join("], [", new List<string>(MystagogueCMD.library.Keys)),
+					"]"
+				}), false);
+			});
+			new MystagogueCMD("?", MystagogueCMD.library["help"].desc, MystagogueCMD.library["help"].func);
 			new MystagogueCMD("s", "(No arguments) Executes [god], [killdebuffs], [tps], [refills], [infflight], [boost] 7, [p2pmaphack], [maxminions 200], [toolgod], and [jesus] in that order.", delegate()
 			{
 				Mystagogue.Command("god;;");
@@ -211,9 +229,9 @@ namespace Terraria
 					{
 						string value = list[1].ToUpper();
 						List<int> list5 = new List<int>();
-						for (i = 0; i < MystagogueCMD.array.Length; i++)
+						for (i = 0; i < MystagogueCMD.Prefixes.Length; i++)
 						{
-							if (MystagogueCMD.array[i].ToUpper().StartsWith(value) && i != 75 && i != 43 && i != 76)
+							if (MystagogueCMD.Prefixes[i].ToUpper().StartsWith(value) && i != 75 && i != 43 && i != 76)
 							{
 								list5.Add(i);
 							}
@@ -230,7 +248,7 @@ namespace Terraria
 							{
 								list6.Add(string.Concat(new object[]
 								{
-									MystagogueCMD.array[num5],
+									MystagogueCMD.Prefixes[num5],
 									" (",
 									num5,
 									")"
@@ -283,7 +301,7 @@ namespace Terraria
 				string text5 = "";
 				if (Main.mouseItem.prefix > 0)
 				{
-					text5 = " " + MystagogueCMD.array[(int)Main.mouseItem.prefix];
+					text5 = " " + MystagogueCMD.Prefixes[(int)Main.mouseItem.prefix];
 				}
 				Mystagogue.Output(string.Concat(new object[]
 				{
@@ -552,9 +570,9 @@ namespace Terraria
 				{
 					string value = Mystagogue.CommandArgs[1].ToUpper();
 					List<int> list = new List<int>();
-					for (i = 0; i < MystagogueCMD.array.Length; i++)
+					for (i = 0; i < MystagogueCMD.Prefixes.Length; i++)
 					{
-						if (MystagogueCMD.array[i].ToUpper().StartsWith(value) && i != 75 && i != 43 && i != 76)
+						if (MystagogueCMD.Prefixes[i].ToUpper().StartsWith(value) && i != 75 && i != 43 && i != 76)
 						{
 							list.Add(i);
 						}
@@ -571,7 +589,7 @@ namespace Terraria
 						{
 							list2.Add(string.Concat(new object[]
 							{
-								MystagogueCMD.array[num],
+								MystagogueCMD.Prefixes[num],
 								" (",
 								num,
 								")"
@@ -620,7 +638,7 @@ namespace Terraria
 				string text2 = "";
 				if (Main.mouseItem.prefix > 0)
 				{
-					text2 = " " + MystagogueCMD.array[(int)Main.mouseItem.prefix];
+					text2 = " " + MystagogueCMD.Prefixes[(int)Main.mouseItem.prefix];
 				}
 				Mystagogue.Output(string.Concat(new object[]
 				{
@@ -2582,7 +2600,9 @@ namespace Terraria
 
 		public static Dictionary<string, MystagogueCMD> library = new Dictionary<string, MystagogueCMD>();
 
-		private static string[] array = new string[]
+		private static Dictionary<string, Func<Item, bool>> tags;
+
+		private static string[] Prefixes = new string[]
 		{
 			"Basic",
 			"Large",
@@ -2669,7 +2689,5 @@ namespace Terraria
 			"Unreal",
 			"Mythical"
 		};
-
-		private static Dictionary<string, Func<Item, bool>> tags = new Dictionary<string, Func<Item, bool>>();
 	}
 }
