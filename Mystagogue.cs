@@ -111,69 +111,6 @@ namespace Terraria
 			}
 		}
 
-		public static void Command(string raw)
-		{
-			if (raw.EndsWith(";;") && raw.Length > 2)
-			{
-				Mystagogue.CommandArgs = raw.Substring(0, raw.Length - 2).Split(new char[]
-				{
-					' '
-				}).ToList<string>();
-				for (;;)
-				{
-					IL_45:
-					int num = 0;
-					int num2 = 0;
-					bool flag = false;
-					foreach (string text in Mystagogue.CommandArgs)
-					{
-						if (text.StartsWith("\"") && text.EndsWith("\"") && text.Length > 2)
-						{
-							Mystagogue.CommandArgs[num] = Mystagogue.CommandArgs[num].Substring(1, Mystagogue.CommandArgs[num].Length - 2);
-							goto IL_45;
-						}
-						if (text.StartsWith("\"") && !flag)
-						{
-							num2 = num;
-							flag = true;
-						}
-						else if (text.EndsWith("\"") && flag)
-						{
-							string text2 = Mystagogue.CommandArgs[num2];
-							for (int i = 0; i < num - num2; i++)
-							{
-								text2 = text2 + " " + Mystagogue.CommandArgs[1 + num2];
-								Mystagogue.CommandArgs.RemoveAt(1 + num2);
-							}
-							Mystagogue.CommandArgs[num2] = text2.Substring(1, text2.Length - 2);
-							if (string.IsNullOrWhiteSpace(Mystagogue.CommandArgs[num2]))
-							{
-								Mystagogue.CommandArgs.RemoveAt(num2);
-							}
-							goto IL_45;
-						}
-						num++;
-					}
-					break;
-				}
-				Mystagogue.CommandArgs = (from arg in Mystagogue.CommandArgs
-				where !string.IsNullOrWhiteSpace(arg)
-				select arg).ToList<string>();
-				Mystagogue.CommandArgs[0] = Mystagogue.CommandArgs[0].ToLower();
-				for (int j = 0; j < MystagogueCMD.library.Count; j++)
-				{
-					if (MystagogueCMD.library.ElementAt(j).Key == Mystagogue.CommandArgs[0])
-					{
-						MystagogueCMD.library[Mystagogue.CommandArgs[0]].func();
-						Main.chatText = "";
-						break;
-					}
-				}
-				Mystagogue.PlayerRefreshTimer = -1;
-				Mystagogue.TrySyncingMyPlayer();
-			}
-		}
-
 		private static void TrySyncingMyPlayer()
 		{
 			if (Main.netMode != 0)
@@ -545,7 +482,79 @@ namespace Terraria
 		{
 			if (Main.chatText == "/help" || Main.chatText == "/?")
 			{
-				Mystagogue.Command("help;;");
+				Mystagogue.Command("help;;", false);
+			}
+		}
+
+		public static void Command(string raw, bool clear)
+		{
+			if (raw.EndsWith(";;") && raw.Length > 2)
+			{
+				Mystagogue.CommandArgs = raw.Substring(0, raw.Length - 2).Split(new char[]
+				{
+					' '
+				}).ToList<string>();
+				for (;;)
+				{
+					IL_45:
+					int num = 0;
+					int num2 = 0;
+					bool flag = false;
+					foreach (string text in Mystagogue.CommandArgs)
+					{
+						if (text.StartsWith("\"") && text.EndsWith("\"") && text.Length > 2)
+						{
+							Mystagogue.CommandArgs[num] = Mystagogue.CommandArgs[num].Substring(1, Mystagogue.CommandArgs[num].Length - 2);
+							goto IL_45;
+						}
+						if (text.StartsWith("\"") && !flag)
+						{
+							num2 = num;
+							flag = true;
+						}
+						else if (text.EndsWith("\"") && flag)
+						{
+							string text2 = Mystagogue.CommandArgs[num2];
+							for (int i = 0; i < num - num2; i++)
+							{
+								text2 = text2 + " " + Mystagogue.CommandArgs[1 + num2];
+								Mystagogue.CommandArgs.RemoveAt(1 + num2);
+							}
+							Mystagogue.CommandArgs[num2] = text2.Substring(1, text2.Length - 2);
+							if (string.IsNullOrWhiteSpace(Mystagogue.CommandArgs[num2]))
+							{
+								Mystagogue.CommandArgs.RemoveAt(num2);
+							}
+							goto IL_45;
+						}
+						num++;
+					}
+					break;
+				}
+				Mystagogue.CommandArgs = (from arg in Mystagogue.CommandArgs
+				where !string.IsNullOrWhiteSpace(arg)
+				select arg).ToList<string>();
+				Mystagogue.CommandArgs[0] = Mystagogue.CommandArgs[0].ToLower();
+				int j = 0;
+				while (j < MystagogueCMD.library.Count)
+				{
+					if (MystagogueCMD.library.ElementAt(j).Key == Mystagogue.CommandArgs[0])
+					{
+						MystagogueCMD.library[Mystagogue.CommandArgs[0]].func();
+						if (clear)
+						{
+							Main.chatText = "";
+							break;
+						}
+						break;
+					}
+					else
+					{
+						j++;
+					}
+				}
+				Mystagogue.PlayerRefreshTimer = -1;
+				Mystagogue.TrySyncingMyPlayer();
 			}
 		}
 

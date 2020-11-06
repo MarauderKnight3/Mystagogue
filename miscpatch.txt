@@ -278,7 +278,7 @@ if (a != Main.chatText)
 {
     SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
 }
-                                                                                Mystagogue.Command(Main.chatText);
+                                                                                Mystagogue.Command(Main.chatText, true);
 if (Main.inputTextEnter && Main.chatRelease)
 {
 	if (Main.chatText != "")
@@ -404,8 +404,8 @@ public void MystagoguePTOp(long ticks)
 					}
 				}
 				bool flag15 = false;
-								NPC.spawnRate /= Main.player[k].MystagogueSpawnRate;
-								NPC.maxSpawns *= Main.player[k].MystagogueSpawnRate;
+													NPC.spawnRate = ((Main.player[k].MystagogueSpawnRate != 0) ? (NPC.spawnRate / Main.player[k].MystagogueSpawnRate) : 0);
+													NPC.maxSpawns *= Main.player[k].MystagogueSpawnRate;
 				if (Main.player[k].active && !Main.player[k].dead && Main.player[k].nearbyActiveNPCs < (float)NPC.maxSpawns && Main.rand.Next(NPC.spawnRate) == 0)
 				{
 					bool flag16 = Main.player[k].ZoneTowerNebula || Main.player[k].ZoneTowerSolar || Main.player[k].ZoneTowerStardust || Main.player[k].ZoneTowerVortex;

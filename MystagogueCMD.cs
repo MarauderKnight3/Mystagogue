@@ -65,16 +65,16 @@ namespace Terraria
 			new MystagogueCMD("?", MystagogueCMD.library["help"].desc, MystagogueCMD.library["help"].func);
 			new MystagogueCMD("s", "(No arguments) Executes [god], [killdebuffs], [tps], [refills], [infflight], [boost] 7, [p2pmaphack], [maxminions 200], [toolgod], and [jesus] in that order.", delegate()
 			{
-				Mystagogue.Command("god;;");
-				Mystagogue.Command("killdebuffs;;");
-				Mystagogue.Command("tps;;");
-				Mystagogue.Command("refills;;");
-				Mystagogue.Command("infflight;;");
-				Mystagogue.Command("boost 7;;");
-				Mystagogue.Command("p2pmaphack;;");
-				Mystagogue.Command("maxminions 200;;");
-				Mystagogue.Command("toolgod;;");
-				Mystagogue.Command("jesus;;");
+				Mystagogue.Command("god;;", false);
+				Mystagogue.Command("killdebuffs;;", false);
+				Mystagogue.Command("tps;;", false);
+				Mystagogue.Command("refills;;", false);
+				Mystagogue.Command("infflight;;", false);
+				Mystagogue.Command("boost 7;;", false);
+				Mystagogue.Command("p2pmaphack;;", false);
+				Mystagogue.Command("maxminions 200;;", false);
+				Mystagogue.Command("toolgod;;", false);
+				Mystagogue.Command("jesus;;", false);
 			});
 			new MystagogueCMD("i", "(Name-Concatenated/ID, Stack, Prefix) Spawns an item by converting your currently held cursor item (or thin air) to it.", delegate()
 			{
