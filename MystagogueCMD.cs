@@ -2625,6 +2625,87 @@ namespace Terraria
 				}
 				Main.windSpeedTarget = (float)num / 50f;
 				Mystagogue.Output("Wind Speed set to " + num, false);
+				NetMessage.TrySendData(7, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
+			});
+			new MystagogueCMD("time", "(New time) Sets the world's time, as a time span 24 hour format.", delegate()
+			{
+				if (Mystagogue.CommandArgs.Count < 3)
+				{
+					Mystagogue.Output("That command requires arguments", false);
+					return;
+				}
+				List<string> list = Mystagogue.CommandArgs[1].Split(new char[]
+				{
+					':'
+				}).ToList<string>();
+				if (new Regex("\\D").IsMatch(string.Join("", list)))
+				{
+					Mystagogue.Output("You can input as a first parameter a timespan with up to 24 hours (hh:mm).", false);
+					return;
+				}
+				if (list.Count != 2)
+				{
+					Mystagogue.Output("Not enough/Too many colons. You can input as a first parameter a timespan with up to 24 hours (hh:mm).", false);
+					return;
+				}
+				List<int> list2 = new List<int>();
+				for (int i = 0; i < list.Count; i++)
+				{
+					while (list[i].StartsWith("0"))
+					{
+						list[i] = list[i].Remove(0, 1);
+					}
+					long num = 0L;
+					if (list[i].Length != 0)
+					{
+						if (list[i].Length > 10)
+						{
+							num = ((i == 0) ? 24L : 2147483647L);
+						}
+						else if (i == 0)
+						{
+							num = ((long.Parse(list[i]) > 24L) ? 24L : num);
+						}
+						else
+						{
+							num = ((long.Parse(list[i]) > 2147483647L) ? 2147483647L : num);
+						}
+					}
+					list2.Insert(i, (int)num);
+				}
+				while (list2[1] > 59 && list2[0] < 24)
+				{
+					list2[0] = list2[0] + 1;
+					list2[1] = list2[1] - 60;
+				}
+				if (list2[1] > 59)
+				{
+					list2[1] = 59;
+				}
+				bool flag = ((list2[0] == 4 && list2[1] >= 30) || list2[0] > 4) && ((list2[0] == 19 && list2[1] <= 29) || list2[0] < 19);
+				if (flag)
+				{
+					list2[0] = list2[0] - 4;
+					list2[1] = list2[0] - 30;
+				}
+				else if (list2[0] <= 4)
+				{
+					list2[0] = list2[0] + 5;
+					list2[1] = list2[0] + 30;
+				}
+				else
+				{
+					list2[0] = list2[0] - 19;
+					list2[1] = list2[0] - 30;
+				}
+				Main.SkipToTime(list2[0] * 60 * 60 + list2[1] * 60, flag);
+				Mystagogue.Output(string.Concat(new object[]
+				{
+					"Time set to ",
+					list2[0],
+					":",
+					list2[1]
+				}), false);
 			});
 		}
 
