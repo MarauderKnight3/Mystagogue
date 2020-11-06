@@ -541,15 +541,12 @@ namespace Terraria
 			Main.NewText(hideMystagogue ? "" : ("Mystagogue: " + raw), 92, 247, 172);
 		}
 
-		public static bool CatchWildHelpCommand(string raw)
+		public static void CatchWildHelpCommand()
 		{
-			if (raw == "/help" || raw == "/?")
+			if (Main.chatText == "/help" || Main.chatText == "/?")
 			{
-				Mystagogue.Output("Caught wild help command!", false);
-				Mystagogue.Command(raw + ";;");
-				return true;
+				Mystagogue.Command("help;;");
 			}
-			return false;
 		}
 
 		private static int BuffQueueTimer;

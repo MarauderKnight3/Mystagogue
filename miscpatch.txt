@@ -272,7 +272,7 @@ if (this.whoAmI == Main.myPlayer)
 this.mount.CheckMountBuff(this);
 
 
-// Main.DoUpdate_HandleChat() (add precarious statement, change precarious if condition)
+// Main.DoUpdate_HandleChat() (add precarious statement, add precarious statement)
 
 if (a != Main.chatText)
 {
@@ -281,8 +281,9 @@ if (a != Main.chatText)
                                                                                 Mystagogue.Command(Main.chatText);
 if (Main.inputTextEnter && Main.chatRelease)
 {
-    																			if (Main.chatText != "" && && !Mystagogue.CatchWildHelpCommand(Main.chatText))
+	if (Main.chatText != "")
     {
+																										Mystagogue.CatchWildHelpCommand();
         ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(Main.chatText);
         if (Main.netMode == 1)
         {
