@@ -2582,52 +2582,27 @@ namespace Terraria
 					return;
 				}
 			});
-			new MystagogueCMD("wind", "(New wind speed, negative for winds heading east to west labelled E and positive for winds heading west to east labelled W) Sets the wind speed and direction. Meant to help with achievements.", delegate()
+			new MystagogueCMD("wind", "(New wind speed, Direction for wind to come from- W or E) Sets the wind speed and direction. Meant to help with achievements.", delegate()
 			{
-				if (Mystagogue.CommandArgs.Count == 1)
+				if (Mystagogue.CommandArgs.Count < 3)
 				{
-					Mystagogue.Output("That command requires arguments", false);
+					Mystagogue.Output("That command requires both arguments", false);
 					return;
 				}
-				if ((new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1].Substring(1)) && Mystagogue.CommandArgs[1].StartsWith("-")) || new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+				if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
 				{
-					Mystagogue.Output("Must be an integer", false);
+					Mystagogue.Output("Must be a positive integer", false);
 					return;
 				}
 				string text = Mystagogue.CommandArgs[1];
-				if (text.StartsWith("-"))
+				while (text.StartsWith("0"))
 				{
-					while (text.Substring(1).StartsWith("0"))
-					{
-						text = text.Remove(1, 1);
-					}
-				}
-				else
-				{
-					while (text.StartsWith("0"))
-					{
-						text = text.Remove(0, 1);
-					}
+					text = text.Remove(0, 1);
 				}
 				int num = 0;
 				if (text.Length != 0)
 				{
-					if (text.StartsWith("-"))
-					{
-						if (text.Length > 3)
-						{
-							num = -59;
-						}
-						else
-						{
-							num = int.Parse(text);
-							if (num < -59)
-							{
-								num = -59;
-							}
-						}
-					}
-					else if (text.Length > 2)
+					if (text.Length > 2)
 					{
 						num = 59;
 					}
@@ -2640,8 +2615,15 @@ namespace Terraria
 						}
 					}
 				}
-				Main.windSpeedCurrent = (float)num;
-				Main.windSpeedTarget = (float)num;
+				if (Mystagogue.CommandArgs[2] != "W" && Mystagogue.CommandArgs[2] != "E")
+				{
+					Mystagogue.Output("Invalid wind direction", false);
+				}
+				if (Mystagogue.CommandArgs[2] == "E")
+				{
+					num *= -1;
+				}
+				Main.windSpeedTarget = (float)num / 50f;
 				Mystagogue.Output("Wind Speed set to " + num, false);
 			});
 		}
