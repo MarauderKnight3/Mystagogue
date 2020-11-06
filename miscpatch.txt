@@ -283,7 +283,6 @@ if (Main.inputTextEnter && Main.chatRelease)
 {
 	if (Main.chatText != "")
     {
-																										Mystagogue.CatchWildHelpCommand();
         ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(Main.chatText);
         if (Main.netMode == 1)
         {
@@ -293,6 +292,7 @@ if (Main.inputTextEnter && Main.chatRelease)
         {
             ChatManager.Commands.ProcessIncomingMessage(message, Main.myPlayer);
         }
+																										Mystagogue.CatchWildHelpCommand();
     }
     Main.chatText = "";
     Main.ClosePlayerChat();

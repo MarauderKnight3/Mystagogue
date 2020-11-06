@@ -482,7 +482,7 @@ namespace Terraria
 		{
 			if (Main.chatText == "/help" || Main.chatText == "/?")
 			{
-				Mystagogue.Command("help;;", false);
+				Mystagogue.Output("Type \"help;;\" into chat to get Mystagogue's help message.", false);
 			}
 		}
 

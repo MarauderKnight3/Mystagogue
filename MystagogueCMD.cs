@@ -55,7 +55,7 @@ namespace Terraria
 				}
 				Mystagogue.Output(string.Concat(new object[]
 				{
-					"Thank you for using Mystagogue by MarauderKnight3!\nCommands are specified by two trailing semicolons (;;) at the end of an input while a valid command is already typed out. When this is detected, the command will be run and the chat input will be cleared, but not closed. You do not need to press enter.\nThere are ",
+					"Thank you for using Mystagogue by MarauderKnight3!\nCommands are specified by two trailing semicolons (;;) at the end of an input while a valid command is already typed out. When this is detected, the command will be run and the chat input will be cleared, but not closed. You do not need to press enter. Read about a command's function by executing [help] <query>.\nThere are ",
 					MystagogueCMD.library.Count,
 					" commands loaded.\nList of commands: [",
 					string.Join("], [", new List<string>(MystagogueCMD.library.Keys)),
