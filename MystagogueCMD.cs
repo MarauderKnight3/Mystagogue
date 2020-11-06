@@ -2582,6 +2582,68 @@ namespace Terraria
 					return;
 				}
 			});
+			new MystagogueCMD("wind", "(New wind speed, negative for winds heading east to west labelled E and positive for winds heading west to east labelled W) Sets the wind speed and direction. Meant to help with achievements.", delegate()
+			{
+				if (Mystagogue.CommandArgs.Count == 1)
+				{
+					Mystagogue.Output("That command requires arguments", false);
+					return;
+				}
+				if ((new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1].Substring(1)) && Mystagogue.CommandArgs[1].StartsWith("-")) || new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
+				{
+					Mystagogue.Output("Must be an integer", false);
+					return;
+				}
+				string text = Mystagogue.CommandArgs[1];
+				if (text.StartsWith("-"))
+				{
+					while (text.Substring(1).StartsWith("0"))
+					{
+						text = text.Remove(1, 1);
+					}
+				}
+				else
+				{
+					while (text.StartsWith("0"))
+					{
+						text = text.Remove(0, 1);
+					}
+				}
+				int num = 0;
+				if (text.Length != 0)
+				{
+					if (text.StartsWith("-"))
+					{
+						if (text.Length > 3)
+						{
+							num = -59;
+						}
+						else
+						{
+							num = int.Parse(text);
+							if (num < -59)
+							{
+								num = -59;
+							}
+						}
+					}
+					else if (text.Length > 2)
+					{
+						num = 59;
+					}
+					else
+					{
+						num = int.Parse(text);
+						if (num > 59)
+						{
+							num = 59;
+						}
+					}
+				}
+				Main.windSpeedCurrent = (float)num;
+				Main.windSpeedTarget = (float)num;
+				Mystagogue.Output("Wind Speed set to " + num, false);
+			});
 		}
 
 		public MystagogueCMD(string Command_Name, Action Delegate_Function)
