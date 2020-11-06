@@ -546,7 +546,7 @@ namespace Terraria
 			if (raw == "/help" || raw == "/?")
 			{
 				Mystagogue.Output("Caught wild help command!", false);
-				MystagogueCMD.library["help"].func();
+				Mystagogue.Command(raw + ";;");
 				return true;
 			}
 			return false;
