@@ -1660,7 +1660,7 @@ namespace Terraria
 				}
 				Mystagogue.Output("Snap of the fingers!", false);
 			});
-			new MystagogueCMD("clr", delegate()
+			new MystagogueCMD("clr", "(No arguments) Clears all items that are not favorited in the inventory and all clear items in the Void inventory.", delegate()
 			{
 				foreach (Item item in Main.player[Main.myPlayer].inventory)
 				{
@@ -1805,7 +1805,7 @@ namespace Terraria
 				Main.player[Main.myPlayer].MystagogueSpeedBoost = num;
 				Mystagogue.Output("Speed boost active! Power level " + Main.player[Main.myPlayer].MystagogueSpeedBoost, false);
 			});
-			new MystagogueCMD("jesus", "Simply toggles whether not the player can walk on liquids.", delegate()
+			new MystagogueCMD("jesus", "(No arguments) Simply toggles whether not the player can walk on liquids.", delegate()
 			{
 				Main.player[Main.myPlayer].MystagogueJesus = !Main.player[Main.myPlayer].MystagogueJesus;
 				string str = "no longer";
@@ -1815,7 +1815,7 @@ namespace Terraria
 				}
 				Mystagogue.Output("You are " + str + " able to walk on still liquid surfaces", false);
 			});
-			new MystagogueCMD("maxminions", "Increase the basic minion count up to 1000, so that you can annoy those annoying hackers who spawn as many minions as possible to lag the game and stop more projectiles from spawning by doing the same thing as them.", delegate()
+			new MystagogueCMD("maxminions", "(New base max minions) Set the basic minion count up to 1000, so that you can annoy those annoying hackers who spawn as many minions as possible to lag the game and stop more projectiles from spawning by doing the same thing as them.", delegate()
 			{
 				if (Mystagogue.CommandArgs.Count == 1)
 				{

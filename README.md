@@ -3,7 +3,7 @@ A private Terraria hacked client's edited files cache.
 <br />
 <br />
 Capabilities:  
-Over 60 unique and effective commands that work on multiplayer.  
+Over 50 unique and effective commands that work on multiplayer.  
 
 Right click an item while in favorite item mode (holding alt while the chat is closed) to duplicate that item into the cursor. Simultaneously hold control to make a 2b stack instead of a full stack.  
 
