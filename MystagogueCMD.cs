@@ -2300,7 +2300,7 @@ namespace Terraria
 					")"
 				}), false);
 			});
-			new MystagogueCMD("spawnrate", "(New spawnrate) Sets the spawnrate multiplier. Can be 0 through 1000. Really starts to return diminishing returns around level 40.", delegate()
+			new MystagogueCMD("spawnrate", "(New spawnrate) Sets the spawnrate multiplier. Can be 0 through 1000. Diminishing returns are apparent around level 40.", delegate()
 			{
 				if (Mystagogue.CommandArgs.Count == 1)
 				{
@@ -2615,11 +2615,11 @@ namespace Terraria
 						}
 					}
 				}
-				if (Mystagogue.CommandArgs[2] != "W" && Mystagogue.CommandArgs[2] != "E")
+				if (Mystagogue.CommandArgs[2].ToUpper() != "W" && Mystagogue.CommandArgs[2].ToUpper() != "E")
 				{
 					Mystagogue.Output("Invalid wind direction", false);
 				}
-				if (Mystagogue.CommandArgs[2] == "E")
+				if (Mystagogue.CommandArgs[2].ToUpper() == "E")
 				{
 					num *= -1;
 				}
@@ -2629,7 +2629,7 @@ namespace Terraria
 			});
 			new MystagogueCMD("time", "(New time) Sets the world's time, as a time span 24 hour format.", delegate()
 			{
-				if (Mystagogue.CommandArgs.Count < 3)
+				if (Mystagogue.CommandArgs.Count == 1)
 				{
 					Mystagogue.Output("That command requires arguments", false);
 					return;
@@ -2682,23 +2682,32 @@ namespace Terraria
 				{
 					list2[1] = 59;
 				}
-				bool flag = ((list2[0] == 4 && list2[1] >= 30) || list2[0] > 4) && ((list2[0] == 19 && list2[1] <= 29) || list2[0] < 19);
-				if (flag)
+				bool setIsDayTime = true;
+				if (((list2[0] == 4 && list2[1] >= 30) || list2[0] > 4) && ((list2[0] == 19 && list2[1] <= 29) || list2[0] < 19))
 				{
 					list2[0] = list2[0] - 4;
-					list2[1] = list2[0] - 30;
-				}
-				else if (list2[0] <= 4)
-				{
-					list2[0] = list2[0] + 5;
-					list2[1] = list2[0] + 30;
+					list2[1] = list2[1] - 30;
 				}
 				else
 				{
-					list2[0] = list2[0] - 19;
-					list2[1] = list2[0] - 30;
+					setIsDayTime = false;
+					if (list2[0] <= 4)
+					{
+						list2[0] = list2[0] + 4;
+						list2[1] = list2[1] + 30;
+					}
+					else
+					{
+						list2[0] = list2[0] - 18;
+						list2[1] = list2[1] - 30;
+					}
 				}
-				Main.SkipToTime(list2[0] * 60 * 60 + list2[1] * 60, flag);
+				while (list2[0] > 0)
+				{
+					list2[0] = list2[0] - 1;
+					list2[1] = list2[1] + 60;
+				}
+				Main.SkipToTime(list2[1] * 60, setIsDayTime);
 				Mystagogue.Output(string.Concat(new object[]
 				{
 					"Time set to ",
