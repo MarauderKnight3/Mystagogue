@@ -115,31 +115,31 @@ if (this.MystagogueNoRespawnTimer && this.respawnTimer > 3)
 
 //Main.DrawMap(GameTime gameTime) (replace if statements calling to the Main.player[Main.myPlayer].MystagogueP2PMapHack variable)
 
-for (int num126 = 0; num126 < 255; num126++)
+for (int num135 = 0; num135 < 255; num135++)
 {
-	if (Main.player[num126].active && ((!Main.player[Main.myPlayer].hostile && !Main.player[num126].hostile) || (Main.player[Main.myPlayer].team == Main.player[num126].team && Main.player[num126].team != 0) || num126 == Main.myPlayer || Main.player[Main.myPlayer].MystagogueP2PMapHack))
+	if (Main.player[num135].active && ((!Main.player[Main.myPlayer].hostile && !Main.player[num135].hostile) || (Main.player[Main.myPlayer].team == Main.player[num135].team && Main.player[num135].team != 0) || num135 == Main.myPlayer || Main.player[Main.myPlayer].MystagogueP2PMapHack))
 	{
-		float num127 = ((Main.player[num126].position.X + (float)(Main.player[num126].width / 2)) / 16f - num13) * num5;
-		float num128 = ((Main.player[num126].position.Y + Main.player[num126].gfxOffY + (float)(Main.player[num126].height / 2)) / 16f - num14) * num5;
-		num127 += num;
-		num128 += num2;
-		num127 -= 6f;
-		num128 -= 2f;
-		num128 -= 2f - num5 / 5f * 2f;
-		num127 -= 10f * num5;
-		num128 -= 10f * num5;
-		float num129 = num127 + 4f - 14f * num108;
-		float num130 = num128 + 2f - 14f * num108;
-		float num131 = num129 + 28f * num108;
-		float num132 = num130 + 28f * num108;
-		if (!Main.player[num126].dead)
+		float num136 = ((Main.player[num135].position.X + (float)(Main.player[num135].width / 2)) / 16f - num14) * num5;
+		float num137 = ((Main.player[num135].position.Y + Main.player[num135].gfxOffY + (float)(Main.player[num135].height / 2)) / 16f - num15) * num5;
+		num136 += num;
+		num137 += num2;
+		num136 -= 6f;
+		num137 -= 2f;
+		num137 -= 2f - num5 / 5f * 2f;
+		num136 -= 10f * num5;
+		num137 -= 10f * num5;
+		float num138 = num136 + 4f - 14f * num117;
+		float num139 = num137 + 2f - 14f * num117;
+		float num140 = num138 + 28f * num117;
+		float num141 = num139 + 28f * num117;
+		if (!Main.player[num135].dead)
 		{
-			Color borderColor = Main.GetPlayerHeadBordersColor(Main.player[num126]);
-			Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num126], new Vector2(num127, num128), (float)b / 255f, num108, borderColor);
-			if ((float)Main.mouseX >= num129 && (float)Main.mouseX <= num131 && (float)Main.mouseY >= num130 && (float)Main.mouseY <= num132)
+			Color borderColor = Main.GetPlayerHeadBordersColor(Main.player[num135]);
+			Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num135], new Vector2(num136, num137), (float)b / 255f, num117, borderColor);
+			if ((float)Main.mouseX >= num138 && (float)Main.mouseX <= num140 && (float)Main.mouseY >= num139 && (float)Main.mouseY <= num141)
 			{
-				text = Main.player[num126].name;
-				if ((num126 != Main.myPlayer && Main.player[Main.myPlayer].team > 0 && Main.player[Main.myPlayer].team == Main.player[num126].team && Main.netMode == 1 && Main.player[Main.myPlayer].HasUnityPotion() && !flag3 && !Main.cancelWormHole) || (Main.player[Main.myPlayer].MystagogueP2PMapHack && !Main.cancelWormHole))
+				text = Main.player[num135].name;
+				if ((num135 != Main.myPlayer && Main.player[Main.myPlayer].team > 0 && Main.player[Main.myPlayer].team == Main.player[num135].team && Main.netMode == 1 && Main.player[Main.myPlayer].HasUnityPotion() && !flag3 && !Main.cancelWormHole) || (Main.player[Main.myPlayer].MystagogueP2PMapHack && !Main.cancelWormHole))
 				{
 					flag3 = true;
 					if (!this.unityMouseOver)
@@ -148,13 +148,13 @@ for (int num126 = 0; num126 < 255; num126++)
 					}
 					this.unityMouseOver = true;
 					borderColor = Main.OurFavoriteColor;
-					Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num126], new Vector2(num127, num128), 1f, num108 + 0.5f, borderColor);
-					text = Language.GetTextValue("Game.TeleportTo", Main.player[num126].name);
+					Main.MapPlayerRenderer.DrawPlayerHead(Main.Camera, Main.player[num135], new Vector2(num136, num137), 1f, num117 + 0.5f, borderColor);
+					text = Language.GetTextValue("Game.TeleportTo", Main.player[num135].name);
 					if (Main.mouseLeft && Main.mouseLeftRelease)
 					{
 						Main.mouseLeftRelease = false;
 						Main.mapFullscreen = false;
-						Main.player[Main.myPlayer].UnityTeleport(Main.player[num126].position);
+						Main.player[Main.myPlayer].UnityTeleport(Main.player[num135].position);
 						Main.player[Main.myPlayer].TakeUnityPotion();
 					}
 				}
@@ -319,10 +319,10 @@ case 28:
     
 // ... and in case 23: (add precarious statement)
 writer.Write(b3);
-			num9 = ((num9 < 0) ? 0 : num9);
+			num10 = ((num10 < 0) ? 0 : num10);
 if (b3 == 2)
 {
-    writer.Write((short)num9);
+    writer.Write((short)num10);
 }
 
 //Main.CraftItem(Recipe r) (add precarious statement)
