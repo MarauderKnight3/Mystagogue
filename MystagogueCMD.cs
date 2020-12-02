@@ -2682,32 +2682,19 @@ namespace Terraria
 				{
 					list2[1] = 59;
 				}
-				bool setIsDayTime = true;
-				if (((list2[0] == 4 && list2[1] >= 30) || list2[0] > 4) && ((list2[0] == 19 && list2[1] <= 29) || list2[0] < 19))
-				{
-					list2[0] = list2[0] - 4;
-					list2[1] = list2[1] - 30;
-				}
-				else
-				{
-					setIsDayTime = false;
-					if (list2[0] <= 4)
-					{
-						list2[0] = list2[0] + 4;
-						list2[1] = list2[1] + 30;
-					}
-					else
-					{
-						list2[0] = list2[0] - 18;
-						list2[1] = list2[1] - 30;
-					}
-				}
 				while (list2[0] > 0)
 				{
 					list2[0] = list2[0] - 1;
 					list2[1] = list2[1] + 60;
 				}
-				Main.SkipToTime(list2[1] * 60, setIsDayTime);
+				List<int> list3 = list2;
+				list3[1] = list3[1] * 60;
+				bool setIsDayTime = false;
+				if (list2[1] <= 54000)
+				{
+					setIsDayTime = true;
+				}
+				Main.SkipToTime(list2[1], setIsDayTime);
 				Mystagogue.Output(string.Concat(new object[]
 				{
 					"Time set to ",
