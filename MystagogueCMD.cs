@@ -2649,59 +2649,63 @@ namespace Terraria
 					return;
 				}
 				List<int> list2 = new List<int>();
-				for (int i = 0; i < list.Count; i++)
+				while (list[0].StartsWith("0"))
 				{
-					while (list[i].StartsWith("0"))
+					list[0] = list[0].Remove(0, 1);
+				}
+				int item = 0;
+				if (list[0].Length != 0)
+				{
+					if (list[0].Length > 2)
 					{
-						list[i] = list[i].Remove(0, 1);
+						item = 24;
 					}
-					long num = 0L;
-					if (list[i].Length != 0)
+					else
 					{
-						if (list[i].Length > 10)
-						{
-							num = ((i == 0) ? 24L : 2147483647L);
-						}
-						else if (i == 0)
-						{
-							num = ((long.Parse(list[i]) > 24L) ? 24L : num);
-						}
-						else
-						{
-							num = ((long.Parse(list[i]) > 2147483647L) ? 2147483647L : num);
-						}
+						item = ((int.Parse(list[0]) > 24) ? 24 : int.Parse(list[0]));
 					}
-					list2.Insert(i, (int)num);
 				}
-				while (list2[1] > 59 && list2[0] < 24)
+				list2.Add(item);
+				while (list[1].StartsWith("0"))
 				{
-					list2[0] = list2[0] + 1;
-					list2[1] = list2[1] - 60;
+					list[1] = list[1].Remove(0, 1);
 				}
-				if (list2[1] > 59)
+				item = 0;
+				if (list[1].Length != 0)
 				{
-					list2[1] = 59;
+					if (list[1].Length > 2)
+					{
+						item = 59;
+					}
+					else
+					{
+						item = ((int.Parse(list[1]) > 59) ? 59 : int.Parse(list[1]));
+					}
 				}
+				list2.Add(item);
+				if (list2[0] == 24)
+				{
+					list2[0] = 0;
+				}
+				list[0] = list2[0].ToString();
+				list[1] = list2[1].ToString();
 				while (list2[0] > 0)
 				{
 					list2[0] = list2[0] - 1;
 					list2[1] = list2[1] + 60;
 				}
-				List<int> list3 = list2;
-				list3[1] = list3[1] * 60;
-				bool setIsDayTime = false;
-				if (list2[1] <= 54000)
-				{
-					setIsDayTime = true;
-				}
-				Main.SkipToTime(list2[1], setIsDayTime);
+				list2[1] = list2[1] * 60 - 16200 + ((list2[1] * 60 - 16200 < 0) ? 86400 : 0);
+				list2[1] = list2[1] % 86400;
+				Main.dayTime = (list2[1] < 54000);
+				Main.time = (double)((!Main.dayTime) ? (list2[1] - 54000) : list2[1]);
 				Mystagogue.Output(string.Concat(new object[]
 				{
 					"Time set to ",
-					list2[0],
+					list[0],
 					":",
-					list2[1]
+					list[1]
 				}), false);
+				NetMessage.TrySendData(7, -1, -1, null, 0, 0f, 0f, 0f, 0, 0, 0);
 			});
 		}
 
