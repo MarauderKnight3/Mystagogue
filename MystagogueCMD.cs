@@ -81,7 +81,7 @@ namespace Terraria
 					}
 					while (text != i.ToString())
 					{
-						if (i == 5044)
+						if (i == 5087)
 						{
 							Mystagogue.Output("Given item ID does not correspond to an item", false);
 							return;
@@ -112,7 +112,7 @@ namespace Terraria
 						list.Add(Mystagogue.CommandArgs[num]);
 						num++;
 					}
-					for (i = 0; i < 5045; i++)
+					for (i = 0; i < 5088; i++)
 					{
 						if (Lang.GetItemNameValue(i).ToUpper().StartsWith(text2))
 						{
@@ -311,7 +311,7 @@ namespace Terraria
 				}
 				List<int> list = new List<int>();
 				string value = string.Join(" ", Mystagogue.CommandArgs.GetRange(1, Mystagogue.CommandArgs.Count - 1)).ToUpper();
-				for (int i = 0; i < 5045; i++)
+				for (int i = 0; i < 5088; i++)
 				{
 					if (Lang.GetItemNameValue(i).ToUpper().Contains(value))
 					{
@@ -380,7 +380,7 @@ namespace Terraria
 					list10 = new List<string>();
 				}
 				text = text.Substring(0, text.Contains(",") ? text.IndexOf(",") : text.Length).Trim();
-				for (int j = 1; j < 5045; j++)
+				for (int j = 1; j < 5088; j++)
 				{
 					if (Lang.GetItemNameValue(j).ToUpper().Contains(text.ToUpper()) || text == "!")
 					{
