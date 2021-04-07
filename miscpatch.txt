@@ -423,3 +423,12 @@ public void MystagoguePTOp(long ticks)
 				this.Enabled = false;
 				return;
 			}
+
+
+//CreativeUI.MystagogueRefreshAvailableInfiniteItemsList() (add this method)
+
+		public void MystagogueRefreshAvailableInfiniteItemsList()
+		{
+			this._itemIdsAvailableInfinitely.Clear();
+			CreativeItemSacrificesCatalog.Instance.FillListOfItemsThatCanBeObtainedInfinitely(this._itemIdsAvailableInfinitely);
+		}
