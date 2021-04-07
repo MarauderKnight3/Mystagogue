@@ -1995,11 +1995,6 @@ namespace Terraria
 				player.active = false;
 				Mystagogue.Output("Character created: " + player.name, false);
 			});
-			new MystagogueCMD("nameme", "(New names) Renames your character.", delegate()
-			{
-				Main.player[Main.myPlayer].name = ((Mystagogue.CommandArgs.Count > 1) ? Mystagogue.CommandArgs[1] : "One Face Among Many");
-				Mystagogue.Output("You are " + Main.player[Main.myPlayer].name, false);
-			});
 			new MystagogueCMD("maxlife", "(New max life) Changes your character's intristic maximum life capacity. Doesn't seem to save anything above 500 or below 100.", delegate()
 			{
 				if (Mystagogue.CommandArgs.Count == 1)
