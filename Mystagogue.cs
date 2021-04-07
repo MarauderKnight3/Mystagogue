@@ -569,5 +569,7 @@ namespace Terraria
 		public static int ExtraSlots;
 
 		private static double BuddhaReservedHealth;
+
+		public static bool CreativeUIUnlock;
 	}
 }

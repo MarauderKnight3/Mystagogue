@@ -413,3 +413,13 @@ public void MystagoguePTOp(long ticks)
 					NPC.spawnRangeY = (int)((double)(NPC.sHeight / 16) * 0.7);
 					NPC.safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
 					NPC.safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
+
+//CreativeUI.Draw() (add to if statement)
+
+			if (Main.LocalPlayer.difficulty != 3 
+																	&& !Mystagogue.CreativeUIUnlock
+			)
+			{
+				this.Enabled = false;
+				return;
+			}

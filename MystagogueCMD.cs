@@ -336,6 +336,16 @@ namespace Terraria
 				}
 				Mystagogue.Output("Found " + string.Join(", ", list2), false);
 			});
+			new MystagogueCMD("creative", "(No arguments) Enables the creative menu.", delegate()
+			{
+				Mystagogue.CreativeUIUnlock = !Mystagogue.CreativeUIUnlock;
+				string raw = "Creative menu disabled.";
+				if (Mystagogue.CreativeUIUnlock)
+				{
+					raw = "Creative menu enabled.";
+				}
+				Mystagogue.Output(raw, false);
+			});
 			new MystagogueCMD("sl", "(Query or '!', followed with a comma ',' then tags and page number specification) Hosts a spawnlist of items in the recipe section, all crafted out of thin air. Seperate more specifications via a comma e.g. \"sl fractal,depreciated\" or \"sl chloro , melee\" or \"sl !, damage\". Using the \"!\" search term is name unspecific and will not sort items by name. The first comma can be placed anywhere. Unrecognized tags will be ignored. \"page\" will unconventionally scan the next tag as a page number, do not call it without one, as it will incorrectly interpret another unrelated tag or cause no effect at all (if it is the last tag). While the spawnlist command is in effect, other recipes will not appear. Items crafted with spawnlist recipes will not get prefixes. Execute the command with no specifications to turn the spawnlist off.", delegate()
 			{
 				if (Mystagogue.FirstFreedRecipeSlot == 0)
