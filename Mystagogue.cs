@@ -558,6 +558,14 @@ namespace Terraria
 			}
 		}
 
+		public static void AttemptMapTeleport()
+		{
+			if (Main.mapFullscreen && Main.mouseRightRelease)
+			{
+				Main.player[Main.myPlayer].Teleport((Main.mapFullscreenPos + new Vector2((float)(Main.mouseX - Main.screenWidth / 2), (float)(Main.mouseY - Main.screenHeight / 2)) / 16f * 16f / Main.mapFullscreenScale) * 16f, 6, 0);
+			}
+		}
+
 		private static int BuffQueueTimer;
 
 		private static int PlayerRefreshTimer;
