@@ -216,29 +216,6 @@ if (!Mystagogue.TryDupe(inv[slot]) && !ItemSlot.RightClick_FindSpecialActions(in
         ItemSlot.SwapEquip(inv, context, slot);
         return;
     }
-    if (Main.stackSplit <= 1 && Main.mouseRight)
-    {
-        bool flag = true;
-        if (context == 0 && inv[slot].maxStack <= 1)
-        {
-            flag = false;
-        }
-        if (context == 3 && inv[slot].maxStack <= 1)
-        {
-            flag = false;
-        }
-        if (context == 4 && inv[slot].maxStack <= 1)
-        {
-            flag = false;
-        }
-        if (flag && (Main.mouseItem.IsTheSameAs(inv[slot]) || Main.mouseItem.type == 0) && (Main.mouseItem.stack < Main.mouseItem.maxStack || Main.mouseItem.type == 0))
-        {
-            ItemSlot.PickupItemIntoMouse(inv, context, slot, player);
-            SoundEngine.PlaySound(12, -1, -1, 1, 1f, 0f);
-            ItemSlot.RefreshStackSplitCooldown();
-        }
-    }
-}
 
 
 //Player.ResetEffects() (add precarious statement)
@@ -268,11 +245,11 @@ if (this.whoAmI == Main.myPlayer)
 		}
 	}
 }
-                                                                                                    Mystagogue.ResetEffectsMod();
+																Mystagogue.ResetEffectsMod();
 this.mount.CheckMountBuff(this);
 
 
-// Main.DoUpdate_HandleChat() (add precarious statement, add precarious statement)
+// Main.DoUpdate_HandleChat() (add 2 precarious statements)
 
 if (a != Main.chatText)
 {
@@ -324,6 +301,7 @@ if (b3 == 2)
 {
     writer.Write((short)num10);
 }
+
 
 //Main.CraftItem(Recipe r) (add precarious statement)
 int stack = Main.mouseItem.stack;
@@ -424,11 +402,6 @@ public void MystagoguePTOp(long ticks)
 				return;
 			}
 
+//Main.DoUpdate(ref GameTime) (add to end)
 
-//CreativeUI.MystagogueRefreshAvailableInfiniteItemsList() (add this method)
-
-		public void MystagogueRefreshAvailableInfiniteItemsList()
-		{
-			this._itemIdsAvailableInfinitely.Clear();
-			CreativeItemSacrificesCatalog.Instance.FillListOfItemsThatCanBeObtainedInfinitely(this._itemIdsAvailableInfinitely);
-		}
+		Mystagogue.AttemptMapTeleport();
