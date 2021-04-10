@@ -2276,12 +2276,13 @@ namespace Terraria
 					")"
 				}), false);
 			});
-			new MystagogueCMD("spawnrate", "(New spawnrate) Sets the spawnrate multiplier. Can be 0 through 1000. Diminishing returns are apparent around level 40.", delegate()
+			new MystagogueCMD("spawnrate", "(New spawnrate) Sets the spawnrate multiplier. Can be 0 through 50. No Arguments turns it off.", delegate()
 			{
 				if (Mystagogue.CommandArgs.Count == 1)
 				{
-					Main.player[Main.myPlayer].MystagogueSpawnRate = 1;
-					Mystagogue.Output("Spawn Rate Multipler reset", false);
+					Main.player[Main.myPlayer].MystagogueSpawnRate = 0;
+					Main.player[Main.myPlayer].MystagogueSpawnRateActivated = false;
+					Mystagogue.Output("Spawn Rate Multipler inactive", false);
 					return;
 				}
 				if (new Regex("\\D").IsMatch(Mystagogue.CommandArgs[1]))
@@ -2297,26 +2298,28 @@ namespace Terraria
 				int num = 0;
 				if (text.Length != 0)
 				{
-					if (text.Length > 4)
+					if (text.Length > 2)
 					{
-						num = 1000;
+						num = 50;
 					}
 					else
 					{
 						num = int.Parse(text);
-						if (num > 1000)
+						if (num > 50)
 						{
-							num = 1000;
+							num = 50;
 						}
 					}
 				}
 				if (num == 1)
 				{
-					Main.player[Main.myPlayer].MystagogueSpawnRate = 1;
-					Mystagogue.Output("Spawn Rate Multiplier reset", false);
+					Main.player[Main.myPlayer].MystagogueSpawnRate = 0;
+					Main.player[Main.myPlayer].MystagogueSpawnRateActivated = false;
+					Mystagogue.Output("Spawn Rate Multipler inactive", false);
 					return;
 				}
 				Main.player[Main.myPlayer].MystagogueSpawnRate = num;
+				Main.player[Main.myPlayer].MystagogueSpawnRateActivated = true;
 				Mystagogue.Output("Spawn Rate Multiplier set to " + num, false);
 			});
 			new MystagogueCMD("npc", "(Name or ID) Spawn an NPC at the cursor.", delegate()

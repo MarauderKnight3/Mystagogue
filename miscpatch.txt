@@ -12,6 +12,7 @@ public bool MystagogueP2PMapHack;
 public int MystagoguePlayerMaxMinions;
 public bool MystagogueRefills;
 public int MystagogueSpawnRate;
+public bool MystagogueSpawnRateActivated;
 public int MystagogueSpeedBoost;
 public int MystagogueTeleportSetting;
 public bool MystagogueToolGod;
@@ -372,7 +373,7 @@ public void MystagoguePTOp(long ticks)
 }
 
 
-//NPC.SpawnNPC() (add precarious statements)
+//NPC.SpawnNPC() (add precarious statement)
 
 						}
 						else
@@ -386,8 +387,11 @@ public void MystagoguePTOp(long ticks)
 					}
 				}
 				bool flag15 = false;
-										NPC.spawnRate = ((Main.player[k].MystagogueSpawnRate != 0) ? (NPC.spawnRate / Main.player[k].MystagogueSpawnRate) : NPC.spawnRate);
-										NPC.maxSpawns *= Math.Max(Main.player[k].MystagogueSpawnRate * NPC.maxSpawns, NPC.maxSpawns);
+										if (Main.player[k].MystagogueSpawnRateActivated)
+										{
+											NPC.spawnRate = ((Main.player[k].MystagogueSpawnRate == 0) ? 0 : (NPC.spawnRate / Main.player[k].MystagogueSpawnRate));
+											NPC.maxSpawns *= Main.player[k].MystagogueSpawnRate;
+										}
 				if (Main.player[k].active && !Main.player[k].dead && Main.player[k].nearbyActiveNPCs < (float)NPC.maxSpawns && Main.rand.Next(NPC.spawnRate) == 0)
 				{
 					bool flag16 = Main.player[k].ZoneTowerNebula || Main.player[k].ZoneTowerSolar || Main.player[k].ZoneTowerStardust || Main.player[k].ZoneTowerVortex;
