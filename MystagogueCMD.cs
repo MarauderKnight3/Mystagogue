@@ -649,22 +649,6 @@ namespace Terraria
 					")"
 				}), false);
 			});
-			new MystagogueCMD("rename", "(New Name) Renames the item held with the cursor. This does not change kill messages, it only changes the display name.", delegate()
-			{
-				if (Main.mouseItem.IsAir)
-				{
-					Mystagogue.Output("Must be holding an item with the cursor", false);
-					return;
-				}
-				if (Mystagogue.CommandArgs.Count == 1)
-				{
-					Main.mouseItem.ClearNameOverride();
-					Mystagogue.Output("Item name reset", false);
-					return;
-				}
-				Main.mouseItem.SetNameOverride(string.Join(" ", Mystagogue.CommandArgs.GetRange(1, Mystagogue.CommandArgs.Count - 1)));
-				Mystagogue.Output("Item renamed", false);
-			});
 			new MystagogueCMD("ut", "(Use Time) Set the use time (or the rate of special function execution, such as the speed that projectiles are created when shooting a bow or swinging the Meowmere) of the item selected in the hotbar. Some items may not work at certain speeds. Lower values are faster.", delegate()
 			{
 				if (Mystagogue.CommandArgs.Count != 1 && !Main.player[Main.myPlayer].HeldItem.IsAir)

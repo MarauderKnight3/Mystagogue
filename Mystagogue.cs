@@ -111,6 +111,14 @@ namespace Terraria
 			}
 		}
 
+		public static void AttemptMapTeleport()
+		{
+			if (Main.mapFullscreen && PlayerInput.Triggers.JustPressed.MouseRight)
+			{
+				Main.player[Main.myPlayer].Teleport((Main.mapFullscreenPos + new Vector2((float)(Main.mouseX - Main.screenWidth / 2), (float)(Main.mouseY - Main.screenHeight / 2)) / 16f * 16f / Main.mapFullscreenScale) * 16f, 6, 0);
+			}
+		}
+
 		private static void TrySyncingMyPlayer()
 		{
 			if (Main.netMode != 0)
@@ -475,7 +483,7 @@ namespace Terraria
 
 		public static void Output(string raw, bool hideMystagogue = false)
 		{
-			Main.NewText(hideMystagogue ? "" : ("Mystagogue: " + raw), 92, 247, 172);
+			Main.NewText((hideMystagogue ? "" : "Mystagogue: ") + raw, 92, 247, 172);
 		}
 
 		public static void CatchWildHelpCommand()
@@ -555,14 +563,6 @@ namespace Terraria
 				}
 				Mystagogue.PlayerRefreshTimer = -1;
 				Mystagogue.TrySyncingMyPlayer();
-			}
-		}
-
-		public static void AttemptMapTeleport()
-		{
-			if (Main.mapFullscreen && PlayerInput.Triggers.JustPressed.MouseRight)
-			{
-				Main.player[Main.myPlayer].Teleport((Main.mapFullscreenPos + new Vector2((float)(Main.mouseX - Main.screenWidth / 2), (float)(Main.mouseY - Main.screenHeight / 2)) / 16f * 16f / Main.mapFullscreenScale) * 16f, 6, 0);
 			}
 		}
 
