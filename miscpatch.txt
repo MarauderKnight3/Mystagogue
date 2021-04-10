@@ -258,6 +258,10 @@ if (a != Main.chatText)
                                                                                 Mystagogue.Command(Main.chatText, true);
 if (Main.inputTextEnter && Main.chatRelease)
 {
+	if (Main.chatText.Trim().EndsWith(";;"))
+	{
+		Mystagogue.Output("You probably didn't mean to send a message that ends with ';;'.", false);
+	} else
 	if (Main.chatText != "")
     {
         ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(Main.chatText);
