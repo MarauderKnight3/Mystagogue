@@ -415,20 +415,6 @@ namespace Terraria
 					}
 				}
 			}
-			if (Main.player[Main.myPlayer].MystagogueBuffQueue == null)
-			{
-				Main.player[Main.myPlayer].MystagogueBuffQueue = new List<int>();
-			}
-			else if (Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0 && Mystagogue.BuffQueueTimer == 0)
-			{
-				Main.player[Main.myPlayer].AddBuff(Main.player[Main.myPlayer].MystagogueBuffQueue[0], int.MaxValue, true, false);
-				Main.player[Main.myPlayer].MystagogueBuffQueue.RemoveAt(0);
-				Mystagogue.BuffQueueTimer = 10;
-			}
-			else if (Mystagogue.BuffQueueTimer > 0)
-			{
-				Mystagogue.BuffQueueTimer--;
-			}
 			if (Main.player[Main.myPlayer].MystagoguePlayerMaxMinions < 1)
 			{
 				Main.player[Main.myPlayer].MystagoguePlayerMaxMinions = 1;
@@ -463,20 +449,26 @@ namespace Terraria
 			if (Mystagogue.PlayerRefreshTimer > 0)
 			{
 				Mystagogue.PlayerRefreshTimer--;
-				return;
 			}
-			if (Mystagogue.PlayerRefreshTimer == 0)
+			if (Main.player[Main.myPlayer].MystagogueBuffQueue == null)
 			{
-				Mystagogue.TrySyncingMyPlayer();
+				Main.player[Main.myPlayer].MystagogueBuffQueue = new List<int>();
+			}
+			else
+			{
+				while (Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0)
+				{
+					Main.player[Main.myPlayer].AddBuff(Main.player[Main.myPlayer].MystagogueBuffQueue[0], int.MaxValue, true, false);
+					Main.player[Main.myPlayer].MystagogueBuffQueue.RemoveAt(0);
+				}
+			}
+			if (Mystagogue.PlayerRefreshTimer == 0 && (Main.player[Main.myPlayer].MystagogueBuddha > 0 || Main.player[Main.myPlayer].MystagogueBoon != 0 || Main.player[Main.myPlayer].MystagogueGod || Main.player[Main.myPlayer].MystagogueKillDebuffs || Main.player[Main.myPlayer].MystagogueManaCostDeduction > 0f || Main.player[Main.myPlayer].MystagogueNoRespawnTimer || Main.player[Main.myPlayer].MystagoguePlayerMaxMinions != 1 || Main.player[Main.myPlayer].MystagogueRefills || Main.player[Main.myPlayer].MystagogueSpeedBoost > 0 || Main.player[Main.myPlayer].MystagogueInfiniteFlight || Main.player[Main.myPlayer].MystagogueJesus || Main.player[Main.myPlayer].MystagogueToolGod))
+			{
 				if (Main.player[Main.myPlayer].MystagogueToolGod)
 				{
 					Mystagogue.BuffMyTools();
 				}
-				Mystagogue.PlayerRefreshTimer = -1;
-				return;
-			}
-			if (Mystagogue.PlayerRefreshTimer == -1 && (Main.player[Main.myPlayer].MystagogueBuddha > 0 || Main.player[Main.myPlayer].MystagogueBuffQueue.Count > 0 || Main.player[Main.myPlayer].MystagogueGod || Main.player[Main.myPlayer].MystagogueKillDebuffs || Main.player[Main.myPlayer].MystagogueManaCostDeduction > 0f || Main.player[Main.myPlayer].MystagogueNoRespawnTimer || Main.player[Main.myPlayer].MystagoguePlayerMaxMinions != 1 || Main.player[Main.myPlayer].MystagogueRefills || Main.player[Main.myPlayer].MystagogueSpeedBoost > 0 || Main.player[Main.myPlayer].MystagogueInfiniteFlight || Main.player[Main.myPlayer].MystagogueJesus || Main.player[Main.myPlayer].MystagogueToolGod))
-			{
+				Mystagogue.TrySyncingMyPlayer();
 				Mystagogue.PlayerRefreshTimer = 20;
 			}
 		}
@@ -566,15 +558,60 @@ namespace Terraria
 			}
 		}
 
-		private static int BuffQueueTimer;
+		public static void AddBoonBuffs()
+		{
+			if (Main.player[Main.myPlayer].MystagogueBoon == 0)
+			{
+				return;
+			}
+			for (int i = 0; i < 22; i++)
+			{
+				Main.player[Main.myPlayer].buffTime[i] = 0;
+				Main.player[Main.myPlayer].buffType[i] = 0;
+			}
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(1);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(17);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(192);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(3);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(2);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(207);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(5);
+			if (Main.player[Main.myPlayer].MystagogueBoon == 1)
+			{
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(25);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(76);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(159);
+			}
+			else if (Main.player[Main.myPlayer].MystagogueBoon == 2)
+			{
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(16);
+			}
+			else if (Main.player[Main.myPlayer].MystagogueBoon == 3)
+			{
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(6);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(7);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(29);
+			}
+			else if (Main.player[Main.myPlayer].MystagogueBoon == 4)
+			{
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(76);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(159);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(6);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(110);
+				Main.player[Main.myPlayer].MystagogueBuffQueue.Add(150);
+			}
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(115);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(117);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(105);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(114);
+			Main.player[Main.myPlayer].MystagogueBuffQueue.Add(113);
+		}
 
 		private static int PlayerRefreshTimer;
 
 		public static int FirstFreedRecipeSlot;
 
 		public static List<string> CommandArgs;
-
-		public static int ExtraSlots;
 
 		private static double BuddhaReservedHealth;
 

@@ -1,4 +1,5 @@
 public bool MystagogueBanless;
+public int MystagogueBoon;
 public int MystagogueBuddha;
 public List<int> MystagogueBuffQueue;
 public bool MystagogueFlashlight;
@@ -400,6 +401,7 @@ public void MystagoguePTOp(long ticks)
 					NPC.safeRangeX = (int)((double)(NPC.sWidth / 16) * 0.52);
 					NPC.safeRangeY = (int)((double)(NPC.sHeight / 16) * 0.52);
 
+
 //CreativeUI.Draw() (add to if statement)
 
 			if (Main.LocalPlayer.difficulty != 3 
@@ -410,6 +412,15 @@ public void MystagoguePTOp(long ticks)
 				return;
 			}
 
+
 //Main.DoUpdate(ref GameTime) (add to end)
 
 		Mystagogue.AttemptMapTeleport();
+
+
+//Player.Spawn(PlayerSpawnContext context) (add to end)
+
+	if (this.whoAmI == Main.myPlayer && context == PlayerSpawnContext.ReviveFromDeath)
+	{
+		Mystagogue.AddBoonBuffs();
+	}

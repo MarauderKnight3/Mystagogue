@@ -1843,63 +1843,48 @@ namespace Terraria
 				Main.player[Main.myPlayer].MystagoguePlayerMaxMinions = num;
 				Mystagogue.Output("Max Minions set to " + num, false);
 			});
-			new MystagogueCMD("givebuffs", "(Mode: melee, ranged, magic, summon) Gives the best buffs for a respective class.", delegate()
+			new MystagogueCMD("boon", "(Type) Selecting a type (melee, ranged, magic, summon) will grant you the best buffs for that class, and again when you die. No arguments will revoke the boon and wipe your buffs.", delegate()
 			{
-				if (Main.player[Main.myPlayer].MystagogueBuffQueue == null)
-				{
-					Main.player[Main.myPlayer].MystagogueBuffQueue = new List<int>();
-				}
-				if (Mystagogue.CommandArgs.Count == 1)
-				{
-					Mystagogue.Output("Specify a class: \"melee\", \"ranged\", \"magic\", or \"summon\"", false);
-					return;
-				}
-				if (Mystagogue.CommandArgs[1] == "melee" || Mystagogue.CommandArgs[1] == "ranged" || Mystagogue.CommandArgs[1] == "magic" || Mystagogue.CommandArgs[1] == "summon")
+				if (Mystagogue.CommandArgs.Count <= 1)
 				{
 					for (int i = 0; i < 22; i++)
 					{
 						Main.player[Main.myPlayer].buffTime[i] = 0;
 						Main.player[Main.myPlayer].buffType[i] = 0;
 					}
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(1);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(17);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(3);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(207);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(5);
-					if (Mystagogue.CommandArgs[1] == "melee")
-					{
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(25);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(76);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(159);
-					}
-					else if (Mystagogue.CommandArgs[1] == "ranged")
-					{
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(16);
-					}
-					else if (Mystagogue.CommandArgs[1] == "magic")
-					{
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(6);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(7);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(29);
-					}
-					else if (Mystagogue.CommandArgs[1] == "summon")
-					{
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(76);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(159);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(6);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(110);
-						Main.player[Main.myPlayer].MystagogueBuffQueue.Add(150);
-					}
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(115);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(117);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(105);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(2);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(114);
-					Main.player[Main.myPlayer].MystagogueBuffQueue.Add(113);
-					Mystagogue.Output("Buffs are being added.", false);
+					Main.player[Main.myPlayer].MystagogueBoon = 0;
+					Mystagogue.Output("Boon revoked, buffs wiped.", false);
 					return;
 				}
-				Mystagogue.Output("Class invalid; Must be: \"melee\", \"ranged\", \"magic\", or \"summon\"", false);
+				if (Mystagogue.CommandArgs[1] == "melee")
+				{
+					Main.player[Main.myPlayer].MystagogueBoon = 1;
+					Mystagogue.Output("Boon type set to " + Mystagogue.CommandArgs[1] + ".", false);
+					Mystagogue.AddBoonBuffs();
+					return;
+				}
+				if (Mystagogue.CommandArgs[1] == "ranged")
+				{
+					Main.player[Main.myPlayer].MystagogueBoon = 2;
+					Mystagogue.Output("Boon type set to " + Mystagogue.CommandArgs[1] + ".", false);
+					Mystagogue.AddBoonBuffs();
+					return;
+				}
+				if (Mystagogue.CommandArgs[1] == "magic")
+				{
+					Main.player[Main.myPlayer].MystagogueBoon = 3;
+					Mystagogue.Output("Boon type set to " + Mystagogue.CommandArgs[1] + ".", false);
+					Mystagogue.AddBoonBuffs();
+					return;
+				}
+				if (Mystagogue.CommandArgs[1] == "summon")
+				{
+					Main.player[Main.myPlayer].MystagogueBoon = 4;
+					Mystagogue.Output("Boon type set to " + Mystagogue.CommandArgs[1] + ".", false);
+					Mystagogue.AddBoonBuffs();
+					return;
+				}
+				Mystagogue.Output("Please pick between melee, ranged, magic, or summon.", false);
 			});
 			new MystagogueCMD("killdebuffs", "(No arguments) Toggles immunity to debuffs (besides tipsy).", delegate()
 			{
