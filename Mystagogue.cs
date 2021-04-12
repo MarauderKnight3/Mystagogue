@@ -115,7 +115,7 @@ namespace Terraria
 		{
 			if (Main.mapFullscreen && PlayerInput.Triggers.JustPressed.MouseRight)
 			{
-				Main.player[Main.myPlayer].Teleport((Main.mapFullscreenPos + new Vector2((float)(Main.mouseX - Main.screenWidth / 2), (float)(Main.mouseY - Main.screenHeight / 2)) / 16f * 16f / Main.mapFullscreenScale) * 16f, 6, 0);
+				Main.player[Main.myPlayer].Teleport((Main.mapFullscreenPos + new Vector2((float)(Main.mouseX - Main.screenWidth / 2), (float)(Main.mouseY - Main.screenHeight / 2)) / Main.mapFullscreenScale) * 16f, 6, 0);
 			}
 		}
 
