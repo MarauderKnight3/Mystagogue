@@ -10,3 +10,5 @@ Right click an item while in favorite item mode (holding alt while the chat is c
 Depreciated items will not be deleted.  
 
 Player data will be synced regularly on multiplayer to help prevent desync.  
+
+Looks like this will be used as reference material for newer developments. Planning on integrating a lot of things into Terraclient by Stevie. Who knows.
