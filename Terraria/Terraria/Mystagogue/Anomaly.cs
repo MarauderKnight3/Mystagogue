@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Terraria.GameInput;
 using Terraria.Graphics.Shaders;
@@ -83,7 +82,7 @@ internal static class Anomaly
 		if (!raw.EndsWith(";") || !(raw.Length > 1))
 			return false;
 
-		// Turn the possible command input into a list of non-empty arguments
+		// Turn the input into a list of non-empty arguments
 		List<string> args = ParseArguments(raw.Substring(0, raw.Length - 1));
 		string commandCalled = args[0].ToLower();
 		args.RemoveAt(0);
@@ -108,55 +107,20 @@ internal static class Anomaly
 	// This handles arguments in a way that allows for arguments surrounded by quotes to be treated as single arguments.
 	private static List<string> ParseArguments(string input)
 	{
-		// Starting set
-		List<string> rawArgs = [.. input.Split([' '], StringSplitOptions.RemoveEmptyEntries)];
-		// Ending Set
-		List<string> results = [];
-		int i = 0;
+		List<string> argsSeparatedOnQuotes = [.. input.Split('\"')];
+		List<string> argsSeparatedIntermittentlyOnSpaces = [];
 
-		while (i < rawArgs.Count) {
-			string workingArg = rawArgs[i];
-			bool startsWithQuote = workingArg.Length > 0 && (workingArg[0] == '"' || workingArg[0] == '\'');
-
-			if (!startsWithQuote) {
-				// Regular argument without quotes
-				results.Add(workingArg);
-				i++;
-			}
-			else {
-				char quoteChar = workingArg[0];
-				if (workingArg.Length > 1 && workingArg[workingArg.Length - 1] == quoteChar) {
-					// This was just a quoted string!
-					results.Add(workingArg.Substring(1, workingArg.Length - 2));
-					i++;
-				}
-				else {
-					// Begin concatenating arguments
-					StringBuilder combinedArg = new StringBuilder(workingArg.Substring(1));
-					i++;
-					bool foundClosingQuote = false;
-
-					while (i < rawArgs.Count && !foundClosingQuote) {
-						string nextArg = rawArgs[i];
-						combinedArg.Append(" ").Append(nextArg);
-						if (nextArg.Length > 0 && nextArg[nextArg.Length - 1] == quoteChar) {
-							combinedArg.Length--;
-							foundClosingQuote = true;
-						}
-						i++;
-					}
-
-					if (!foundClosingQuote)
-						// We reached the end, give up on whatever was half closed in quotes
-						return results;
-
-					// New argument is ready. If we haven't gone through them all, go back to the start of the loop
-					results.Add(combinedArg.ToString());
-				}
-			}
+		// Every even index is part of the string that was outside the quotes.
+		for (int i = 0; i < argsSeparatedOnQuotes.Count; i++) {
+			if (i % 2 == 1)
+				argsSeparatedIntermittentlyOnSpaces.Add(argsSeparatedOnQuotes[i]);
+			else
+				argsSeparatedIntermittentlyOnSpaces.AddRange(
+					[.. argsSeparatedOnQuotes[i].Split([' '], StringSplitOptions.RemoveEmptyEntries)]
+				);
 		}
 
-		return [.. results.Where(arg => !string.IsNullOrWhiteSpace(arg))];
+		return [.. from string arg in argsSeparatedIntermittentlyOnSpaces where !string.IsNullOrWhiteSpace(arg) select arg.Trim()];
 	}
 
 	internal static void CatchWildHelpCommand()

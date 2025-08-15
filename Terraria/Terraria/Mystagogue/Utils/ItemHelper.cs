@@ -11,18 +11,18 @@ internal class ItemHelper
 	{
 		// We assume the input is either an ID or a concatenated item name.
 		if (int.TryParse(input, out int itemID)) {
-			if (itemID >= ItemID.Count) {
+			if (itemID >= ItemID.Count)
 				return $"Item ID [{itemID}] is out of range.";
-			}
+
 			// There could be potential shenanigans with negative IDs, I haven't checked
 			return itemID;
 		}
 		else {
 			// Find all matching item names as IDs, only pass if there is exactly one match
 			List<int> matches = FindItemIDsNamesStartWith(input);
-			if (matches.Count == 0) {
+			if (matches.Count == 0)
 				return $"Item [{input}] not found.";
-			}
+
 			else if (matches.Count > 1) {
 				string matchList = string.Join(", ", matches.Select(i => Lang.GetItemNameValue(i) + " (" + i + ")"));
 				return $"Multiple items found matching [{input}]: {matchList}.\nPlease specify an ID or a more specific name.";
@@ -46,21 +46,17 @@ internal class ItemHelper
 
 	// Collect all arguments up to the second numeric one as the item name
 	// Can be repurposed for similar tasks that take a concatenated name or an ID
-	internal static List<object> ConcatUntilSecondNumber(List<string> inputPieces)
+	internal static List<object> ConcatFromSecondUntilNumber(List<string> inputPieces)
 	{
-		List<string> namePartsOrID = [];
-		List<string> remainder = inputPieces;
+		int numberIndex = 1;
 
-		// Always collect the first piece in case it is a number! It could be an ID.
-		namePartsOrID.Add(inputPieces[0]);
-		remainder.RemoveAt(0);
+		for (; numberIndex < inputPieces.Count; numberIndex++)
+			if (Regex.IsMatch(inputPieces[numberIndex], @"^\d+$"))
+				break;
 
-		for (int i = 0; i < inputPieces.Count && !Regex.IsMatch(inputPieces[i], @"^\d+$"); i++) {
-			namePartsOrID.Add(inputPieces[i]);
-			remainder.RemoveAt(0);
-			// `remainder` will be left with just the item count and prefix name or ID, if any, in the ordinary use case of this method
-			// exits immediately if the next piece is a number already.
-		}
+		List<string> namePartsOrID = inputPieces.GetRange(0, numberIndex);
+		List<string> remainder = inputPieces.GetRange(numberIndex, inputPieces.Count - numberIndex);
+
 		return [string.Join(" ", namePartsOrID), remainder];
 	}
 }

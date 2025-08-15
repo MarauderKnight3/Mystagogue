@@ -13,7 +13,7 @@ internal class ItemCommand : Command
 			Output("You must specify an item name or ID.", true);
 		}
 		// Collect the item name and any remaining arguments
-		List<object> itemNameOrIDAndRemainderArgs = ItemHelper.ConcatUntilSecondNumber(args);
+		List<object> itemNameOrIDAndRemainderArgs = ItemHelper.ConcatFromSecondUntilNumber(args);
 
 		// Take apart the item name and the remainder of the arguments
 		string itemName = itemNameOrIDAndRemainderArgs[0] as string;
