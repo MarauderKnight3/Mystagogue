@@ -79,11 +79,11 @@ internal static class Anomaly
 
 	internal static bool InterpretInput(string raw, bool clear = true)
 	{
-		if (!raw.EndsWith(";") || !(raw.Length > 1))
+		if (!raw.StartsWith(";") || !(raw.Length > 1))
 			return false;
 
 		// Turn the input into a list of non-empty arguments
-		List<string> args = ParseArguments(raw.Substring(0, raw.Length - 1));
+		List<string> args = ParseArguments(raw.Substring(1, raw.Length - 1));
 		string commandCalled = args[0].ToLower();
 		args.RemoveAt(0);
 
@@ -121,13 +121,6 @@ internal static class Anomaly
 		}
 
 		return [.. from string arg in argsSeparatedIntermittentlyOnSpaces where !string.IsNullOrWhiteSpace(arg) select arg.Trim()];
-	}
-
-	internal static void CatchWildHelpCommand()
-	{
-		if (Main.chatText == "/help" || Main.chatText == "/?") {
-			Output("Type \"help;\" into chat to get Mystagogue's help message.", false);
-		}
 	}
 
 	internal static void AttemptMapTeleport()

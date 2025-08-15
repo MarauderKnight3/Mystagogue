@@ -39,34 +39,18 @@
  			base.Content.RootDirectory = "Content";
  		}
  	}
-@@ -14552,18 +_,26 @@
- 			}
- 		}
- 
--		if (text != chatText)
-+		if (text != chatText) {
- 			SoundEngine.PlaySound(12);
-+			Anomaly.InterpretInput(Main.chatText, true);
-+		}
- 
+@@ -14558,6 +_,11 @@
  		if (!inputTextEnter || !chatRelease)
  			return;
  
-+		if (chatText.Trim().EndsWith(";")) {
-+			Anomaly.Output("You probably didn't mean to send that.", false);
++		if (chatText.Trim().StartsWith(";") && !Anomaly.InterpretInput(chatText, true)) {
++			Anomaly.Output("You probably didn't mean to send that.");
 +			return;
 +		}
 +
  		if (chatText != "") {
  			ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(chatText);
  			if (netMode == 1)
- 				ChatHelper.SendChatMessageFromClient(message);
- 			else if (netMode == 0)
- 				ChatManager.Commands.ProcessIncomingMessage(message, myPlayer);
-+			Anomaly.CatchWildHelpCommand();
- 		}
- 
- 		chatText = "";
 @@ -39052,6 +_,9 @@
  
  		Assets.TransferCompletedAssets();

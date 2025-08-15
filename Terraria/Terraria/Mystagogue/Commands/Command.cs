@@ -27,8 +27,5 @@ internal abstract class Command(string name, string description)
 	protected internal virtual void PreUpdateBuffsHook() { }
 	protected internal virtual void PostResetEffectsHook() { }
 
-	protected internal void Output(string message, bool isError = false)
-	{
-		Anomaly.Output(message, isError);
-	}
+	protected internal void Output(string message, bool isError = false) => Anomaly.Output(message, isError);
 }

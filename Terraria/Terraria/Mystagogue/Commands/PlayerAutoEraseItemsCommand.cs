@@ -14,6 +14,6 @@ internal class PlayerAutoEraseItemsCommand : Command
 		}
 
 		// Let the player know
-		Output("All the items in your inventory that are not favorited have been erased.", false);
+		Output("All the items in your inventory that are not favorited have been erased.");
 	}
 }

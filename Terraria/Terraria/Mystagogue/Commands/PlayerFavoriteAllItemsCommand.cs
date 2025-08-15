@@ -12,6 +12,6 @@ internal class PlayerFavoriteAllItemsCommand : Command
 		}
 
 		// Let the player know
-		Output("All your inventory items have been favorited.", false);
+		Output("All your inventory items have been favorited.");
 	}
 }

@@ -18,8 +18,7 @@ internal class HelpCommand : Command
 		}
 
 		var commandList = string.Join("], [", Library.Select(c => c.Key));
-		Output($@"Run a command by trailing a semicolon (;). The command will be run and the chat input will be cleared. You do not need to press enter.
-There are {Library.Count} commands loaded. Learn about a command with `help [Command Name]`.
+		Output($@"There are {Library.Count} commands loaded. Learn about a command with `help [Command Name]`.
 List of commands: [{commandList}]");
 	}
 }

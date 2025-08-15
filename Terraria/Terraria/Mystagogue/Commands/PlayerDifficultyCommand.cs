@@ -25,6 +25,6 @@ internal class PlayerDifficultyCommand : Command
 		Main.player[Main.myPlayer].difficulty = newDifficulty;
 
 		// Let the player know
-		Output("Difficulty set to " + (newDifficulty == 0 ? "Classic" : newDifficulty == 1 ? "Mediumcore" : newDifficulty == 2 ? "Hardcore" : "Journey") + " Mode.", false);
+		Output("Difficulty set to " + (newDifficulty == 0 ? "Classic" : newDifficulty == 1 ? "Mediumcore" : newDifficulty == 2 ? "Hardcore" : "Journey") + " Mode.");
 	}
 }
