@@ -1,0 +1,11 @@
+--- src/decompiled/Terraria/GameContent/Creative/CreativeUI.cs
++++ src/Terraria/Terraria/GameContent/Creative/CreativeUI.cs
+@@ -74,7 +_,7 @@
+ 		if (!_initialized)
+ 			Initialize();
+ 
+-		if (Main.LocalPlayer.difficulty != 3) {
++		if (Main.LocalPlayer.difficulty != 3 | !Mystagogue.Commands.PlayerJourneyMenuCommand.JourneyMenuForceEnable) {
+ 			Enabled = false;
+ 		}
+ 		else if (!Blocked) {

@@ -1,0 +1,61 @@
+--- src/decompiled/Terraria/Player.cs
++++ src/Terraria/Terraria/Player.cs
+@@ -28,6 +_,7 @@
+ using Terraria.ID;
+ using Terraria.IO;
+ using Terraria.Localization;
++using Terraria.Mystagogue;
+ using Terraria.ObjectData;
+ using Terraria.Social;
+ using Terraria.UI;
+@@ -40,6 +_,11 @@
+ 
+ public class Player : Entity, IFixLoadedData
+ {
++	public Player Duplicate()
++	{
++		return (Player)base.MemberwiseClone();
++	}
++
+ 	public static class BuilderAccToggleIDs
+ 	{
+ 		public const int RulerLine = 0;
+@@ -7135,6 +_,9 @@
+ 
+ 	public void UpdateBuffs(int i)
+ 	{
++		if (whoAmI == Main.myPlayer)
++			Anomaly.PreUpdateBuffsHook();
++
+ 		if (soulDrain > 0 && whoAmI == Main.myPlayer)
+ 			AddBuff(151, 2);
+ 
+@@ -13276,6 +_,8 @@
+ 
+ 	public void UpdateDead()
+ 	{
++		if (whoAmI == Main.myPlayer)
++			Anomaly.PreUpdateDeadHook();
+ 		shimmerUnstuckHelper.Clear();
+ 		timeShimmering = 0;
+ 		forcedGravity = 0;
+@@ -14651,7 +_,8 @@
+ 				}
+ 			}
+ 		}
+-
++		if (whoAmI == Main.myPlayer)
++			Anomaly.PostResetEffectsHook();
+ 		mount.CheckMountBuff(this);
+ 	}
+ 
+@@ -23823,6 +_,9 @@
+ 			altFunctionUse = 0;
+ 
+ 		ItemCheck_ManageRightClickFeatures_ShieldRaise(flag);
++
++		if (whoAmI == Main.myPlayer)
++			Mystagogue.Commands.RightClickTeleportCommand.TryRightClickTeleport();
+ 	}
+ 
+ 	public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)

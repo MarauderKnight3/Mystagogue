@@ -1,0 +1,107 @@
+--- src/decompiled/Terraria/Main.cs
++++ src/Terraria/Terraria/Main.cs
+@@ -64,6 +_,7 @@
+ using Terraria.IO;
+ using Terraria.Localization;
+ using Terraria.Map;
++using Terraria.Mystagogue;
+ using Terraria.Net;
+ using Terraria.ObjectData;
+ using Terraria.Social;
+@@ -75,7 +_,21 @@
+ 
+ namespace Terraria;
+ 
++#if !WINDOWS
++class Control
++{
++	internal static Form FromHandle(IntPtr handle)
++	{
++		throw new NotImplementedException();
++	}
++}
++#endif
++
++#if SERVER
++public class Main : Terraria.Server.Game
++#else
+ public class Main : Game
++#endif
+ {
+ 	public delegate void OnPlayerSelected(PlayerFileData player);
+ 
+@@ -4969,7 +_,7 @@
+ 		if (!dedServ) {
+ 			Map = new WorldMap(maxTilesX, maxTilesY);
+ 			Configuration.Load();
+-			graphics = new GraphicsDeviceManager(this as Game);
++			graphics = new GraphicsDeviceManager(((object)this) as Game);
+ 			base.Content.RootDirectory = "Content";
+ 		}
+ 	}
+@@ -14552,18 +_,26 @@
+ 			}
+ 		}
+ 
+-		if (text != chatText)
++		if (text != chatText) {
+ 			SoundEngine.PlaySound(12);
++			Anomaly.InterpretInput(Main.chatText, true);
++		}
+ 
+ 		if (!inputTextEnter || !chatRelease)
+ 			return;
+ 
++		if (chatText.Trim().EndsWith(";")) {
++			Anomaly.Output("You probably didn't mean to send that.", false);
++			return;
++		}
++
+ 		if (chatText != "") {
+ 			ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(chatText);
+ 			if (netMode == 1)
+ 				ChatHelper.SendChatMessageFromClient(message);
+ 			else if (netMode == 0)
+ 				ChatManager.Commands.ProcessIncomingMessage(message, myPlayer);
++			Anomaly.CatchWildHelpCommand();
+ 		}
+ 
+ 		chatText = "";
+@@ -39052,6 +_,9 @@
+ 
+ 		Assets.TransferCompletedAssets();
+ 		Exit();
++#if MAC && !SERVER
++		SDL2.SDL.SDL_DestroyWindow(base.Window.Handle);
++#endif
+ 	}
+ 
+ 	private void Main_Exiting(object sender, EventArgs e)
+@@ -46004,7 +_,7 @@
+ 				spriteBatch.End();
+ 				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, transformMatrix);
+ 				for (int n = 0; n < 255; n++) {
+-					if (player[n].active && !player[n].dead && n != myPlayer && ((!player[myPlayer].hostile && !player[n].hostile) || (player[myPlayer].team == player[n].team && player[n].team != 0) || n == myPlayer)) {
++					if (player[n].active && !player[n].dead && n != myPlayer && Mystagogue.Commands.MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable || ((!player[myPlayer].hostile && !player[n].hostile) || (player[myPlayer].team == player[n].team && player[n].team != 0))) {
+ 						float num60 = (player[n].position.X + (float)(player[n].width / 2)) / 16f * num5;
+ 						float num61 = player[n].position.Y / 16f * num5;
+ 						num60 += num;
+@@ -46385,7 +_,7 @@
+ 					continue;
+ 
+ 				text = player[num126].name;
+-				if (num126 != myPlayer && player[myPlayer].team > 0 && player[myPlayer].team == player[num126].team && netMode == 1 && player[myPlayer].HasUnityPotion() && !flag3 && !cancelWormHole) {
++				if (num126 != myPlayer && !cancelWormHole && netMode == 1 && !flag3 && Mystagogue.Commands.MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable || (player[myPlayer].team > 0 && player[myPlayer].team == player[num126].team && player[myPlayer].HasUnityPotion())) {
+ 					flag3 = true;
+ 					if (!unityMouseOver)
+ 						SoundEngine.PlaySound(12);
+@@ -46429,6 +_,9 @@
+ 			}
+ 
+ 			spriteBatch.Draw(TextureAssets.MapIcon[num135].Value, new Vector2(num133, num134), new Microsoft.Xna.Framework.Rectangle(0, 0, TextureAssets.MapIcon[num135].Width(), TextureAssets.MapIcon[num135].Height()), new Microsoft.Xna.Framework.Color(num136, num136, num136, num136), 0f, default(Vector2), 1f, SpriteEffects.None, 0f);
++
++			Anomaly.AttemptMapTeleport();
++
+ 			DrawCursor(DrawThickCursor());
+ 		}
+ 

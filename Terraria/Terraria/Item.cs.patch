@@ -1,0 +1,14 @@
+--- src/decompiled/Terraria/Item.cs
++++ src/Terraria/Terraria/Item.cs
+@@ -47301,11 +_,6 @@
+ 			material = ItemID.Sets.IsAMaterial[type];
+ 
+ 		RebuildTooltip();
+-		if (type > 0 && type < ItemID.Count && ItemID.Sets.Deprecated[type]) {
+-			netID = 0;
+-			type = 0;
+-			stack = 0;
+-		}
+ 	}
+ 
+ 	public void OnCreated(ItemCreationContext context)

@@ -1,14 +1,9 @@
 # Mystagogue
-A private Terraria hacked client's edited files cache.
-<br />
-<br />
-Capabilities:  
-Over 50 unique and effective commands that work on multiplayer.  
+A private Terraria hacked client.
+</br>
 
-Right click an item while in favorite item mode (holding alt while the chat is closed) to duplicate that item into the cursor. Simultaneously hold control to make a 2b stack instead of a full stack.  
+## Usage
+Clone tModLoader then integrate the contents of the Terraria folder here with the patches/Terraria folder in the tModLoader environment.
+Run setup, then build it with the Terraria solution in the solutions folder.
 
-Depreciated items will not be deleted.  
-
-Player data will be synced regularly on multiplayer to help prevent desync.  
-
-Looks like this will be used as reference material for newer developments. Planning on integrating a lot of things into Terraclient by Stevie. Who knows.
+Currently 1.4.4.9
