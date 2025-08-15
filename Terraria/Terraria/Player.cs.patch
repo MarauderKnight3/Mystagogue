@@ -1,10 +1,11 @@
 --- src/decompiled/Terraria/Player.cs
 +++ src/Terraria/Terraria/Player.cs
-@@ -28,6 +_,7 @@
+@@ -28,6 +_,8 @@
  using Terraria.ID;
  using Terraria.IO;
  using Terraria.Localization;
 +using Terraria.Mystagogue;
++using Terraria.Mystagogue.Commands;
  using Terraria.ObjectData;
  using Terraria.Social;
  using Terraria.UI;
@@ -20,6 +21,16 @@
  	public static class BuilderAccToggleIDs
  	{
  		public const int RulerLine = 0;
+@@ -3071,6 +_,9 @@
+ 				num++;
+ 			}
+ 		}
++
++		if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
++			QuickBuff();
+ 	}
+ 
+ 	public void ClearBuff(int type)
 @@ -7135,6 +_,9 @@
  
  	public void UpdateBuffs(int i)
@@ -39,6 +50,15 @@
  		shimmerUnstuckHelper.Clear();
  		timeShimmering = 0;
  		forcedGravity = 0;
+@@ -13392,6 +_,8 @@
+ 					Main.playerInventory = true;
+ 
+ 				Spawn(PlayerSpawnContext.ReviveFromDeath);
++				if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
++					QuickBuff();
+ 			}
+ 		}
+ 
 @@ -14651,7 +_,8 @@
  				}
  			}
@@ -55,7 +75,7 @@
  		ItemCheck_ManageRightClickFeatures_ShieldRaise(flag);
 +
 +		if (whoAmI == Main.myPlayer)
-+			Mystagogue.Commands.RightClickTeleportCommand.TryRightClickTeleport();
++			RightClickTeleportCommand.TryRightClickTeleport();
  	}
  
  	public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)

@@ -1,13 +1,21 @@
 --- src/decompiled/Terraria/NPC.cs
 +++ src/Terraria/Terraria/NPC.cs
+@@ -21,6 +_,7 @@
+ using Terraria.Graphics.Effects;
+ using Terraria.ID;
+ using Terraria.Localization;
++using Terraria.Mystagogue.Commands;
+ using Terraria.Utilities;
+ using Terraria.WorldBuilding;
+ 
 @@ -60927,8 +_,9 @@
  					}
  				}
  			}
 -
  			bool flag15 = false;
-+			NPC.spawnRate = (Mystagogue.Commands.SpawnRateCommand.SpawnRate == 0) ? 0 : NPC.spawnRate / Mystagogue.Commands.SpawnRateCommand.SpawnRate;
-+			NPC.maxSpawns *= Mystagogue.Commands.SpawnRateCommand.SpawnRate;
++			NPC.spawnRate = (SpawnRateCommand.SpawnRate == 0) ? 0 : NPC.spawnRate / SpawnRateCommand.SpawnRate;
++			NPC.maxSpawns *= SpawnRateCommand.SpawnRate;
  			if (Main.player[k].active && !Main.player[k].dead && Main.player[k].nearbyActiveNPCs < (float)maxSpawns && Main.rand.Next(spawnRate) == 0) {
  				bool flag16 = Main.player[k].ZoneTowerNebula || Main.player[k].ZoneTowerSolar || Main.player[k].ZoneTowerStardust || Main.player[k].ZoneTowerVortex;
  				spawnRangeX = (int)((double)(sWidth / 16) * 0.7);

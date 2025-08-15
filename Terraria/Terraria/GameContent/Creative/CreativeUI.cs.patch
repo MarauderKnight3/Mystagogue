@@ -1,11 +1,19 @@
 --- src/decompiled/Terraria/GameContent/Creative/CreativeUI.cs
 +++ src/Terraria/Terraria/GameContent/Creative/CreativeUI.cs
+@@ -8,6 +_,7 @@
+ using Terraria.GameContent.UI.Elements;
+ using Terraria.GameContent.UI.States;
+ using Terraria.Localization;
++using Terraria.Mystagogue.Commands;
+ using Terraria.Net;
+ using Terraria.UI;
+ using Terraria.UI.Gamepad;
 @@ -74,7 +_,7 @@
  		if (!_initialized)
  			Initialize();
  
 -		if (Main.LocalPlayer.difficulty != 3) {
-+		if (Main.LocalPlayer.difficulty != 3 | !Mystagogue.Commands.PlayerJourneyMenuCommand.JourneyMenuForceEnable) {
++		if (Main.LocalPlayer.difficulty != 3 | !PlayerJourneyMenuCommand.JourneyMenuForceEnable) {
  			Enabled = false;
  		}
  		else if (!Blocked) {

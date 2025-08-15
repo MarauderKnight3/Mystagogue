@@ -1,10 +1,11 @@
 --- src/decompiled/Terraria/Main.cs
 +++ src/Terraria/Terraria/Main.cs
-@@ -64,6 +_,7 @@
+@@ -64,6 +_,8 @@
  using Terraria.IO;
  using Terraria.Localization;
  using Terraria.Map;
 +using Terraria.Mystagogue;
++using Terraria.Mystagogue.Commands;
  using Terraria.Net;
  using Terraria.ObjectData;
  using Terraria.Social;
@@ -66,7 +67,7 @@
  				spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, null, transformMatrix);
  				for (int n = 0; n < 255; n++) {
 -					if (player[n].active && !player[n].dead && n != myPlayer && ((!player[myPlayer].hostile && !player[n].hostile) || (player[myPlayer].team == player[n].team && player[n].team != 0) || n == myPlayer)) {
-+					if (player[n].active && !player[n].dead && n != myPlayer && Mystagogue.Commands.MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable || ((!player[myPlayer].hostile && !player[n].hostile) || (player[myPlayer].team == player[n].team && player[n].team != 0))) {
++					if (player[n].active && !player[n].dead && n != myPlayer && MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable || ((!player[myPlayer].hostile && !player[n].hostile) || (player[myPlayer].team == player[n].team && player[n].team != 0))) {
  						float num60 = (player[n].position.X + (float)(player[n].width / 2)) / 16f * num5;
  						float num61 = player[n].position.Y / 16f * num5;
  						num60 += num;
@@ -75,7 +76,7 @@
  
  				text = player[num126].name;
 -				if (num126 != myPlayer && player[myPlayer].team > 0 && player[myPlayer].team == player[num126].team && netMode == 1 && player[myPlayer].HasUnityPotion() && !flag3 && !cancelWormHole) {
-+				if (num126 != myPlayer && !cancelWormHole && netMode == 1 && !flag3 && Mystagogue.Commands.MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable || (player[myPlayer].team > 0 && player[myPlayer].team == player[num126].team && player[myPlayer].HasUnityPotion())) {
++				if (num126 != myPlayer && !cancelWormHole && netMode == 1 && !flag3 && MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable || (player[myPlayer].team > 0 && player[myPlayer].team == player[num126].team && player[myPlayer].HasUnityPotion())) {
  					flag3 = true;
  					if (!unityMouseOver)
  						SoundEngine.PlaySound(12);
