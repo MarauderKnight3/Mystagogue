@@ -9,8 +9,9 @@ internal class PlayerAutoPotionCommand : Command
 	protected internal override void Execute(List<string> args)
 	{
 		AutoPotion = !AutoPotion;
-		Output("God mode toggled " + (AutoPotion ? "on" : "off") + ".");
-		Main.player[Main.myPlayer].QuickBuff();
+		Output("Auto potion toggled " + (AutoPotion ? "on" : "off") + ".");
+		if (AutoPotion)
+			Main.player[Main.myPlayer].QuickBuff();
 	}
 
 	protected internal override void ResetVariables() => AutoPotion = false;

@@ -50,15 +50,6 @@
  		shimmerUnstuckHelper.Clear();
  		timeShimmering = 0;
  		forcedGravity = 0;
-@@ -13392,6 +_,8 @@
- 					Main.playerInventory = true;
- 
- 				Spawn(PlayerSpawnContext.ReviveFromDeath);
-+				if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
-+					QuickBuff();
- 			}
- 		}
- 
 @@ -14651,7 +_,8 @@
  				}
  			}
@@ -79,3 +70,13 @@
  	}
  
  	public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)
+@@ -29270,6 +_,9 @@
+ 		UpdateGraveyard(now: true);
+ 		if (whoAmI == Main.myPlayer && context == PlayerSpawnContext.ReviveFromDeath && difficulty == 3)
+ 			AutoFinchStaff();
++
++		if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
++			QuickBuff();
+ 
+ 		if (whoAmI == Main.myPlayer && context == PlayerSpawnContext.SpawningIntoWorld) {
+ 			Main.ReleaseHostAndPlayProcess();
