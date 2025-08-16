@@ -20,10 +20,9 @@ internal class PlayerBuildingModeCommand : Command
 		if (!BuildingMode)
 			return;
 
-		for (int i = 0; i < Main.player[Main.myPlayer].inventory.Length; i++) {
-			if (Main.player[Main.myPlayer].inventory[i].IsAir)
+		foreach (Item item in new List<Item>() { Main.player[Main.myPlayer].HeldItem, Main.mouseItem }) {
+			if (item.IsAir || item.tileBoost == 10000)
 				continue;
-			ref Item item = ref Main.player[Main.myPlayer].inventory[i];
 
 			if (item.createTile != -1 || item.createWall != -1 || item.pick != 0 || item.axe != 0 || item.hammer != 0 || item.PaintOrCoating || item.mech) {
 				item.useTime = 0;
