@@ -1,5 +1,13 @@
 --- src/decompiled/Terraria/Item.cs
 +++ src/Terraria/Terraria/Item.cs
+@@ -20,6 +_,7 @@
+ 
+ public class Item : Entity
+ {
++	internal bool MystagogueBuildingModeModified = false;
+ 	private string _nameOverride;
+ 	public const int luckPotionDuration1 = 18000;
+ 	public const int luckPotionDuration2 = 36000;
 @@ -47301,11 +_,6 @@
  			material = ItemID.Sets.IsAMaterial[type];
  
