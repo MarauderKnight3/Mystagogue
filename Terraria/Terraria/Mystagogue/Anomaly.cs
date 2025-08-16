@@ -3,40 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Xna.Framework;
 using Terraria.GameInput;
-using Terraria.Graphics.Shaders;
 using Terraria.ID;
 using Terraria.Mystagogue.Commands;
 
 namespace Terraria.Mystagogue;
 internal static class Anomaly
 {
-	internal static Dictionary<string, Func<Item, bool>> ItemTags = new() {
-		{ "block", (input) => input.createTile >= 0 && !Main.tileFrameImportant[input.createTile] },
-		{ "wall", (input) => input.createWall >= 0 },
-		{ "object", (input) => input.createTile >= 0 && Main.tileFrameImportant[input.createTile] },
-		{ "tool", (input) => input.pick != 0 || input.axe != 0 || input.hammer != 0 },
-		{ "armor", (input) => !input.vanity && (input.headSlot > -1 || input.bodySlot > -1 || input.legSlot > -1) },
-		{ "accessory", (input) => input.accessory && !input.vanity && input.createTile == -1 },
-		{ "vanity", (input) => input.vanity && (input.headSlot > -1 || input.bodySlot > -1 || input.legSlot > -1) },
-		{ "vanityaccessory", (input) => input.vanity && input.headSlot == -1 && input.bodySlot == -1 && input.legSlot == -1 },
-		{ "dye", (input) => GameShaders.Armor.GetShaderIdFromItemId(input.type) > 0 || GameShaders.Hair.GetShaderIdFromItemId(input.type) >= 0 },
-		{ "weapon", (input) => input.damage != -1 && input.pick == 0 && input.axe == 0 && input.hammer == 0 },
-		{ "melee", (input) => input.melee && input.pick == 0 && input.axe == 0 && input.hammer == 0 },
-		{ "ranged", (input) => input.ranged && input.ammo == AmmoID.None },
-		{ "magic", (input) => input.magic },
-		{ "summon", (input) => input.summon },
-		{ "potion", (input) => (input.buffType != 0 || input.potion || input.healMana > 0) && !Main.lightPet[input.buffType] && !Main.vanityPet[input.buffType] && !input.summon && input.mountType == -1 },
-		{ "consumable", (input) => input.consumable && input.createTile == -1 && input.createWall == -1 },
-		{ "ammo", (input) => input.ammo != AmmoID.None },
-		{ "mount", (input) => input.mountType != -1 && !MountID.Sets.Cart[input.mountType] },
-		{ "minecart", (input) => input.cartTrack || (input.mountType != -1 && MountID.Sets.Cart[input.mountType]) },
-		{ "material", (input) => input.material && input.createTile == -1 && input.createWall == -1 && !input.accessory && input.damage == -1 },
-		{ "quest", (input) => input.questItem },
-		{ "fishing", (input) => input.fishingPole >= 1 || input.bait >= 1 },
-		{ "expert", (input) => input.expert },
-		{ "deprecated", (input) => ItemID.Sets.Deprecated[input.type] }
-	};
-
 	internal static void Reset()
 	{
 		foreach (Command command in Command.Library.Values) {
