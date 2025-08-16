@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.ID;
 
 namespace Terraria.Mystagogue.Commands;
 internal class PlayerBuildingModeCommand : Command
@@ -16,11 +17,27 @@ internal class PlayerBuildingModeCommand : Command
 
 	protected internal override void PostResetEffectsHook()
 	{
-		// Add a method to be run in this hook that will make any held building item, such as blocks, walls, tools, painting, wire related stuff, etc.
-		// have infinite reach, zero use time, and maximum power.
-		// It can just check the mouse item and the hotbar item.
-		// The method ought return if the hack is disabled.
-		// disabling it should refresh items the hack would affect.
+		if (!BuildingMode)
+			return;
+
+		for (int i = 0; i < Main.player[Main.myPlayer].inventory.Length; i++) {
+			if (Main.player[Main.myPlayer].inventory[i].IsAir)
+				continue;
+			ref Item item = ref Main.player[Main.myPlayer].inventory[i];
+
+			if (item.createTile != -1 || item.createWall != -1 || item.pick != 0 || item.axe != 0 || item.hammer != 0 || item.PaintOrCoating || item.mech) {
+				item.useTime = 0;
+				item.tileBoost = 10000;
+			}
+
+			if (item.pick > 0)
+				item.pick = ContentSamples.ItemsByType[ItemID.VortexPickaxe].pick * 10;
+
+			if (item.axe > 0)
+				item.axe = ContentSamples.ItemsByType[ItemID.TheAxe].axe * 10;
+
+			if (item.hammer > 0)
+				item.hammer = ContentSamples.ItemsByType[ItemID.TheAxe].hammer * 10;
+		}
 	}
 }
-
