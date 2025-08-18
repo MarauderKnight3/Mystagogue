@@ -70,13 +70,24 @@
  	}
  
  	public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)
-@@ -29270,6 +_,9 @@
- 		UpdateGraveyard(now: true);
+@@ -29271,6 +_,9 @@
  		if (whoAmI == Main.myPlayer && context == PlayerSpawnContext.ReviveFromDeath && difficulty == 3)
  			AutoFinchStaff();
-+
+ 
 +		if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
 +			QuickBuff();
- 
++
  		if (whoAmI == Main.myPlayer && context == PlayerSpawnContext.SpawningIntoWorld) {
  			Main.ReleaseHostAndPlayProcess();
+ 			RefreshItems();
+@@ -33023,7 +_,10 @@
+ 		if (Main.netMode == 0)
+ 			Teleport(telePos, num);
+ 		else
++		if (!MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable)
+ 			NetMessage.SendData(65, -1, -1, null, 2, whoAmI, telePos.X, telePos.Y, num);
++		else
++			NetMessage.SendData(13, number: Main.myPlayer);
+ 	}
+ 
+ 	private void PayDD2CrystalsBeforeUse(Item item)
