@@ -80,6 +80,16 @@
  					flag3 = true;
  					if (!unityMouseOver)
  						SoundEngine.PlaySound(12);
+@@ -46398,7 +_,8 @@
+ 						mouseLeftRelease = false;
+ 						mapFullscreen = false;
+ 						player[myPlayer].UnityTeleport(player[num126].position);
++						if (!MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable)
+-						player[myPlayer].TakeUnityPotion();
++							player[myPlayer].TakeUnityPotion();
+ 					}
+ 				}
+ 			}
 @@ -46429,6 +_,9 @@
  			}
  
