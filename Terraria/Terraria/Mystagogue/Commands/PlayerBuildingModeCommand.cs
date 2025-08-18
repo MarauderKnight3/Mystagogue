@@ -11,12 +11,21 @@ internal class PlayerBuildingModeCommand : Command
 	{
 		BuildingMode = !BuildingMode;
 		Output("Building mode toggled " + (BuildingMode ? "on" : "off") + ".");
-		if (!BuildingMode)
-			for (int i = 0; i < Main.player[Main.myPlayer].inventory.Length; i++)
-				if (Main.player[Main.myPlayer].inventory[i].MystagogueBuildingModeModified) {
-					Main.player[Main.myPlayer].inventory[i].MystagogueBuildingModeModified = false;
-					Main.player[Main.myPlayer].inventory[i].Refresh(false);
+		if (!BuildingMode) {
+			List<Item[]> inventories = [Main.player[Main.myPlayer].inventory];
+
+			if (Main.player[Main.myPlayer].useVoidBag())
+				inventories.Add(Main.player[Main.myPlayer].bank4.item);
+
+			foreach (Item[] contents in inventories) {
+				foreach (Item item in contents) {
+					if (item.MystagogueBuildingModeModified) {
+						item.MystagogueBuildingModeModified = false;
+						item.Refresh(false);
+					}
 				}
+			}
+		}
 	}
 
 	protected internal override void ResetVariables() => BuildingMode = false;
@@ -26,26 +35,31 @@ internal class PlayerBuildingModeCommand : Command
 		if (!BuildingMode)
 			return;
 
-		for (int i = 0; i < Main.player[Main.myPlayer].inventory.Length; i++) {
-			ref Item item = ref Main.player[Main.myPlayer].inventory[i];
+		List<Item[]> inventories = [Main.player[Main.myPlayer].inventory];
 
-			if (item.IsAir || item.MystagogueBuildingModeModified)
-				continue;
+		if (Main.player[Main.myPlayer].useVoidBag())
+			inventories.Add(Main.player[Main.myPlayer].bank4.item);
 
-			if (item.createTile != -1 || item.createWall != -1 || item.pick != 0 || item.axe != 0 || item.hammer != 0 || item.PaintOrCoating || item.mech || ItemID.Sets.AlsoABuildingItem[item.type]) {
-				item.useTime = 0;
-				item.tileBoost = 70;
+		foreach (Item[] contents in inventories) {
+			foreach (Item item in contents) {
+				if (item.IsAir || item.MystagogueBuildingModeModified)
+					continue;
 
-				if (item.pick > 0)
-					item.pick = ContentSamples.ItemsByType[ItemID.VortexPickaxe].pick * 10;
+				if (item.createTile != -1 || item.createWall != -1 || item.pick != 0 || item.axe != 0 || item.hammer != 0 || item.PaintOrCoating || item.mech || ItemID.Sets.AlsoABuildingItem[item.type]) {
+					item.useTime = 0;
+					item.tileBoost = 70;
 
-				if (item.axe > 0)
-					item.axe = ContentSamples.ItemsByType[ItemID.TheAxe].axe * 10;
+					if (item.pick > 0)
+						item.pick = ContentSamples.ItemsByType[ItemID.VortexPickaxe].pick * 10;
 
-				if (item.hammer > 0)
-					item.hammer = ContentSamples.ItemsByType[ItemID.TheAxe].hammer * 10;
+					if (item.axe > 0)
+						item.axe = ContentSamples.ItemsByType[ItemID.TheAxe].axe * 10;
 
-				item.MystagogueBuildingModeModified = true;
+					if (item.hammer > 0)
+						item.hammer = ContentSamples.ItemsByType[ItemID.TheAxe].hammer * 10;
+
+					item.MystagogueBuildingModeModified = true;
+				}
 			}
 		}
 	}
