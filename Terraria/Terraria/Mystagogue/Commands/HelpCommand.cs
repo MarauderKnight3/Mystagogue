@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class HelpCommand : Command
@@ -17,7 +18,7 @@ internal class HelpCommand : Command
 			return;
 		}
 
-		var commandList = string.Join("], [", Library.Select(c => c.Key));
+		string commandList = string.Join("], [", Library.Select(c => c.Key)).ReplaceEveryXthOccurrence("], [", "],\n[", 10);
 		Output($@"There are {Library.Count} commands loaded. Learn about a command with `help [Command Name]`.
 List of commands: [{commandList}]");
 	}

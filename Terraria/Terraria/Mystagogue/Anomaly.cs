@@ -137,4 +137,12 @@ internal static class StringExtensions
 		return source?.IndexOf(toCheck, comp) >= 0;
 	}
 
+	internal static string ReplaceEveryXthOccurrence(this string input, string toReplace, string replacement, uint interval = 2)
+	{
+		if (interval < 2)
+			throw new ArgumentOutOfRangeException(nameof(interval), "Interval must be 2 or greater.");
+		var regex = new Regex(Regex.Escape(toReplace));
+		int count = 0;
+		return regex.Replace(input, m => ++count % interval == 0 ? replacement : m.Value);
+	}
 }
