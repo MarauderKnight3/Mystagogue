@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Terraria.GameInput;
 using Terraria.ID;
@@ -125,4 +126,15 @@ internal static class Anomaly
 		}
 		return result;
 	}
+}
+
+// We can use this to check if a string contains another string with a specific comparison type, such as ignoring case.
+// Currently otherwise not available in `string.Contains()` without this.
+internal static class StringExtensions
+{
+	internal static bool Contains(this string source, string toCheck, StringComparison comp)
+	{
+		return source?.IndexOf(toCheck, comp) >= 0;
+	}
+
 }

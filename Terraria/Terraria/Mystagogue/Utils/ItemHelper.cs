@@ -60,13 +60,3 @@ internal class ItemHelper
 		return [string.Join(" ", namePartsOrID), remainder];
 	}
 }
-
-// We can use this to check if a string contains another string with a specific comparison type, such as ignoring case.
-// Currently otherwise not available in `string.Contains()` without this.
-internal static class StringExtensions
-{
-	internal static bool Contains(this string source, string toCheck, StringComparison comp)
-	{
-		return source?.IndexOf(toCheck, comp) >= 0;
-	}
-}
