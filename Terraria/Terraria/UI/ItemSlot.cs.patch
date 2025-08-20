@@ -14,7 +14,7 @@
  		if (player.itemAnimation > 0)
 +			return;
 +
-+		if (Anomaly.TryRightClickDupe(inv[slot]))
++		if (Anomaly.TryItemDuplication(inv[slot]))
  			return;
  
  		if (context == 15) {

@@ -112,17 +112,24 @@ internal static class Anomaly
 		}
 	}
 
-	internal static bool TryRightClickDupe(Item slot)
+	internal static bool TryItemDuplication(Item slot)
 	{
+		if (!Main.mouseRightRelease)
+			return false;
+
 		bool result = false;
-		if (Main.cursorOverride == 3) {
-			if (Main.mouseRight && Main.mouseRightRelease && (Main.mouseItem.IsTheSameAs(slot) | Main.mouseItem.IsAir)) {
-				Main.mouseItem = new Item();
-				Main.mouseItem = slot.Clone();
-				Main.mouseItem.favorited = false;
-				Main.mouseItem.stack = Main.mouseItem.maxStack;
-				result = true;
-			}
+		ref Item mouseItem = ref Main.mouseItem;
+
+		if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && Main.mouseRight && (mouseItem.IsTheSameAs(slot) | mouseItem.IsAir)) {
+			mouseItem = new Item();
+			mouseItem = slot.Clone();
+			mouseItem.favorited = false;
+			mouseItem.stack = mouseItem.maxStack;
+			result = true;
+		}
+		else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) && !slot.IsAir) {
+			slot.stack = slot.maxStack;
+			result = true;
 		}
 		return result;
 	}
