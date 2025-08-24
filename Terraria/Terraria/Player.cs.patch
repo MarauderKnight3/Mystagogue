@@ -21,16 +21,6 @@
  	public static class BuilderAccToggleIDs
  	{
  		public const int RulerLine = 0;
-@@ -3071,6 +_,9 @@
- 				num++;
- 			}
- 		}
-+
-+		if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
-+			QuickBuff();
- 	}
- 
- 	public void ClearBuff(int type)
 @@ -7135,6 +_,9 @@
  
  	public void UpdateBuffs(int i)
@@ -60,6 +50,17 @@
  		mount.CheckMountBuff(this);
  	}
  
+@@ -18990,6 +_,10 @@
+ 
+ 		if (i == Main.myPlayer && !isControlledByFilm) {
+ 			ResetControls();
++
++			if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
++				QuickBuff();
++
+ 			if (Main.hasFocus) {
+ 				if (!Main.drawingPlayerChat && !Main.editSign && !Main.editChest && !Main.blockInput) {
+ 					PlayerInput.Triggers.Current.CopyInto(this);
 @@ -23823,6 +_,9 @@
  			altFunctionUse = 0;
  
@@ -70,16 +71,6 @@
  	}
  
  	public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)
-@@ -29271,6 +_,9 @@
- 		if (whoAmI == Main.myPlayer && context == PlayerSpawnContext.ReviveFromDeath && difficulty == 3)
- 			AutoFinchStaff();
- 
-+		if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
-+			QuickBuff();
-+
- 		if (whoAmI == Main.myPlayer && context == PlayerSpawnContext.SpawningIntoWorld) {
- 			Main.ReleaseHostAndPlayProcess();
- 			RefreshItems();
 @@ -33023,7 +_,12 @@
  		if (Main.netMode == 0)
  			Teleport(telePos, num);

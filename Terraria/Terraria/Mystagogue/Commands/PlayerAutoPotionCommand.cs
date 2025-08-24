@@ -10,8 +10,6 @@ internal class PlayerAutoPotionCommand : Command
 	{
 		AutoPotion = !AutoPotion;
 		Output("Auto potion toggled " + (AutoPotion ? "on" : "off") + ".");
-		if (AutoPotion)
-			Main.player[Main.myPlayer].QuickBuff();
 	}
 
 	protected internal override void ResetVariables() => AutoPotion = false;
