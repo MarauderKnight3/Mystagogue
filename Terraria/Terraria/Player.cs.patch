@@ -1,5 +1,13 @@
 --- src/decompiled/Terraria/Player.cs
 +++ src/Terraria/Terraria/Player.cs
+@@ -1,6 +_,7 @@
+ using System;
+ using System.Collections.Generic;
+ using System.IO;
++using System.Linq;
+ using System.Security.Cryptography;
+ using System.Text;
+ using Microsoft.Xna.Framework;
 @@ -28,6 +_,8 @@
  using Terraria.ID;
  using Terraria.IO;
@@ -50,13 +58,27 @@
  		mount.CheckMountBuff(this);
  	}
  
-@@ -18990,6 +_,10 @@
+@@ -18990,6 +_,24 @@
  
  		if (i == Main.myPlayer && !isControlledByFilm) {
  			ResetControls();
 +
-+			if (whoAmI == Main.myPlayer && PlayerAutoPotionCommand.AutoPotion)
-+				QuickBuff();
++			if (whoAmI == Main.myPlayer) {
++				if (PlayerAutoPotionCommand.AutoPotion)
++					QuickBuff();
++
++				if (PlayerAutoMiscBuffCommand.AutoMiscBuff) {
++					foreach (int buffID in new List<int> {
++						BuffID.CatBast, BuffID.Campfire, BuffID.Sunflower, BuffID.HeartLamp,
++						BuffID.StarInBottle, BuffID.SugarRush, BuffID.Sharpened,
++						BuffID.AmmoBox, BuffID.Clairvoyance, BuffID.Bewitched, BuffID.WarTable
++					}) {
++						if (buffType.Contains(buffID))
++							continue;
++						AddBuff(buffID, 648000, false);
++					}
++				}
++			}
 +
  			if (Main.hasFocus) {
  				if (!Main.drawingPlayerChat && !Main.editSign && !Main.editChest && !Main.blockInput) {
