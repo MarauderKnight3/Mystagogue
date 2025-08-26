@@ -14,9 +14,8 @@ internal class ItemRefreshCommand : Command
 
 		// Switch to the hotbar if the cursor is empty.
 		ref var item = ref Main.mouseItem;
-		if (Main.mouseItem.IsAir) {
+		if (Main.mouseItem.IsAir)
 			item = Main.player[Main.myPlayer].HeldItem;
-		}
 
 		// Refresh the item, whether it is in the cursor or in the hotbar.
 		item.Refresh();
