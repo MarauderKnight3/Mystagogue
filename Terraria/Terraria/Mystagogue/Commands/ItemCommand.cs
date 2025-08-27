@@ -59,7 +59,7 @@ internal class ItemCommand : Command
 		Main.mouseItem.SetDefaults(itemID);
 		Main.mouseItem.stack = itemCount;
 		Main.mouseItem.prefix = prefixID;
-		Main.mouseItem.Refresh();
+		Main.mouseItem.Refresh(false);
 
 		// Let the user know
 		Output($"Set cursor item to [{Lang.GetItemNameValue(itemID)}] with count [{itemCount}] and prefix [{PrefixHelper.PrefixNames[prefixID]}].");

@@ -33,7 +33,7 @@ internal class ItemPrefixCommand : Command
 
 		// Edit the mouse item
 		item.prefix = prefixID;
-		item.Refresh();
+		item.Refresh(false);
 
 		// Let the user know
 		Output($"Reforged to [{PrefixHelper.PrefixNames[prefixID]}].");

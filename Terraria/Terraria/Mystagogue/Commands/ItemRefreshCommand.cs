@@ -18,7 +18,7 @@ internal class ItemRefreshCommand : Command
 			item = Main.player[Main.myPlayer].HeldItem;
 
 		// Refresh the item, whether it is in the cursor or in the hotbar.
-		item.Refresh();
+		item.Refresh(false);
 
 		// Let the user know
 		Output($"Normalized the item [{item.Name}].");

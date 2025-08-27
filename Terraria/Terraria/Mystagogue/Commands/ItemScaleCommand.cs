@@ -34,7 +34,7 @@ internal class ItemScaleCommand : Command
 			Item item = new Item();
 			item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
 			item.Prefix(Main.player[Main.myPlayer].HeldItem.prefix);
-			item.Refresh();
+			item.Refresh(false);
 
 			// Set the value to what is expected of the control case
 			Main.player[Main.myPlayer].HeldItem.scale = item.scale;
