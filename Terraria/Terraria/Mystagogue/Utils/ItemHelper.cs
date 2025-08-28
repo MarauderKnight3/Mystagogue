@@ -37,7 +37,7 @@ internal class ItemHelper
 		// We assume the input is either an ID or a concatenated item name.
 		List<int> matches = [];
 		for (int i = 0; i < ItemID.Count; i++) {
-			if (Lang.GetItemNameValue(i).StartsWith(itemName, StringComparison.OrdinalIgnoreCase)) {
+			if (Lang.GetItemNameValue(i).Contains(itemName, StringComparison.OrdinalIgnoreCase)) {
 				matches.Add(i);
 			}
 		}
