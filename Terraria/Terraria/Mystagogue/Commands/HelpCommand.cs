@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class HelpCommand : Command
