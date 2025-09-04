@@ -42,12 +42,12 @@ internal static class Anomaly
 	{
 		if (!isError)
 			Main.NewText(
-				$"Mystagogue: {message}",
+				$"! {message}",
 				186, 140, 255);
 		else
 			Main.NewText(
-				$"Mystagogue: {message}",
-				123, 35, 255);
+				$"! {message}",
+				255, 0, 0);
 	}
 
 	internal static bool InterpretInput(string raw, bool clear = true)
