@@ -8,14 +8,16 @@
  using Terraria.Utilities;
  using Terraria.WorldBuilding;
  
-@@ -60927,8 +_,9 @@
+@@ -60927,8 +_,11 @@
  					}
  				}
  			}
 -
  			bool flag15 = false;
-+			NPC.spawnRate = (SpawnRateCommand.SpawnRate == 0) ? 0 : NPC.spawnRate / SpawnRateCommand.SpawnRate;
-+			NPC.maxSpawns *= SpawnRateCommand.SpawnRate;
++			if (SpawnRateCommand.SpawnRate != 1) {
++				NPC.spawnRate = (SpawnRateCommand.SpawnRate == 0) ? 0 : NPC.spawnRate / SpawnRateCommand.SpawnRate;
++				NPC.maxSpawns *= SpawnRateCommand.SpawnRate;
++			}
  			if (Main.player[k].active && !Main.player[k].dead && Main.player[k].nearbyActiveNPCs < (float)maxSpawns && Main.rand.Next(spawnRate) == 0) {
  				bool flag16 = Main.player[k].ZoneTowerNebula || Main.player[k].ZoneTowerSolar || Main.player[k].ZoneTowerStardust || Main.player[k].ZoneTowerVortex;
  				spawnRangeX = (int)((double)(sWidth / 16) * 0.7);
