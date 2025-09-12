@@ -58,7 +58,7 @@
  		mount.CheckMountBuff(this);
  	}
  
-@@ -18990,6 +_,24 @@
+@@ -18990,6 +_,14 @@
  
  		if (i == Main.myPlayer && !isControlledByFilm) {
  			ResetControls();
@@ -67,17 +67,7 @@
 +				if (PlayerAutoPotionCommand.AutoPotion)
 +					QuickBuff();
 +
-+				if (PlayerAutoMiscBuffCommand.AutoMiscBuff) {
-+					foreach (int buffID in new List<int> {
-+						BuffID.CatBast, BuffID.Campfire, BuffID.Sunflower, BuffID.HeartLamp,
-+						BuffID.StarInBottle, BuffID.SugarRush, BuffID.Sharpened,
-+						BuffID.AmmoBox, BuffID.Clairvoyance, BuffID.Bewitched, BuffID.WarTable
-+					}) {
-+						if (buffType.Contains(buffID))
-+							continue;
-+						AddBuff(buffID, 648000, false);
-+					}
-+				}
++				PlayerAutoMiscBuffCommand.TryApplyBuffs();
 +			}
 +
  			if (Main.hasFocus) {
