@@ -43,7 +43,7 @@ internal class RightClickTeleportCommand : Command
 
 	protected internal override void ResetVariables() => RightClickTeleportSetting = 0;
 
-	internal static void TryRightClickTeleport()
+	protected internal static void TryRightClickTeleport()
 	{
 		var player = Main.player[Main.myPlayer];
 
