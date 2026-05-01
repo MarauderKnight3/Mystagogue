@@ -1,5 +1,5 @@
 # Mystagogue
-A private Terraria hacked client.
+A ~~private~~ now public Terraria hacked client.
 </br>
 
 ## Usage
