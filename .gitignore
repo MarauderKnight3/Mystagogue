@@ -2,3 +2,4 @@
 *.exe
 Terraria/Terraria.sln
 Terraria/Terraria.code-workspace
+/Terraria/.vs
