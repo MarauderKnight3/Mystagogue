@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Terraria.Mystagogue.Commands;
 internal class SpawnRateCommand : Command
 {
-	internal static int SpawnRate = 1;
+	internal static int SpawnRate;
 
 	public SpawnRateCommand() : base("spawnrate", "[Spawn rate multiplier, 0-50] Sets the multiplier of your character's ambient enemy spawn rate. Run without a specification to undo this change.") { }
 	protected internal override void Execute(List<string> args)

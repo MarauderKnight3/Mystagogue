@@ -109,6 +109,7 @@ internal static class Anomaly
 			float clampedY = Math.Min(Math.Max(worldY, 0f), Main.maxTilesY * 16f - 64f);
 
 			Main.player[Main.myPlayer].Teleport(new Vector2(clampedX, clampedY), TeleportationStyleID.DebugTeleport);
+			Main.mapFullscreen = false;
 		}
 	}
 
@@ -120,7 +121,7 @@ internal static class Anomaly
 		bool result = false;
 		ref Item mouseItem = ref Main.mouseItem;
 
-		if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && Main.mouseRight && (mouseItem.IsTheSameAs(slot) | mouseItem.IsAir)) {
+		if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && Main.mouseRight && (mouseItem.type == slot.type | mouseItem.IsAir)) {
 			mouseItem = new Item();
 			mouseItem = slot.Clone();
 			mouseItem.favorited = false;

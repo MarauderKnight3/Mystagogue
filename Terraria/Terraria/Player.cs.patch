@@ -1,35 +1,24 @@
 --- src/decompiled/Terraria/Player.cs
 +++ src/Terraria/Terraria/Player.cs
-@@ -1,6 +_,7 @@
- using System;
- using System.Collections.Generic;
- using System.IO;
-+using System.Linq;
- using System.Security.Cryptography;
- using System.Text;
- using Microsoft.Xna.Framework;
-@@ -28,6 +_,8 @@
- using Terraria.ID;
+@@ -29,6 +_,8 @@
  using Terraria.IO;
  using Terraria.Localization;
+ using Terraria.Map;
 +using Terraria.Mystagogue;
 +using Terraria.Mystagogue.Commands;
  using Terraria.ObjectData;
  using Terraria.Social;
- using Terraria.UI;
-@@ -40,6 +_,11 @@
+ using Terraria.Testing;
+@@ -42,6 +_,8 @@
  
  public class Player : Entity, IFixLoadedData
  {
-+	public Player Duplicate()
-+	{
-+		return (Player)base.MemberwiseClone();
-+	}
++	public Player Duplicate() => MemberwiseClone() as Player;
 +
  	public static class BuilderAccToggleIDs
  	{
  		public const int RulerLine = 0;
-@@ -7135,6 +_,9 @@
+@@ -7409,6 +_,9 @@
  
  	public void UpdateBuffs(int i)
  	{
@@ -39,42 +28,43 @@
  		if (soulDrain > 0 && whoAmI == Main.myPlayer)
  			AddBuff(151, 2);
  
-@@ -13276,6 +_,8 @@
+@@ -13413,6 +_,8 @@
  
  	public void UpdateDead()
  	{
 +		if (whoAmI == Main.myPlayer)
 +			Anomaly.PreUpdateDeadHook();
+ 		deadTime++;
+ 		isPerformingJump_DownDash = false;
  		shimmerUnstuckHelper.Clear();
- 		timeShimmering = 0;
- 		forcedGravity = 0;
-@@ -14651,7 +_,8 @@
- 				}
- 			}
+@@ -14996,8 +_,12 @@
  		}
--
+ 
+ 		MinecartSettings = Minecart.Customization.Default;
++
+ 		if (!isDisplayDollOrInanimate)
+ 			mount.CheckMountBuff(this);
++
 +		if (whoAmI == Main.myPlayer)
 +			Anomaly.PostResetEffectsHook();
- 		mount.CheckMountBuff(this);
  	}
  
-@@ -18990,6 +_,14 @@
+ 	private void UpdateLadyBugLuckTime()
+@@ -19750,6 +_,12 @@
  
  		if (i == Main.myPlayer && !isControlledByFilm) {
  			ResetControls();
 +
-+			if (whoAmI == Main.myPlayer) {
-+				if (PlayerAutoPotionCommand.AutoPotion)
-+					QuickBuff();
++			if (PlayerAutoPotionCommand.AutoPotion)
++				QuickBuff();
 +
-+				PlayerAutoMiscBuffCommand.TryApplyBuffs();
-+			}
++			PlayerAutoMiscBuffCommand.TryApplyBuffs();
 +
- 			if (Main.hasFocus) {
+ 			if (FocusHelper.AllowGameplayInputs) {
  				if (!Main.drawingPlayerChat && !Main.editSign && !Main.editChest && !Main.blockInput) {
  					PlayerInput.Triggers.Current.CopyInto(this);
-@@ -23823,6 +_,9 @@
- 			altFunctionUse = 0;
+@@ -25429,6 +_,9 @@
+ 		}
  
  		ItemCheck_ManageRightClickFeatures_ShieldRaise(flag);
 +
@@ -83,16 +73,14 @@
  	}
  
  	public void ItemCheck_ManageRightClickFeatures_ShieldRaise(bool theGeneralCheck)
-@@ -33023,7 +_,12 @@
+@@ -34186,6 +_,10 @@
+ 		int num = 3;
  		if (Main.netMode == 0)
  			Teleport(telePos, num);
- 		else
-+		if (!MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable)
- 			NetMessage.SendData(65, -1, -1, null, 2, whoAmI, telePos.X, telePos.Y, num);
-+		else {
++		else if (MapPlayerIconForceEnableCommand.PlayerMapIconFeatureFreeForceEnable) {
 +			Teleport(telePos, num);
 +			NetMessage.SendData(13, number: Main.myPlayer);
-+		}
++		}	
+ 		else
+ 			NetMessage.SendData(65, -1, -1, null, 2, whoAmI, telePos.X, telePos.Y, num);
  	}
- 
- 	private void PayDD2CrystalsBeforeUse(Item item)

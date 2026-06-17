@@ -1,22 +1,19 @@
 --- src/decompiled/Terraria/Item.cs
 +++ src/Terraria/Terraria/Item.cs
-@@ -20,6 +_,7 @@
+@@ -17,6 +_,7 @@
  
- public class Item : Entity
+ public class Item : IEntitySourceTarget
  {
 +	internal bool MystagogueBuildingModeModified = false;
- 	private string _nameOverride;
- 	public const int luckPotionDuration1 = 18000;
- 	public const int luckPotionDuration2 = 36000;
-@@ -47301,11 +_,6 @@
- 			material = ItemID.Sets.IsAMaterial[type];
+ 	public int width;
+ 	public int height;
+ 	public static int coinGrabRange = 350;
+@@ -47911,8 +_,6 @@
+ 			SetDefaults(1533 + type - 1803);
  
  		RebuildTooltip();
--		if (type > 0 && type < ItemID.Count && ItemID.Sets.Deprecated[type]) {
--			netID = 0;
--			type = 0;
--			stack = 0;
--		}
+-		if (type > 0 && type < ItemID.Count && ItemID.Sets.Deprecated[type])
+-			TurnToAir();
  	}
  
  	public void OnCreated(ItemCreationContext context)

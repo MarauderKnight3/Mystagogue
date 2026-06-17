@@ -1,14 +1,14 @@
 --- src/decompiled/Terraria/UI/ItemSlot.cs
 +++ src/Terraria/Terraria/UI/ItemSlot.cs
-@@ -10,6 +_,7 @@
- using Terraria.GameInput;
+@@ -15,6 +_,7 @@
  using Terraria.ID;
+ using Terraria.Initializers;
  using Terraria.Localization;
 +using Terraria.Mystagogue;
  using Terraria.UI.Chat;
  using Terraria.UI.Gamepad;
  
-@@ -1043,6 +_,9 @@
+@@ -1232,6 +_,9 @@
  		Player player = Main.player[Main.myPlayer];
  		inv[slot].newAndShiny = false;
  		if (player.itemAnimation > 0)
