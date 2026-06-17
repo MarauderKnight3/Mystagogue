@@ -1,0 +1,11 @@
+--- src/decompiled/Terraria/Map/MapHelper.cs
++++ src/Terraria/Terraria/Map/MapHelper.cs
+@@ -1919,7 +_,7 @@
+ 				if (!sceneArea.Contains(i, j)) {
+ 					for (int k = i - 36; k <= i + 30; k += 10) {
+ 						for (int l = j - 36; l <= j + 30; l += 10) {
+-							int type = Main.Map[k, l].Type;
++							int type = Main.Map[Math.Min(Math.Max(k, 0), Main.Map.MaxWidth - 1), l].Type;
+ 							for (int m = 0; m < snowTypes.Length; m++) {
+ 								if (snowTypes[m] == type) {
+ 									b = byte.MaxValue;
