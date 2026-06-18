@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class ItemCriticalCommand : Command
 {
-	public ItemCriticalCommand() : base("crit", "[Desired critical chance] The selected item in your hotbar will have this critical chance value to work with. Run without a specification to undo this change.") { }
+	public ItemCriticalCommand() : base("crit", "[Chance] Changes the critical chance of the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
+		var item = ItemHelper.GetItemToChange();
+
+		if (item == null)
 			return;
-		}
 
 		if (args.Count > 0) {
 			// Here we make changes
@@ -21,28 +21,25 @@ internal class ItemCriticalCommand : Command
 			}
 
 			// Clamp to a reasonable range so we don't break the game with desynchronization
-			crit = Math.Max(0, Math.Min(999999, crit));
+			crit = Math.Max(0, Math.Min(200, crit));
 
 			// Dewit
-			Main.player[Main.myPlayer].HeldItem.crit = crit;
-
-			// Holler
-			Output("Critical chance set to " + Main.player[Main.myPlayer].HeldItem.crit);
+			item.crit = crit;
 		}
 		else {
-			// Make a new item that can be the control case
-			Item item = new Item();
-			item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
-			item.Prefix(Main.player[Main.myPlayer].HeldItem.prefix);
-			item.Refresh(false);
+			// Make a control
+			Item referenceItem = new Item();
+			referenceItem.SetDefaults(item.type);
+			referenceItem.Prefix(item.prefix);
+			referenceItem.Refresh(false);
 
-			// Set the value to what is expected of the control case
-			Main.player[Main.myPlayer].HeldItem.crit = item.crit;
+			// Copy from the control
+			item.crit = referenceItem.crit;
 
-			item.TurnToAir(true);
-
-			// Holler
-			Output("Critical chance set to default: " + Main.player[Main.myPlayer].HeldItem.crit);
+			referenceItem.TurnToAir(true);
 		}
+
+		// Holler
+		Output("Item critical chance set to " + item.crit);
 	}
 }

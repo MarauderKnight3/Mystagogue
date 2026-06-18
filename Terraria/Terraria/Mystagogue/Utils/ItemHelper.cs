@@ -7,6 +7,22 @@ using Terraria.ID;
 namespace Terraria.Mystagogue.Utils;
 internal class ItemHelper
 {
+	internal static Item? GetItemToChange()
+	{
+		// The player must be holding an item to change it.
+		if (Main.mouseItem.IsAir && Main.LocalPlayer.HeldItem.IsAir) {
+			Anomaly.Output("You aren't holding an item to change.", true);
+			return null;
+		}
+
+		// Switch to the hotbar if the cursor is empty.
+		var item = Main.mouseItem;
+		if (Main.mouseItem.IsAir)
+			item = Main.LocalPlayer.HeldItem;
+
+		return item;
+	}
+
 	internal static object NameOrIDToID(string input)
 	{
 		// We assume the input is either an ID or a concatenated item name.

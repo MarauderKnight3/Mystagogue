@@ -6,7 +6,7 @@ using Terraria.Mystagogue.Utils;
 namespace Terraria.Mystagogue.Commands;
 internal class ItemCommand : Command
 {
-	public ItemCommand() : base("i", "[Item Name/ID] [Item Count] [Item Prefix/ID] The item held in your cursor will be this item.") { }
+	public ItemCommand() : base("i", "[Item Name/ID] [Item Count] [Item Prefix/ID] Sets the cursor-held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		if (args.Count == 0) {

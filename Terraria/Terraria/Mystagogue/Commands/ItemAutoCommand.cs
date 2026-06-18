@@ -1,21 +1,21 @@
 ﻿using System.Collections.Generic;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class ItemAutoCommand : Command
 {
-	public ItemAutoCommand() : base("auto", "The selected item in your hotbar will be used again when the input is held to activate it.") { }
+	public ItemAutoCommand() : base("auto", "Toggles auto reuse for the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
+		var item = ItemHelper.GetItemToChange();
+
+		if (item == null)
 			return;
-		}
 
 		// Dewit
-		Main.player[Main.myPlayer].HeldItem.autoReuse = !Main.player[Main.myPlayer].HeldItem.autoReuse;
+		item.autoReuse = !item.autoReuse;
 
 		// Holler
-		Output("Automatic reuse turned " + (Main.player[Main.myPlayer].HeldItem.autoReuse ? "on" : "off") + ".");
+		Output("Item auto reuse turned " + (item.autoReuse ? "on" : "off") + ".");
 	}
 }

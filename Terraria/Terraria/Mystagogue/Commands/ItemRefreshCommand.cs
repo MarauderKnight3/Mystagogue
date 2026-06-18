@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class ItemRefreshCommand : Command
@@ -6,21 +7,15 @@ internal class ItemRefreshCommand : Command
 	public ItemRefreshCommand() : base("ri", "Refreshes the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.mouseItem.IsAir && Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
+		var item = ItemHelper.GetItemToChange();
+
+		if (item == null)
 			return;
-		}
 
-		// Switch to the hotbar if the cursor is empty.
-		var item = Main.mouseItem;
-		if (Main.mouseItem.IsAir)
-			item = Main.player[Main.myPlayer].HeldItem;
-
-		// Refresh the item, whether it is in the cursor or in the hotbar.
+		// Dewit
 		item.Refresh(false);
 
-		// Let the user know
-		Output($"Normalized the item [{item.Name}].");
+		// Holler
+		Output($"Reset item [{item.Name}].");
 	}
 }

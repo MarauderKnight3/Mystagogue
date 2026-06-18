@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class ItemUseTimeCommand : Command
 {
-	public ItemUseTimeCommand() : base("ut", "[Desired use duration in ticks] The selected item in your hotbar will take this long to execute its logic. This is called \"use time\". Run without a specification to undo this change. For changes to how long an item takes to swing or hold in hands when used, see the [at] command.") { }
+	public ItemUseTimeCommand() : base("ut", "[Ticks] Changes the delay between logic activations of the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
+		var item = ItemHelper.GetItemToChange();
+
+		if (item == null)
 			return;
-		}
 
 		if (args.Count > 0) {
 			// Here we make changes
@@ -24,25 +24,22 @@ internal class ItemUseTimeCommand : Command
 			useTime = Math.Max(0, Math.Min(80, useTime));
 
 			// Dewit
-			Main.player[Main.myPlayer].HeldItem.useTime = useTime;
-
-			// Holler
-			Output("Use time set to " + Main.player[Main.myPlayer].HeldItem.useTime);
+			item.useTime = useTime;
 		}
 		else {
-			// Make a new item that can be the control case
-			Item item = new Item();
-			item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
-			item.Prefix(Main.player[Main.myPlayer].HeldItem.prefix);
-			item.Refresh(false);
+			// Make a control
+			Item referenceItem = new Item();
+			referenceItem.SetDefaults(item.type);
+			referenceItem.Prefix(item.prefix);
+			referenceItem.Refresh(false);
 
-			// Set the value to what is expected of the control case
-			Main.player[Main.myPlayer].HeldItem.useTime = item.useTime;
+			// Copy from the control
+			item.useTime = referenceItem.useTime;
 
-			item.TurnToAir(true);
-
-			// Holler
-			Output("Use time set to default: " + Main.player[Main.myPlayer].HeldItem.useTime);
+			referenceItem.TurnToAir(true);
 		}
+
+		// Holler
+		Output("Use time set to " + item.useTime);
 	}
 }

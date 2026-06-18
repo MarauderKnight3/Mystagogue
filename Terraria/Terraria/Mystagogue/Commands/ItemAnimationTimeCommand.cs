@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class ItemAnimationTimeCommand : Command
 {
-	public ItemAnimationTimeCommand() : base("at", "[Desired animation duration in ticks] The selected item in your hotbar will take this long to complete its relevant animation. This is called \"animation time\". Run without a specification to undo this change. For changes to how long an item takes to execute its logic, see the [ut] command.") { }
+	public ItemAnimationTimeCommand() : base("at", "[Ticks] Changes the duration of the animation of the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
+		var item = ItemHelper.GetItemToChange();
+
+		if (item == null)
 			return;
-		}
 
 		if (args.Count > 0) {
 			// Here we make changes
@@ -24,25 +24,22 @@ internal class ItemAnimationTimeCommand : Command
 			animationTime = Math.Max(0, Math.Min(80, animationTime));
 
 			// Dewit
-			Main.player[Main.myPlayer].HeldItem.useAnimation = animationTime;
-
-			// Holler
-			Output("Animation time set to " + Main.player[Main.myPlayer].HeldItem.useAnimation);
+			item.useAnimation = animationTime;
 		}
 		else {
-			// Make a new item that can be the control case
-			Item item = new Item();
-			item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
-			item.Prefix(Main.player[Main.myPlayer].HeldItem.prefix);
-			item.Refresh(false);
+			// Make a control
+			Item referenceItem = new Item();
+			referenceItem.SetDefaults(item.type);
+			referenceItem.Prefix(item.prefix);
+			referenceItem.Refresh(false);
 
-			// Set the value to what is expected of the control case
-			Main.player[Main.myPlayer].HeldItem.useAnimation = item.useAnimation;
+			// Copy from the control
+			item.useAnimation = referenceItem.useAnimation;
 
-			item.TurnToAir(true);
-
-			// Holler
-			Output("Animation time set to default: " + Main.player[Main.myPlayer].HeldItem.useAnimation);
+			referenceItem.TurnToAir(true);
 		}
+
+		// Holler
+		Output("Item animation time set to " + item.useAnimation);
 	}
 }

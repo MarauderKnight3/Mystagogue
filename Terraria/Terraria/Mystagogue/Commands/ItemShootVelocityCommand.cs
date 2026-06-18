@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class ItemShootVelocityCommand : Command
 {
-	public ItemShootVelocityCommand() : base("velocity", "[Desired projectile velocity] The selected item in your hotbar will fire its projectile with this velocity, if applicable. Run without a specification to undo this change.") { }
+	public ItemShootVelocityCommand() : base("vel", "[Velocity] Changes the velocity of the projectiles shot by the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
+		var item = ItemHelper.GetItemToChange();
+
+		if (item == null)
 			return;
-		}
 
 		if (args.Count > 0) {
 			// Here we make changes
@@ -24,25 +24,22 @@ internal class ItemShootVelocityCommand : Command
 			velocity = Math.Max(0, Math.Min(60, velocity));
 
 			// Dewit
-			Main.player[Main.myPlayer].HeldItem.shootSpeed = velocity;
-
-			// Holler
-			Output("Velocity chance set to " + Main.player[Main.myPlayer].HeldItem.shootSpeed);
+			item.shootSpeed = velocity;
 		}
 		else {
-			// Make a new item that can be the control case
-			Item item = new Item();
-			item.SetDefaults(Main.player[Main.myPlayer].HeldItem.type);
-			item.Prefix(Main.player[Main.myPlayer].HeldItem.prefix);
-			item.Refresh(false);
+			// Make a control
+			Item referenceItem = new Item();
+			referenceItem.SetDefaults(item.type);
+			referenceItem.Prefix(item.prefix);
+			referenceItem.Refresh(false);
 
-			// Set the value to what is expected of the control case
-			Main.player[Main.myPlayer].HeldItem.shootSpeed = item.shootSpeed;
+			// Copy from the control
+			item.useAnimation = referenceItem.useAnimation;
 
-			item.TurnToAir(true);
-
-			// Holler
-			Output("Velocity chance set to default: " + Main.player[Main.myPlayer].HeldItem.shootSpeed);
+			referenceItem.TurnToAir(true);
 		}
+
+		// Holler
+		Output("Item projectile velocity set to " + item.shootSpeed);
 	}
 }

@@ -4,19 +4,13 @@ using Terraria.Mystagogue.Utils;
 namespace Terraria.Mystagogue.Commands;
 internal class ItemPrefixCommand : Command
 {
-	public ItemPrefixCommand() : base("reforge", "[Item Prefix/ID] The item held in the cursor, or in the hotbar if the cursor is empty, will have this prefix.") { }
+	public ItemPrefixCommand() : base("prefix", "[Item Prefix/ID] Changes the prefix of the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
-		// The player must be holding an item to change it.
-		if (Main.mouseItem.IsAir && Main.player[Main.myPlayer].HeldItem.IsAir) {
-			Output("You aren't holding an item to change.", true);
-			return;
-		}
+		var item = ItemHelper.GetItemToChange();
 
-		// Switch to the hotbar if the cursor is empty.
-		var item = Main.mouseItem;
-		if (Main.mouseItem.IsAir)
-			item = Main.player[Main.myPlayer].HeldItem;
+		if (item == null)
+			return;
 
 		byte prefixID = 0;
 		// Interpret the prefix ID or name
@@ -36,6 +30,6 @@ internal class ItemPrefixCommand : Command
 		item.Refresh(false);
 
 		// Let the user know
-		Output($"Reforged to [{PrefixHelper.PrefixNames[prefixID]}].");
+		Output($"Item reforged to {PrefixHelper.PrefixNames[prefixID]}");
 	}
 }
