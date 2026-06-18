@@ -13,12 +13,12 @@ internal class HelpCommand : Command
 				Output($"Command [{args[0]}] not found.", true);
 				return;
 			}
-			Output($"You chose to read about [{command.Name}].\n>> {command.Description}");
+			Output($"[{command.Name}]\n>> {command.Description}");
 			return;
 		}
 
 		string commandList = string.Join("], [", Library.Select(c => c.Key)).ReplaceEveryXthOccurrence("], [", "],\n[", 10);
 		Output($@"There are {Library.Count} commands loaded. Learn about a command with `help [Command Name]`.
-List of commands: [{commandList}]");
+[{commandList}]");
 	}
 }
