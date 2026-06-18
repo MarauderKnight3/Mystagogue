@@ -115,24 +115,20 @@ internal static class Anomaly
 
 	internal static bool TryItemDuplication(Item slot)
 	{
-		if (!Main.mouseRightRelease)
-			return false;
+		bool leftAlt = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt);
+		bool leftControl = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl);
 
-		bool result = false;
-		ref Item mouseItem = ref Main.mouseItem;
-
-		if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt) && Main.mouseRight && (mouseItem.type == slot.type | mouseItem.IsAir)) {
-			mouseItem = new Item();
-			mouseItem = slot.Clone();
-			mouseItem.favorited = false;
-			mouseItem.stack = mouseItem.maxStack;
-			result = true;
+		if (leftAlt && Main.mouseRight && Main.mouseRightRelease && Main.mouseItem.IsAir) {
+			Main.mouseItem = slot.Clone();
+			Main.mouseItem.favorited = false;
+			Main.mouseItem.stack = Main.mouseItem.maxStack;
+			return true;
 		}
-		else if (Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl) && !slot.IsAir) {
+		if (leftControl && leftAlt && !slot.IsAir && slot.consumable) {
 			slot.stack = slot.maxStack;
-			result = true;
+			return true;
 		}
-		return result;
+		return false;
 	}
 }
 
