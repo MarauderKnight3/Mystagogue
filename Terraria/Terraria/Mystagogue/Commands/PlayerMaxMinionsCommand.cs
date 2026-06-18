@@ -34,7 +34,7 @@ internal class PlayerMaxMinionsCommand : Command
 
 	protected internal override void PostResetEffectsHook()
 	{
-		Main.player[Main.myPlayer].maxMinions += MaxMinionsOffset;
-		Main.player[Main.myPlayer].maxTurrets += MaxMinionsOffset;
+		Main.LocalPlayer.maxMinions += MaxMinionsOffset;
+		Main.LocalPlayer.maxTurrets += MaxMinionsOffset;
 	}
 }

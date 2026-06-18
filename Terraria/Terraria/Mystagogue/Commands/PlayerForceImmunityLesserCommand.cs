@@ -24,7 +24,7 @@ internal class PlayerForceImmunityLesserCommand : Command
 				BuffID.Webbed,
 				BuffID.Stoned
 			}) {
-				Main.player[Main.myPlayer].buffImmune[num2] = true;
+				Main.LocalPlayer.buffImmune[num2] = true;
 			}
 		}
 	}

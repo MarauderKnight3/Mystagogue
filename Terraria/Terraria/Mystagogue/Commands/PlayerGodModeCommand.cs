@@ -14,5 +14,5 @@ internal class PlayerGodModeCommand : Command
 
 	protected internal override void ResetVariables() => GodMode = false;
 
-	protected internal override void PostResetEffectsHook() => Main.player[Main.myPlayer].creativeGodMode = GodMode;
+	protected internal override void PostResetEffectsHook() => Main.LocalPlayer.creativeGodMode = GodMode;
 }

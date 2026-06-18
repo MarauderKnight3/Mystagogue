@@ -22,7 +22,7 @@ internal class PlayerDifficultyCommand : Command
 		newDifficulty = Math.Max((byte)0, Math.Min((byte)3, newDifficulty));
 
 		// Dewit
-		Main.player[Main.myPlayer].difficulty = newDifficulty;
+		Main.LocalPlayer.difficulty = newDifficulty;
 
 		// Let the player know
 		Output("Difficulty set to " + (newDifficulty == 0 ? "Classic" : newDifficulty == 1 ? "Mediumcore" : newDifficulty == 2 ? "Hardcore" : "Journey") + " Mode.");

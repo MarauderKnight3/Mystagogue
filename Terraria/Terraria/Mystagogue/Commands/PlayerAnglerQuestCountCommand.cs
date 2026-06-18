@@ -18,9 +18,9 @@ internal class PlayerAnglerQuestCountCommand : Command
 		}
 
 		// Dewit
-		Main.player[Main.myPlayer].anglerQuestsFinished = questTarget;
+		Main.LocalPlayer.anglerQuestsFinished = questTarget;
 
 		// Let the player know
-		Output("Angler quests finished set to " + Main.player[Main.myPlayer].anglerQuestsFinished + ".");
+		Output("Angler quests finished set to " + Main.LocalPlayer.anglerQuestsFinished + ".");
 	}
 }

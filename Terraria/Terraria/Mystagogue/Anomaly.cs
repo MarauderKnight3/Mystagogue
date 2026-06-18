@@ -102,13 +102,13 @@ internal static class Anomaly
 			float mapX = Main.mapFullscreenPos.X + (Main.mouseX - Main.screenWidth / 2) / (Main.mapFullscreenScale * (1f / 0.9f));
 			float mapY = Main.mapFullscreenPos.Y + (Main.mouseY - Main.screenHeight / 2) / (Main.mapFullscreenScale * (1f / 0.9f));
 
-			float worldX = mapX * 16f - (Main.player[Main.myPlayer].width / 2);
-			float worldY = mapY * 16f - (Main.player[Main.myPlayer].height / 2);
+			float worldX = mapX * 16f - (Main.LocalPlayer.width / 2);
+			float worldY = mapY * 16f - (Main.LocalPlayer.height / 2);
 
 			float clampedX = Math.Min(Math.Max(worldX, 0f), Main.maxTilesX * 16f - 64f);
 			float clampedY = Math.Min(Math.Max(worldY, 0f), Main.maxTilesY * 16f - 64f);
 
-			Main.player[Main.myPlayer].Teleport(new Vector2(clampedX, clampedY), TeleportationStyleID.DebugTeleport);
+			Main.LocalPlayer.Teleport(new Vector2(clampedX, clampedY), TeleportationStyleID.DebugTeleport);
 			Main.mapFullscreen = false;
 		}
 	}

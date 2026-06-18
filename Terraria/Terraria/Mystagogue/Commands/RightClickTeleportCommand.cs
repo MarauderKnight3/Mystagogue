@@ -45,7 +45,7 @@ internal class RightClickTeleportCommand : Command
 
 	protected internal static void TryRightClickTeleport()
 	{
-		var player = Main.player[Main.myPlayer];
+		var player = Main.LocalPlayer;
 
 		// Check if teleport is enabled and conditions are met
 		if (player.tileInteractionHappened || player.mouseInterface ||

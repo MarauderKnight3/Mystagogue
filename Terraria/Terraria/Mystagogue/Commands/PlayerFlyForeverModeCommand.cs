@@ -17,8 +17,8 @@ internal class PlayerFlyForeverModeCommand : Command
 	protected internal override void PostResetEffectsHook()
 	{
 		if (FlyForeverMode) {
-			Main.player[Main.myPlayer].wingTime = 30f;
-			Main.player[Main.myPlayer].rocketTime = 30;
+			Main.LocalPlayer.wingTime = 30f;
+			Main.LocalPlayer.rocketTime = 30;
 		}
 	}
 }

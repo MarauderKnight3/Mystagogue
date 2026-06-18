@@ -15,9 +15,9 @@ internal class PlayerMaxManaCommand : Command
 		}
 
 		// Dewit
-		Main.player[Main.myPlayer].statManaMax = maxManaTarget;
+		Main.LocalPlayer.statManaMax = maxManaTarget;
 
 		// Let the player know
-		Output("Max Mana set to " + Main.player[Main.myPlayer].statManaMax + ".");
+		Output("Max Mana set to " + Main.LocalPlayer.statManaMax + ".");
 	}
 }

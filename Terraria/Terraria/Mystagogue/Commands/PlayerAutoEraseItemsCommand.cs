@@ -7,7 +7,7 @@ internal class PlayerAutoEraseItemsCommand : Command
 	protected internal override void Execute(List<string> args)
 	{
 		// Erase all non-favorited items in the player's inventory
-		foreach (Item item in Main.player[Main.myPlayer].inventory) {
+		foreach (Item item in Main.LocalPlayer.inventory) {
 			if (!item.favorited) {
 				item.TurnToAir(true);
 			}

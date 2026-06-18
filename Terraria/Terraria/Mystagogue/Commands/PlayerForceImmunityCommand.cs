@@ -36,7 +36,7 @@ internal class PlayerForceImmunityCommand : Command
 				BuffID.Hunger, BuffID.Starving, BuffID.TentacleSpike, BuffID.BloodButcherer,
 				BuffID.Shimmer, BuffID.EelWhipNPCDebuff, BuffID.Hemorrhage
 			}) {
-				Main.player[Main.myPlayer].buffImmune[num] = true;
+				Main.LocalPlayer.buffImmune[num] = true;
 			}
 		}
 	}

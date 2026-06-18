@@ -24,8 +24,8 @@ internal class PlayerAutoMiscBuffCommand : Command
 						BuffID.StarInBottle, BuffID.SugarRush, BuffID.Sharpened,
 						BuffID.AmmoBox, BuffID.Clairvoyance, BuffID.Bewitched, BuffID.WarTable
 					}) {
-				if (!Main.player[Main.myPlayer].buffType.Contains(buffID))
-					Main.player[Main.myPlayer].AddBuff(buffID, 7200, false);
+				if (!Main.LocalPlayer.buffType.Contains(buffID))
+					Main.LocalPlayer.AddBuff(buffID, 7200, false);
 			}
 		}
 	}

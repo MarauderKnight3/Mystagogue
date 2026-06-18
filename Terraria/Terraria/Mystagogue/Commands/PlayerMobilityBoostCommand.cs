@@ -35,11 +35,11 @@ internal class PlayerMobilityBoostCommand : Command
 	protected internal override void PostResetEffectsHook()
 	{
 		if (MobilityBoostCurrentPower > 0) {
-			Main.player[Main.myPlayer].moveSpeed = 1f + MobilityBoostCurrentPower * 1.6f;
-			Main.player[Main.myPlayer].runSlowdown += MobilityBoostCurrentPower * 0.03f;
-			Main.player[Main.myPlayer].gravity += MobilityBoostCurrentPower * 0.075f;
-			Main.player[Main.myPlayer].maxFallSpeed += MobilityBoostCurrentPower * 7f;
-			Main.player[Main.myPlayer].jumpSpeedBoost = 0f + MobilityBoostCurrentPower * 2.5f;
+			Main.LocalPlayer.moveSpeed = 1f + MobilityBoostCurrentPower * 1.6f;
+			Main.LocalPlayer.runSlowdown += MobilityBoostCurrentPower * 0.03f;
+			Main.LocalPlayer.gravity += MobilityBoostCurrentPower * 0.075f;
+			Main.LocalPlayer.maxFallSpeed += MobilityBoostCurrentPower * 7f;
+			Main.LocalPlayer.jumpSpeedBoost = 0f + MobilityBoostCurrentPower * 2.5f;
 		}
 	}
 }

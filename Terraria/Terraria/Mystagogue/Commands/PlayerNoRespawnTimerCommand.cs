@@ -16,8 +16,8 @@ internal class PlayerNoRespawnTimerCommand : Command
 
 	protected internal override void PreUpdateDeadHook()
 	{
-		if (NoRespawnTimerMode && Main.player[Main.myPlayer].respawnTimer > 3) {
-			Main.player[Main.myPlayer].respawnTimer = 3;
+		if (NoRespawnTimerMode && Main.LocalPlayer.respawnTimer > 3) {
+			Main.LocalPlayer.respawnTimer = 3;
 		}
 	}
 }

@@ -7,7 +7,7 @@ internal class PlayerRefreshAllItemsCommand : Command
 	protected internal override void Execute(List<string> args)
 	{
 		// Refresh all items in the player's inventory and banks.
-		Main.player[Main.myPlayer].RefreshItems(false);
+		Main.LocalPlayer.RefreshItems(false);
 
 		// Let the user know
 		Output($"Normalized all items.");

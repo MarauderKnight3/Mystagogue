@@ -15,9 +15,9 @@ internal class PlayerMaxLifeCommand : Command
 		}
 
 		// Dewit
-		Main.player[Main.myPlayer].statLifeMax = maxLifeTarget;
+		Main.LocalPlayer.statLifeMax = maxLifeTarget;
 
 		// Let the player know
-		Output("Max Life set to " + Main.player[Main.myPlayer].statLifeMax + ".");
+		Output("Max Life set to " + Main.LocalPlayer.statLifeMax + ".");
 	}
 }
