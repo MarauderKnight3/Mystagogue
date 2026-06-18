@@ -13,7 +13,7 @@
  			Initialize();
  
 -		if (Main.LocalPlayer.difficulty != 3) {
-+		if (Main.LocalPlayer.difficulty != 3 | !PlayerJourneyMenuCommand.JourneyMenuForceEnable) {
++		if (Main.LocalPlayer.difficulty != 3 && !PlayerJourneyMenuCommand.JourneyMenuForceEnable) {
  			Enabled = false;
  		}
  		else if (!Blocked) {
