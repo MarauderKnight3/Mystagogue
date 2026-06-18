@@ -42,11 +42,11 @@ internal static class Anomaly
 	{
 		if (!isError)
 			Main.NewText(
-				$"! {message}",
+				$";>> {message}",
 				186, 140, 255);
 		else
 			Main.NewText(
-				$"! {message}",
+				$"!>> {message}",
 				255, 0, 0);
 	}
 
