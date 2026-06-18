@@ -3,7 +3,7 @@
 namespace Terraria.Mystagogue.Commands;
 internal class ItemRefreshCommand : Command
 {
-	public ItemRefreshCommand() : base("ri", "The item held in the cursor, or in the hotbar if the cursor is empty, will be normalized. Effective at making items typical.") { }
+	public ItemRefreshCommand() : base("ri", "Refreshes the held item.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		// The player must be holding an item to change it.
