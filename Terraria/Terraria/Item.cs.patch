@@ -1,13 +1,5 @@
 --- src/decompiled/Terraria/Item.cs
 +++ src/Terraria/Terraria/Item.cs
-@@ -17,6 +_,7 @@
- 
- public class Item : IEntitySourceTarget
- {
-+	internal bool MystagogueBuildingModeModified = false;
- 	public int width;
- 	public int height;
- 	public static int coinGrabRange = 350;
 @@ -47911,8 +_,6 @@
  			SetDefaults(1533 + type - 1803);
  
