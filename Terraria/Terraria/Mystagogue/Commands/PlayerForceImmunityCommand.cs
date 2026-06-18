@@ -6,7 +6,7 @@ internal class PlayerForceImmunityCommand : Command
 {
 	internal static bool ForceDebuffImmunity;
 
-	public PlayerForceImmunityCommand() : base("immune", "Makes you immune to a list of nearly all debuffs.") { }
+	public PlayerForceImmunityCommand() : base("immune", "Toggles debuff immunity.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		ForceDebuffImmunity = !ForceDebuffImmunity;

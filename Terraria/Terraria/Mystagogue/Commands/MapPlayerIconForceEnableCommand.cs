@@ -5,7 +5,7 @@ internal class MapPlayerIconForceEnableCommand : Command
 {
 	internal static bool PlayerMapIconFeatureFreeForceEnable;
 
-	public MapPlayerIconForceEnableCommand() : base("freemap", "Allows you to see and teleport to ALL players on the map without a wormhole potion.") { }
+	public MapPlayerIconForceEnableCommand() : base("freemap", "Makes it possible to see all player map icons and teleport to them without using a wormhole potion.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		PlayerMapIconFeatureFreeForceEnable = !PlayerMapIconFeatureFreeForceEnable;

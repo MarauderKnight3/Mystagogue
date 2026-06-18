@@ -3,7 +3,7 @@
 namespace Terraria.Mystagogue.Commands;
 internal class MapRevealCommand : Command
 {
-	public MapRevealCommand() : base("map", "Reveals the whole map.") { }
+	public MapRevealCommand() : base("map", "Fully reveals all loaded parts of the world on the map.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		Output("Revealing map...");

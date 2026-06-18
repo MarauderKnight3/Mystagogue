@@ -6,7 +6,7 @@ internal class PlayerMobilityBoostCommand : Command
 {
 	internal static int MobilityBoostCurrentPower;
 
-	public PlayerMobilityBoostCommand() : base("boost", "[Mobility level, 0-7] Sets the degree that mobility should be boosted by predetermined coefficients for each relevant metric. Run without a specification to undo this change.") { }
+	public PlayerMobilityBoostCommand() : base("boost", "[Strength, 0-7] Sets the degree that mobility will be boosted by.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		int boostTarget = 0;

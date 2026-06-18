@@ -16,6 +16,6 @@ internal class ItemRefreshCommand : Command
 		item.Refresh(false);
 
 		// Holler
-		Output($"Reset item [{item.Name}].");
+		Output($"Refreshed item [{item.Name}].");
 	}
 }

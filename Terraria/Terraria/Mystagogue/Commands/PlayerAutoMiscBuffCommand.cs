@@ -7,7 +7,7 @@ internal class PlayerAutoMiscBuffCommand : Command
 {
 	internal static bool AutoMiscBuff;
 
-	public PlayerAutoMiscBuffCommand() : base("misc", "Enables or disables whether your character gains a collection of environmental and table buffs automatically.") { }
+	public PlayerAutoMiscBuffCommand() : base("misc", "Toggles the application of some buffs.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		AutoMiscBuff = !AutoMiscBuff;
@@ -20,8 +20,8 @@ internal class PlayerAutoMiscBuffCommand : Command
 	{
 		if (AutoMiscBuff) {
 			foreach (int buffID in new List<int> {
-						BuffID.CatBast, BuffID.Campfire, BuffID.Sunflower, BuffID.HeartLamp,
-						BuffID.StarInBottle, BuffID.SugarRush, BuffID.Sharpened,
+						BuffID.CatBast, BuffID.Campfire, BuffID.HeartLamp, BuffID.StarInBottle,
+						BuffID.Sunflower, BuffID.SugarRush, BuffID.Kite, BuffID.Sharpened,
 						BuffID.AmmoBox, BuffID.Clairvoyance, BuffID.Bewitched, BuffID.WarTable
 					}) {
 				if (!Main.LocalPlayer.buffType.Contains(buffID))

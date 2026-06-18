@@ -5,7 +5,7 @@ internal class PlayerGodModeCommand : Command
 {
 	internal static bool GodMode;
 
-	public PlayerGodModeCommand() : base("god", "Enables or disables the equivalent of journey god mode.") { }
+	public PlayerGodModeCommand() : base("god", "Toggles clientside Journey god mode.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		GodMode = !GodMode;

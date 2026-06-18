@@ -10,7 +10,7 @@ internal class RightClickTeleportCommand : Command
 {
 	static int RightClickTeleportSetting;
 
-	public RightClickTeleportCommand() : base("tps", "[Setting] Enables right clicking to teleport (as long as no right click functions are in your hands). Run without a specification to toggle. 0 = Off, 1 = On, 2 = Spam when mouse down.") { }
+	public RightClickTeleportCommand() : base("tps", "[Setting] Enables right clicking to teleport. 0 = Off, 1 = On, 2 = Spam") { }
 	protected internal override void Execute(List<string> args)
 	{
 		int newSetting = RightClickTeleportSetting == 0 && args.Count == 0 ? 1 : 0;
@@ -36,7 +36,7 @@ internal class RightClickTeleportCommand : Command
 				Output("Teleport on right click active.");
 				break;
 			case 2:
-				Output("Teleport while right click held active.");
+				Output("Teleport while right click is held active.");
 				break;
 		}
 	}
@@ -50,8 +50,8 @@ internal class RightClickTeleportCommand : Command
 		// Check if teleport is enabled and conditions are met
 		if (player.tileInteractionHappened || player.mouseInterface ||
 			CaptureManager.Instance.Active || Main.HoveringOverAnNPC || Main.SmartInteractShowingGenuine ||
-			player.talkNPC != -1 || player.chest != -1 || player.HeldItem.summon || player.scope ||
-			player.inventory[player.selectedItem].type == ItemID.DD2SquireDemonSword || player.inventory[player.selectedItem].type == ItemID.BouncingShield) {
+			player.talkNPC != -1 || player.chest != -1 || player.inventory[player.selectedItem].type == ItemID.DD2SquireDemonSword ||
+			player.inventory[player.selectedItem].type == ItemID.BouncingShield) {
 			return;
 		}
 
@@ -74,6 +74,7 @@ internal class RightClickTeleportCommand : Command
 			pointPosition.Y = Main.screenPosition.Y + Main.screenHeight - Main.mouseY;
 
 		player.Teleport(pointPosition, TeleportationStyleID.DebugTeleport);
-		NetMessage.SendData(13, number: Main.myPlayer);
+		if (Main.netMode != 3)
+			NetMessage.SendData(13, number: Main.myPlayer);
 	}
 }

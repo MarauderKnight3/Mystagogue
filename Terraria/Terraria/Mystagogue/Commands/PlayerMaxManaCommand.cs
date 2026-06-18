@@ -3,7 +3,7 @@
 namespace Terraria.Mystagogue.Commands;
 internal class PlayerMaxManaCommand : Command
 {
-	public PlayerMaxManaCommand() : base("maxmana", "[Amount] Sets this character's maximum mana.") { }
+	public PlayerMaxManaCommand() : base("maxmana", "[Amount] Sets the maximum of the player's mana.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		int maxManaTarget = 200;

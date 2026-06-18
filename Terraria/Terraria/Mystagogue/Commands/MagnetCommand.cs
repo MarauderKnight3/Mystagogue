@@ -3,7 +3,7 @@
 namespace Terraria.Mystagogue.Commands;
 internal class MagnetCommand : Command
 {
-	public MagnetCommand() : base("magnet", "Teleports all items on the map to you.") { }
+	public MagnetCommand() : base("magnet", "Teleports all items on the map to the player.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		Output("Bringing items...");

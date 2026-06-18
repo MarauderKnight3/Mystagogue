@@ -3,7 +3,7 @@
 namespace Terraria.Mystagogue.Commands;
 internal class PlayerMaxLifeCommand : Command
 {
-	public PlayerMaxLifeCommand() : base("maxlife", "[Amount] Sets this character's maximum life.") { }
+	public PlayerMaxLifeCommand() : base("maxlife", "[Amount] Sets the maximum of the player's health.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		int maxLifeTarget = 500;

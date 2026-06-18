@@ -5,7 +5,7 @@ internal class PlayerFlyForeverModeCommand : Command
 {
 	internal bool FlyForeverMode;
 
-	public PlayerFlyForeverModeCommand() : base("fly", "Enables or disables the endless flight duration of rocket boots and wings.") { }
+	public PlayerFlyForeverModeCommand() : base("fly", "Toggles endless flight stamina.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		FlyForeverMode = !FlyForeverMode;

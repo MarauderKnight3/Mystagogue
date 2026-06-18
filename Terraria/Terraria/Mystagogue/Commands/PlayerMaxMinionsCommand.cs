@@ -6,7 +6,7 @@ internal class PlayerMaxMinionsCommand : Command
 {
 	internal static int MaxMinionsOffset;
 
-	public PlayerMaxMinionsCommand() : base("maxminions", "[Desired increase] Sets the amount of minion slots you will have beyond your typical limit. Run without a specification to undo this change.") { }
+	public PlayerMaxMinionsCommand() : base("maxminions", "[Amount] Adds the given amount of minion and sentry slots.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		int minionSlotsIncreaseBy = 0;
@@ -24,10 +24,7 @@ internal class PlayerMaxMinionsCommand : Command
 		MaxMinionsOffset = minionSlotsIncreaseBy;
 
 		// Let the player know
-		if (MaxMinionsOffset == 0)
-			Output("Minion slots normalized.");
-		else
-			Output("Minion slots increased by " + MaxMinionsOffset + ".");
+		Output("Minion slots increased by " + MaxMinionsOffset + ".");
 	}
 
 	protected internal override void ResetVariables() => MaxMinionsOffset = 0;

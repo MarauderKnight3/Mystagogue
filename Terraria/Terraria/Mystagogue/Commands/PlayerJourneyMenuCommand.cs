@@ -5,7 +5,7 @@ internal class PlayerJourneyMenuCommand : Command
 {
 	internal static bool JourneyMenuForceEnable;
 
-	public PlayerJourneyMenuCommand() : base("journey", "Enables or disables the journey mode menu.") { }
+	public PlayerJourneyMenuCommand() : base("journey", "Forces the visibility of the journey mode menu.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		JourneyMenuForceEnable = !JourneyMenuForceEnable;

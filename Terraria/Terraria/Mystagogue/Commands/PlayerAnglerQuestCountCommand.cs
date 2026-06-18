@@ -3,7 +3,7 @@
 namespace Terraria.Mystagogue.Commands;
 internal class PlayerAnglerQuestCountCommand : Command
 {
-	public PlayerAnglerQuestCountCommand() : base("angler", "[Amount] Retroactively changes how many angler quests this character has finished.") { }
+	public PlayerAnglerQuestCountCommand() : base("angler", "[Amount] Retroactively changes how many angler quests the player has finished.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		if (args.Count == 0) {

@@ -6,7 +6,7 @@ internal class PlayerForceImmunityLesserCommand : Command
 {
 	internal static bool ForceIncapacitationDebuffImmunity;
 
-	public PlayerForceImmunityLesserCommand() : base("haltimmune", "Makes you immune to Frozen, Webbed, and Stoned.") { }
+	public PlayerForceImmunityLesserCommand() : base("haltimmune", "Toggles debuff immunity for Frozen, Webbed, and Stoned.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		ForceIncapacitationDebuffImmunity = !ForceIncapacitationDebuffImmunity;

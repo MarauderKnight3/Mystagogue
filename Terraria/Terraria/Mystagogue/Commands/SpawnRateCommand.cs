@@ -6,7 +6,7 @@ internal class SpawnRateCommand : Command
 {
 	internal static int SpawnRate;
 
-	public SpawnRateCommand() : base("spawnrate", "[Spawn rate multiplier, 0-50] Sets the multiplier of your character's ambient enemy spawn rate. Run without a specification to undo this change.") { }
+	public SpawnRateCommand() : base("spawnrate", "[Multiplier, 0-1000] Sets the multiplier of the player's enemy spawn rate.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		int spawnRateTarget = 1;
@@ -18,7 +18,7 @@ internal class SpawnRateCommand : Command
 		}
 
 		// Clamp to a reasonable range so we don't thin the oxygen in the atmosphere
-		spawnRateTarget = Math.Max(0, Math.Min(50, spawnRateTarget));
+		spawnRateTarget = Math.Max(0, Math.Min(1000, spawnRateTarget));
 
 		// Dewit
 		SpawnRate = spawnRateTarget;

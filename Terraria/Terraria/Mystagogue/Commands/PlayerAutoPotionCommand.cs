@@ -5,7 +5,7 @@ internal class PlayerAutoPotionCommand : Command
 {
 	internal static bool AutoPotion;
 
-	public PlayerAutoPotionCommand() : base("ap", "Enables or disables whether your character quick buffs on their own.") { }
+	public PlayerAutoPotionCommand() : base("ap", "Toggles automatic quick buffing.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		AutoPotion = !AutoPotion;

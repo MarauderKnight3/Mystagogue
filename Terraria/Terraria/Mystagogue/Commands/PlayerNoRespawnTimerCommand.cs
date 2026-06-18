@@ -5,11 +5,11 @@ internal class PlayerNoRespawnTimerCommand : Command
 {
 	internal static bool NoRespawnTimerMode;
 
-	public PlayerNoRespawnTimerCommand() : base("nrt", "Enables or disables the removal of the delay to respawn after death.") { }
+	public PlayerNoRespawnTimerCommand() : base("nrt", "Makes the respawn timer end almost instantly during death.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		NoRespawnTimerMode = !NoRespawnTimerMode;
-		Output("Respawn timer removal toggled " + (NoRespawnTimerMode ? "on" : "off") + ".");
+		Output("Instant respawn toggled " + (NoRespawnTimerMode ? "on" : "off") + ".");
 	}
 
 	protected internal override void ResetVariables() => NoRespawnTimerMode = false;
