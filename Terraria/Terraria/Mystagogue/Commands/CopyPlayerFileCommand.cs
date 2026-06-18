@@ -11,6 +11,6 @@ internal class CopyPlayerFileCommand : Command
 		player.active = false;
 		player.name = args.Count > 0 ? args[0] : "Copy of " + player.name;
 		PlayerFileData.CreateAndSave(player);
-		Output("Character created: " + player.name);
+		Output("Copy created: " + player.name);
 	}
 }
