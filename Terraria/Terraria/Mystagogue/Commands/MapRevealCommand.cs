@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 
 namespace Terraria.Mystagogue.Commands;
 internal class MapRevealCommand : Command
@@ -12,12 +10,7 @@ internal class MapRevealCommand : Command
 
 		for (int x = 0; x < Main.Map.MaxWidth; x++) {
 			for (int y = 0; y < Main.Map.MaxHeight; y++) {
-				try {
-					Main.Map.Update(x, y, 255);
-				}
-				catch (IndexOutOfRangeException e) {
-					Debug.WriteLine("Out of bounds from " + x + ", " + y);
-				}
+				Main.Map.Update(x, y, 255);
 			}
 		}
 		Main.refreshMap = true;
