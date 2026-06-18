@@ -66,7 +66,7 @@ internal static class Anomaly
 				command.Execute(args);
 			}
 			catch (Exception e) {
-				Output($"Exception when running [{command.Name}]: {e.Message}", true);
+				Output($"[{command.Name}] ERROR: {e.Message}", true);
 			}
 			if (clear) {
 				Main.chatText = "";
