@@ -43,6 +43,14 @@
  		if (chatText != "" && !ChatManager.DebugCommands.Process((byte)myPlayer, chatText)) {
  			ChatMessage message = ChatManager.Commands.CreateOutgoingMessage(chatText);
  			if (netMode == 1)
+@@ -40115,6 +_,7 @@
+ 	{
+ 		instance._mouseTextCache.isValid = false;
+ 		instance._mouseTextCache.noOverride = false;
++		RightClickTeleportCommand.CursorItemRecently = LocalPlayer.cursorItemIconEnabled;
+ 		player[myPlayer].cursorItemIconEnabled = false;
+ 		player[myPlayer].cursorItemIconID = 0;
+ 		player[myPlayer].cursorItemIconText = string.Empty;
 @@ -48427,7 +_,7 @@
  					continue;
  

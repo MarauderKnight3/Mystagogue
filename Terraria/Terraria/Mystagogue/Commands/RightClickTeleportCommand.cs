@@ -43,12 +43,15 @@ internal class RightClickTeleportCommand : Command
 
 	protected internal override void ResetVariables() => RightClickTeleportSetting = 0;
 
+	protected internal static bool CursorItemRecently;
+
 	protected internal static void TryRightClickTeleport()
 	{
 		var player = Main.LocalPlayer;
 
 		// Check if teleport is enabled and conditions are met
 		if (player.tileInteractionHappened || player.mouseInterface ||
+			CursorItemRecently || Main.mouseText ||
 			CaptureManager.Instance.Active || Main.HoveringOverAnNPC || Main.SmartInteractShowingGenuine ||
 			player.talkNPC != -1 || player.chest != -1 || player.sign != -1 ||
 			player.HeldItem.type == ItemID.DD2SquireDemonSword ||
