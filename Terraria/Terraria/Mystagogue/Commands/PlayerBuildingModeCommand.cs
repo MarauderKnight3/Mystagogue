@@ -34,7 +34,7 @@ internal class PlayerBuildingModeCommand : Command
 
 		item.useTime = 1;
 		item.consumable = false;
-		item.tileBoost = 30;
+		item.tileBoost = 50;
 
 		if (item.pick > 0)
 			item.pick = ContentSamples.ItemsByType[ItemID.VortexPickaxe].pick * 20;
