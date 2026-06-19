@@ -50,10 +50,10 @@ internal class RightClickTeleportCommand : Command
 		// Check if teleport is enabled and conditions are met
 		if (player.tileInteractionHappened || player.mouseInterface ||
 			CaptureManager.Instance.Active || Main.HoveringOverAnNPC || Main.SmartInteractShowingGenuine ||
-			player.talkNPC != -1 || player.chest != -1 || player.inventory[player.selectedItem].type == ItemID.DD2SquireDemonSword ||
-			player.inventory[player.selectedItem].type == ItemID.BouncingShield) {
+			player.talkNPC != -1 || player.chest != -1 || player.sign != -1 ||
+			player.HeldItem.type == ItemID.DD2SquireDemonSword ||
+			player.HeldItem.type == ItemID.BouncingShield)
 			return;
-		}
 
 		// Check mouse input based on teleport setting
 		bool isMouseRightTriggered = RightClickTeleportSetting switch {
