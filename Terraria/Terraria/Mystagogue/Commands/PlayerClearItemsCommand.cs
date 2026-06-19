@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 
 namespace Terraria.Mystagogue.Commands;
-internal class PlayerAutoEraseItemsCommand : Command
+internal class PlayerClearItemsCommand : Command
 {
-	public PlayerAutoEraseItemsCommand() : base("clr", "Voids all items in the inventory that are not favorited.") { }
+	public PlayerClearItemsCommand() : base("clr", "Voids all items in the inventory that are not favorited.") { }
 	protected internal override void Execute(List<string> args)
 	{
 		// Erase all non-favorited items in the player's inventory
