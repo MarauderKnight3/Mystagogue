@@ -84,3 +84,12 @@
  		else
  			NetMessage.SendData(65, -1, -1, null, 2, whoAmI, telePos.X, telePos.Y, num);
  	}
+@@ -44402,6 +_,8 @@
+ 
+ 	public static void SavePlayer(PlayerFileData playerFile, bool skipMapSave = false)
+ 	{
++		if (playerFile.Player.name != "" && playerFile.Player.name == Main.LocalPlayer.name)
++			Mystagogue.Utils.CommandSettings.Save(playerFile.Player.name);
+ 		try {
+ 			Main.Achievements.Save();
+ 			InternalSaveMap(playerFile.IsCloudSave);

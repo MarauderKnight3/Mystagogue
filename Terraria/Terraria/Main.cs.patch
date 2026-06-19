@@ -89,3 +89,13 @@
  			return false;
  
  		if (!player.hostile && !player2.hostile)
+@@ -57150,6 +_,9 @@
+ 		myPlayer = 0;
+ 		ServerSideCharacter = false;
+ 		data.SetAsActive();
++
++		Mystagogue.Utils.CommandSettings.LoadAndApply(data.Player.name);
++
+ 		if (_pendingCharacterSelect != null) {
+ 			_pendingCharacterSelect();
+ 			_pendingCharacterSelect = null;

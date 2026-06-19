@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 using Terraria.GameInput;
 using Terraria.Graphics.Capture;
 using Terraria.ID;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class RightClickTeleportCommand : Command
@@ -43,6 +44,7 @@ internal class RightClickTeleportCommand : Command
 
 	protected internal override void ResetVariables() => RightClickTeleportSetting = 0;
 
+	[DoNotSave]
 	protected internal static bool CursorItemRecently;
 
 	protected internal static void TryRightClickTeleport()
