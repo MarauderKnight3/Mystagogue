@@ -7,11 +7,12 @@ using Terraria.ID;
 namespace Terraria.Mystagogue.Utils;
 internal class ItemHelper
 {
-	internal static Item? GetItemToChange()
+	internal static Item? GetItemToChange(bool complain = true)
 	{
 		// The player must be holding an item to change it.
 		if (Main.mouseItem.IsAir && Main.LocalPlayer.HeldItem.IsAir) {
-			Anomaly.Output("You aren't holding an item to change.", true);
+			if (complain)
+				Anomaly.Output("You aren't holding an item to change.", true);
 			return null;
 		}
 

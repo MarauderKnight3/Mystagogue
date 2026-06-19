@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Terraria.ID;
+using Terraria.Mystagogue.Utils;
 
 namespace Terraria.Mystagogue.Commands;
 internal class PlayerBuildingModeCommand : Command
@@ -20,9 +21,9 @@ internal class PlayerBuildingModeCommand : Command
 		if (!BuildingMode)
 			return;
 
-		Item item = Main.LocalPlayer.HeldItem;
+		var item = ItemHelper.GetItemToChange(false);
 
-		if (item.IsAir)
+		if (item == null)
 			return;
 
 		if (item.createTile == -1 && item.createWall == -1
