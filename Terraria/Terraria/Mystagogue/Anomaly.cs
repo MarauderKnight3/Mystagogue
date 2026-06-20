@@ -99,8 +99,8 @@ internal static class Anomaly
 	internal static void AttemptMapTeleport()
 	{
 		if (PlayerInput.Triggers.JustPressed.MouseRight) {
-			float mapX = Main.mapFullscreenPos.X + (Main.mouseX - Main.screenWidth / 2) / (Main.mapFullscreenScale * (1f / 0.9f));
-			float mapY = Main.mapFullscreenPos.Y + (Main.mouseY - Main.screenHeight / 2) / (Main.mapFullscreenScale * (1f / 0.9f));
+			float mapX = Main.mapFullscreenPos.X + (Main.mouseX - Main.screenWidth / 2) / Main.mapFullscreenScale;
+			float mapY = Main.mapFullscreenPos.Y + (Main.mouseY - Main.screenHeight / 2) / Main.mapFullscreenScale;
 
 			float worldX = mapX * 16f - (Main.LocalPlayer.width / 2);
 			float worldY = mapY * 16f - (Main.LocalPlayer.height / 2);
