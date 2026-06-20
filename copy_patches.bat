@@ -33,4 +33,4 @@ if errorlevel 1 (
     exit /b 1
 )
 echo( Done
-timeout /t 1 > nul
+timeout /t 2 > nul
