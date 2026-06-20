@@ -121,7 +121,12 @@ internal static class Anomaly
 		if (leftAlt && Main.mouseRight && Main.mouseRightRelease && Main.mouseItem.IsAir) {
 			Main.mouseItem = slot.Clone();
 			Main.mouseItem.favorited = false;
-			Main.mouseItem.stack = Main.mouseItem.maxStack;
+			if (Main.mouseItem.consumable != leftControl)
+				Main.mouseItem.stack = Main.mouseItem.maxStack;
+			else {
+				Main.mouseItem.maxStack = 1;
+				Main.mouseItem.stack = 1;
+			}
 			return true;
 		}
 		if (leftControl && leftAlt && !slot.IsAir && slot.consumable) {
