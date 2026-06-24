@@ -5,6 +5,7 @@
  using Terraria.Initializers;
  using Terraria.Localization;
 +using Terraria.Mystagogue;
++using Terraria.Mystagogue.Commands;
  using Terraria.UI.Chat;
  using Terraria.UI.Gamepad;
  
