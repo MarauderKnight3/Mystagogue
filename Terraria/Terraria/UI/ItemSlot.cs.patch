@@ -1,6 +1,6 @@
 --- src/decompiled/Terraria/UI/ItemSlot.cs
 +++ src/Terraria/Terraria/UI/ItemSlot.cs
-@@ -15,6 +_,7 @@
+@@ -15,6 +_,8 @@
  using Terraria.ID;
  using Terraria.Initializers;
  using Terraria.Localization;
@@ -14,7 +14,7 @@
  		if (player.itemAnimation > 0)
 +			return;
 +
-+		if (Anomaly.TryItemDuplication(inv[slot]))
++		if (ItemDuplicationCommand.TryItemDuplication(inv[slot]))
  			return;
  
  		if (context == 15) {

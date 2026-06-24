@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using Microsoft.Xna.Framework;
 using Terraria.GameInput;
-using Terraria.ID;
 using Terraria.Mystagogue.Commands;
 
 namespace Terraria.Mystagogue;
@@ -111,29 +110,6 @@ internal static class Anomaly
 			Main.LocalPlayer.Teleport(new Vector2(clampedX, clampedY), TeleportationStyleID.DebugTeleport);
 			Main.mapFullscreen = false;
 		}
-	}
-
-	internal static bool TryItemDuplication(Item slot)
-	{
-		bool leftAlt = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftAlt);
-		bool leftControl = Main.keyState.IsKeyDown(Microsoft.Xna.Framework.Input.Keys.LeftControl);
-
-		if (leftAlt && Main.mouseRight && Main.mouseRightRelease && Main.mouseItem.IsAir) {
-			Main.mouseItem = slot.Clone();
-			Main.mouseItem.favorited = false;
-			if (Main.mouseItem.consumable != leftControl)
-				Main.mouseItem.stack = Main.mouseItem.maxStack;
-			else {
-				Main.mouseItem.maxStack = 1;
-				Main.mouseItem.stack = 1;
-			}
-			return true;
-		}
-		if (leftControl && leftAlt && !slot.IsAir && slot.consumable) {
-			slot.stack = slot.maxStack;
-			return true;
-		}
-		return false;
 	}
 }
 
